@@ -109,7 +109,7 @@ const SECTIONS=[
 const RITEMS=["Door, lock, hardware, peephole","First impression — smell, temp, cleanliness","Carpet / flooring condition","Walls, ceiling, baseboards","Bed — linens, mattress, pillows, frame","Furniture — nightstands, desk, dresser","TV, remote, programming","HVAC — functional, quiet, filter","Windows, blinds, curtains","Closet — hangers, iron, safe, rack","Lighting — all fixtures, outlets, USB","Bathroom — cleanliness, fixtures, function","Grout, caulking, tile condition","Amenities — toiletries, towels, dryer","Mini-fridge / coffee maker","Odors — none present","In-room collateral current"];
 const RL=["A","B","C","D","E"];
 const AQS=["What stood out positively?","What would embarrass us in front of an investor?","Worse since last visit?","Improved since last visit?","Where is the GM winning?","Where does the GM need support?","Biggest threat to guest satisfaction?","Fix before we leave today:"];
- 
+
 // ─── STATE ───────────────────────────────────────────
 let state={
   view:"setup",secIdx:0,roomIdx:0,noteKey:null,actKey:null,
@@ -117,13 +117,13 @@ let state={
   ratings:{},notes:{},actions:{},assessments:{},
   followUp:{d30:"",d90:"",next:""}
 };
- 
+
 // Try restore from sessionStorage
 try{const saved=sessionStorage.getItem("wt3923");if(saved){const p=JSON.parse(saved);Object.assign(state,p);}}catch(e){}
- 
+
 function save(){try{sessionStorage.setItem("wt3923",JSON.stringify(state));}catch(e){}}
 function S(updates){Object.assign(state,updates);save();render();}
- 
+
 // ─── HELPERS ─────────────────────────────────────────
 function sc(pfx,cnt){let s=0,t=0;for(let i=0;i<cnt;i++){const r=state.ratings[`${pfx}-${i}`];if(r){s+=r;t++;}}return{s,t,mx:cnt*5};}
 function tot(){let s=0,mx=0;SECTIONS.forEach(sec=>{const c=sc(sec.id,sec.items.length);s+=c.s;mx+=c.mx;});RL.forEach(l=>{const c=sc(`room-${l}`,RITEMS.length);if(c.t>0){s+=c.s;mx+=c.mx;}});return{s,mx,pct:mx>0?Math.round((s/mx)*100):0};}
@@ -131,23 +131,27 @@ function flags(){const f=[];SECTIONS.forEach(sec=>sec.items.forEach((item,i)=>{c
 function pc(p){return p>=90?"var(--r5)":p>=75?"var(--r4)":p>=60?"var(--r3)":"var(--r1)";}
 function pl(p){return p>=90?"Excellent":p>=75?"Good":p>=60?"Fair":"Unsatisfactory";}
 function e(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
- 
+
 // ─── RENDER ──────────────────────────────────────────
 function render(){
+  // Save scroll position before re-render
+  const contentEl=document.querySelector(".content");
+  const scrollTop=contentEl?contentEl.scrollTop:0;
+
   const t=tot(),fl=flags();
   let h="";
- 
+
   // Top bar (not on setup)
   if(state.view!=="setup"){
     h+=`<div class="topbar"><div class="topbar-row"><div><div class="topbar-name">${e(state.info.property)||"Property Walkthrough"}</div><div class="topbar-brand">3923 Management</div></div><div><div class="topbar-score" style="color:${t.mx>0?pc(t.pct):"#666"}">${t.mx>0?t.pct+"%":"—"}</div><div class="topbar-sub">${t.mx>0?t.s+"/"+t.mx:"Start scoring"}</div></div></div>`;
     if(state.view==="walk"){
       h+=`<div class="sec-chips">`;
-      SECTIONS.forEach((s,i)=>{h+=`<button class="chip${state.secIdx===i?" active":""}" onclick="S({secIdx:${i}})">${s.code}</button>`;});
+      SECTIONS.forEach((s,i)=>{const c=sc(s.id,s.items.length);const done=c.t===s.items.length;const partial=c.t>0&&!done;h+=`<button class="chip${state.secIdx===i?" active":""}" onclick="S({secIdx:${i}})">${s.code}${done?" ✓":partial?" ·":""}</button>`;});
       h+=`</div>`;
     }
     h+=`</div>`;
   }
- 
+
   // Content
   h+=`<div class="content">`;
   if(state.view==="setup") h+=renderSetup();
@@ -157,7 +161,7 @@ function render(){
   else if(state.view==="plan") h+=renderPlan(fl);
   else if(state.view==="export") h+=renderExport(t,fl);
   h+=`</div>`;
- 
+
   // Nav
   const tabs=[["setup","⚙️","Setup"],["walk","🏨","Walk"],["rooms","🛏️","Rooms"],["assess","💬","Assess"],["plan","📋","Plan"],["export","📤","Export"]];
   h+=`<div class="nav">`;
@@ -167,18 +171,22 @@ function render(){
     h+=`</button>`;
   });
   h+=`</div>`;
- 
+
   // Modals
   if(state.noteKey) h+=renderNoteModal();
   if(state.actKey) h+=renderActModal();
- 
+
   document.getElementById("app").innerHTML=h;
- 
+
+  // Restore scroll position after re-render
+  const newContentEl=document.querySelector(".content");
+  if(newContentEl)newContentEl.scrollTop=scrollTop;
+
   // Focus textareas in modals
   if(state.noteKey){const ta=document.getElementById("note-ta");if(ta){ta.focus();ta.selectionStart=ta.value.length;}}
   if(state.actKey){const inp=document.getElementById("act-inp");if(inp&&!state.actions[state.actKey]?.bucket){}else if(inp){inp.focus();}}
 }
- 
+
 function renderSetup(){
   const fields=[["property","Property Name"],["brand","Brand / Tier"],["date","Date","date"],["gm","General Manager"],["agm","Accountability Partner GM"],["rmgr","Regional Manager"],["inspector","Your Name"],["occ","Current Occupancy"],["qa","Last QA Score / Date"]];
   let h=`<div class="page"><div class="page-title">Property Walkthrough</div><div class="page-sub">3923 Management</div>`;
@@ -190,12 +198,13 @@ function renderSetup(){
   h+=`</div>`;
   return h;
 }
- 
+
 function renderWalk(){
   const sec=SECTIONS[state.secIdx],s=sc(sec.id,sec.items.length);
   const p=s.t>0?Math.round((s.s/(s.t*5))*100):null;
+  const complete=s.t===sec.items.length;
   let h=`<div style="max-width:480px;margin:0 auto">`;
-  h+=`<div class="sec-header"><div class="sec-title">${sec.code}. ${sec.name}</div>`;
+  h+=`<div class="sec-header"><div><div class="sec-title">${sec.code}. ${sec.name}</div><div style="font-size:10px;color:${complete?"var(--r5)":"#bbb"};font-weight:600;margin-top:2px">${s.t}/${sec.items.length} scored${complete?" ✓":""}</div></div>`;
   if(p!==null)h+=`<div class="sec-pct" style="color:${pc(p)};background:${pc(p)}15">${p}%</div>`;
   h+=`</div>`;
   sec.items.forEach((item,i)=>{h+=renderItem(`${sec.id}-${i}`,item,`${sec.code}.${i+1}`);});
@@ -206,24 +215,25 @@ function renderWalk(){
   h+=`</div></div>`;
   return h;
 }
- 
+
 function renderRooms(){
   const l=RL[state.roomIdx],s=sc(`room-${l}`,RITEMS.length);
   const p=s.t>0?Math.round((s.s/(s.t*5))*100):null;
+  const rcomplete=s.t===RITEMS.length;
   let h=`<div style="max-width:480px;margin:0 auto"><div class="room-tabs">`;
   RL.forEach((lt,i)=>{
-    const rs=sc(`room-${lt}`,RITEMS.length),rp=rs.t>0?Math.round((rs.s/(rs.t*5))*100):null;
-    h+=`<button class="room-tab${state.roomIdx===i?" active":""}" onclick="S({roomIdx:${i}})">${lt}${rp!==null?`<div class="room-tab-pct">${rp}%</div>`:""}</button>`;
+    const rs=sc(`room-${lt}`,RITEMS.length),rp=rs.t>0?Math.round((rs.s/(rs.t*5))*100):null;const rd=rs.t===RITEMS.length;
+    h+=`<button class="room-tab${state.roomIdx===i?" active":""}" onclick="S({roomIdx:${i}})">${lt}${rd?" ✓":""}${rp!==null&&!rd?`<div class="room-tab-pct">${rp}%</div>`:""}</button>`;
   });
   h+=`</div>`;
-  h+=`<div style="padding:6px 12px;display:flex;justify-content:space-between;align-items:center"><div style="font-size:14px;font-weight:700;color:var(--navy)">Room ${l}</div>`;
+  h+=`<div style="padding:6px 12px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:14px;font-weight:700;color:var(--navy)">Room ${l}</div><div style="font-size:10px;color:${rcomplete?"var(--r5)":"#bbb"};font-weight:600;margin-top:1px">${s.t}/${RITEMS.length} scored${rcomplete?" ✓":""}</div></div>`;
   if(p!==null)h+=`<div class="sec-pct" style="color:${pc(p)};background:${pc(p)}15">${p}%</div>`;
   h+=`</div>`;
   RITEMS.forEach((item,i)=>{h+=renderItem(`room-${l}-${i}`,item,`R${l}.${i+1}`);});
   h+=`<div class="btn-row" style="padding:12px"><button class="btn btn-outline" style="flex:1" onclick="S({view:'walk'})">← Walk</button><button class="btn btn-navy" style="flex:1" onclick="S({view:'assess'})">Assessment →</button></div></div>`;
   return h;
 }
- 
+
 function renderItem(k,label,code){
   const r=state.ratings[k],hn=state.notes[k],ha=state.actions[k];
   const cls=r&&r<=2?"danger":r===3?"warn":"";
@@ -239,7 +249,7 @@ function renderItem(k,label,code){
   h+=`</div>`;
   return h;
 }
- 
+
 function renderAssess(){
   let h=`<div class="page"><div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:3px">Overall Assessment</div><div style="font-size:11px;color:#999;margin-bottom:14px">Complete as a team after the walkthrough.</div>`;
   AQS.forEach((q,i)=>{
@@ -248,7 +258,7 @@ function renderAssess(){
   h+=`<button class="btn btn-navy" onclick="S({view:'plan'})">View Action Plan →</button></div>`;
   return h;
 }
- 
+
 function renderPlan(fl){
   let h=`<div class="page"><div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:3px">Action Plan</div><div style="font-size:11px;color:#999;margin-bottom:10px">Auto-populated from items rated 3 or below. ${fl.length} flagged.</div>`;
   const buckets=[["M","This Month (30d)","#fef3c7","#92400e"],["Q","This Quarter (90d)","#dbeafe","#1e40af"],["C","Future CapEx","#f3e8ff","#6b21a8"]];
@@ -276,10 +286,37 @@ function renderPlan(fl){
   h+=`<div class="btn-row"><button class="btn btn-outline" style="flex:1" onclick="S({view:'assess'})">← Assessment</button><button class="btn btn-gold" style="flex:1" onclick="S({view:'export'})">Export →</button></div></div>`;
   return h;
 }
- 
+
 function renderExport(t,fl){
   let h=`<div class="page"><div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:14px">Export Report</div>`;
   h+=`<div class="export-card"><div class="export-prop">${e(state.info.property)||"Property"}</div><div class="export-score" style="color:${pc(t.pct)}">${t.pct}%</div><div class="export-label">${t.s} / ${t.mx} — ${pl(t.pct)}</div><div class="export-meta">${fl.length} action items · ${fl.filter(f=>f.act.bucket).length} assigned</div></div>`;
+  // Section completion breakdown
+  h+=`<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px">Section Scores</div>`;
+  h+=`<div style="margin-bottom:14px">`;
+  SECTIONS.forEach(sec=>{
+    const s=sc(sec.id,sec.items.length);const p=s.t>0?Math.round((s.s/(s.t*5))*100):null;const done=s.t===sec.items.length;const skipped=sec.items.length-s.t;
+    h+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:12px">`;
+    h+=`<div style="color:#333">${sec.code}. ${sec.name}</div>`;
+    h+=`<div style="display:flex;align-items:center;gap:6px">`;
+    if(skipped>0&&s.t>0)h+=`<span style="color:var(--r2);font-size:10px;font-weight:600">${skipped} skipped</span>`;
+    else if(s.t===0)h+=`<span style="color:#ccc;font-size:10px">not scored</span>`;
+    if(p!==null)h+=`<span style="font-weight:700;color:${pc(p)}">${p}%</span>`;
+    if(done)h+=`<span style="color:var(--r5);font-size:10px">✓</span>`;
+    h+=`</div></div>`;
+  });
+  RL.forEach(l=>{
+    const s=sc(`room-${l}`,RITEMS.length);const p=s.t>0?Math.round((s.s/(s.t*5))*100):null;const done=s.t===RITEMS.length;const skipped=RITEMS.length-s.t;
+    if(s.t>0){
+      h+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:12px">`;
+      h+=`<div style="color:#333">Room ${l}</div>`;
+      h+=`<div style="display:flex;align-items:center;gap:6px">`;
+      if(skipped>0)h+=`<span style="color:var(--r2);font-size:10px;font-weight:600">${skipped} skipped</span>`;
+      if(p!==null)h+=`<span style="font-weight:700;color:${pc(p)}">${p}%</span>`;
+      if(done)h+=`<span style="color:var(--r5);font-size:10px">✓</span>`;
+      h+=`</div></div>`;
+    }
+  });
+  h+=`</div>`;
   h+=`<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px">Follow-Up Schedule</div>`;
   [["d30","30-Day Check-In"],["d90","90-Day Check-In"],["next","Next Full Walkthrough"]].forEach(([k,l])=>{
     h+=`<div class="field"><label>${l}</label><input type="date" value="${state.followUp[k]}" oninput="updFU('${k}',this.value)"></div>`;
@@ -289,11 +326,11 @@ function renderExport(t,fl){
   h+=`</div>`;
   return h;
 }
- 
+
 function renderNoteModal(){
   return `<div class="modal-bg" onclick="S({noteKey:null})"><div class="modal" onclick="event.stopPropagation()"><div class="modal-title">Notes</div><textarea id="note-ta" placeholder="What did you see?" oninput="updNote(this.value)" style="width:100%;min-height:70px;border-radius:8px;border:1px solid #ddd;padding:10px;font-size:14px;box-sizing:border-box;resize:vertical">${e(state.notes[state.noteKey]||"")}</textarea><button class="btn btn-navy" style="margin-top:8px" onclick="S({noteKey:null})">Done</button></div></div>`;
 }
- 
+
 function renderActModal(){
   const a=state.actions[state.actKey]||{};
   let h=`<div class="modal-bg" onclick="S({actKey:null})"><div class="modal" onclick="event.stopPropagation()"><div class="modal-title">Action Item</div><div style="font-size:11px;font-weight:600;color:#888;margin-bottom:5px">Bucket</div><div class="bucket-row">`;
@@ -303,7 +340,7 @@ function renderActModal(){
   h+=`</div><div style="font-size:11px;font-weight:600;color:#888;margin-bottom:4px">Owner</div><input id="act-inp" value="${e(a.owner||"")}" placeholder="Who owns this?" oninput="updAct('owner',this.value)" style="width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;font-size:14px;box-sizing:border-box;margin-bottom:8px"><button class="btn btn-navy" onclick="S({actKey:null})">Done</button></div></div>`;
   return h;
 }
- 
+
 // ─── ACTIONS ─────────────────────────────────────────
 function rate(k,v){state.ratings[k]=state.ratings[k]===v?undefined:v;save();render();}
 function updInfo(k,v){state.info[k]=v;save();}
@@ -312,7 +349,7 @@ function updAct(field,v){if(!state.actions[state.actKey])state.actions[state.act
 function updAssess(i,v){state.assessments[i]=v;save();}
 function updFU(k,v){state.followUp[k]=v;save();}
 function resetAll(){if(confirm("Reset all walkthrough data? This cannot be undone.")){sessionStorage.removeItem("wt3923");state={view:"setup",secIdx:0,roomIdx:0,noteKey:null,actKey:null,info:{property:"",brand:"",date:new Date().toISOString().split("T")[0],gm:"",agm:"",rmgr:"",inspector:"",occ:"",qa:""},ratings:{},notes:{},actions:{},assessments:{},followUp:{d30:"",d90:"",next:""}};render();}}
- 
+
 function genReport(){
   const t=tot(),fl=flags();
   let r=`3923 MANAGEMENT — PROPERTY WALKTHROUGH\n${"=".repeat(50)}\n\nProperty: ${state.info.property}\nBrand: ${state.info.brand}\nDate: ${state.info.date}\nGM: ${state.info.gm}\nAccountability GM: ${state.info.agm}\nRegional Mgr: ${state.info.rmgr}\nInspector: ${state.info.inspector}\nOccupancy: ${state.info.occ}\nLast QA: ${state.info.qa}\n\nOVERALL SCORE: ${t.s}/${t.mx} (${t.pct}%) — ${pl(t.pct)}\n${"-".repeat(50)}\n\nSECTION SCORES\n`;
@@ -329,11 +366,11 @@ function genReport(){
   r+=`FOLLOW-UP\n30-Day: ${state.followUp.d30||"TBD"}\n90-Day: ${state.followUp.d90||"TBD"}\nNext Walk: ${state.followUp.next||"TBD"}\n\n"We take care of people." — Genesis 39:23\n`;
   return r;
 }
- 
+
 function copyReport(){navigator.clipboard.writeText(genReport()).then(()=>alert("Report copied to clipboard!")).catch(()=>{const ta=document.createElement("textarea");ta.value=genReport();document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);alert("Report copied!");});}
- 
+
 function dlReport(){const b=new Blob([genReport()],{type:"text/plain"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download=`walkthrough_${(state.info.property||"report").replace(/\s+/g,"_")}_${state.info.date}.txt`;a.click();URL.revokeObjectURL(u);}
- 
+
 function emailReport(){
   const t=tot(),fl=flags();
   const to="johndavid@3923mgmt.com";
@@ -355,10 +392,9 @@ function emailReport(){
   const mailtoUrl=`mailto:${to}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
   window.location.href=mailtoUrl;
 }
- 
+
 // ─── INIT ────────────────────────────────────────────
 render();
 </script>
 </body>
 </html>
- 
