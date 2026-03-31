@@ -10,391 +10,381 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{--navy:#0A1F38;--navy2:#1E314F;--gold:#F9A61A;--lgold:#FBC05E;--r5:#22c55e;--r4:#60a5fa;--r3:#fbbf24;--r2:#f97316;--r1:#ef4444}
 html,body{height:100%;overflow:hidden}
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#fff;color:#1a1a1a;display:flex;flex-direction:column}
-input,textarea,button{font-family:inherit}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#fff;color:#1a1a1a}
+input,textarea,button,select{font-family:inherit}
 .app{display:flex;flex-direction:column;height:100dvh;height:100vh}
 .topbar{position:sticky;top:0;z-index:50;background:var(--navy);padding:8px 12px;box-shadow:0 2px 10px rgba(0,0,0,.15)}
-.topbar-row{display:flex;justify-content:space-between;align-items:center}
-.topbar-name{font-size:13px;font-weight:700;color:#fff}
-.topbar-brand{font-size:10px;color:var(--lgold)}
-.topbar-score{font-size:22px;font-weight:800;text-align:right}
-.topbar-sub{font-size:9px;color:#aaa;text-align:right}
-.sec-chips{display:flex;gap:3px;margin-top:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.sec-chips::-webkit-scrollbar{display:none}
-.chip{padding:3px 9px;border-radius:10px;border:none;cursor:pointer;font-size:10px;font-weight:600;white-space:nowrap;background:rgba(255,255,255,.1);color:#ccc;transition:all .15s}
-.chip.active{background:var(--gold);color:var(--navy)}
-.content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:56px}
-.nav{position:sticky;bottom:0;z-index:50;background:#fff;border-top:1px solid #eee;display:flex;justify-content:space-around;padding:5px 0}
-.nav-btn{display:flex;flex-direction:column;align-items:center;gap:0;background:none;border:none;cursor:pointer;padding:3px 6px;color:#bbb;position:relative;transition:color .15s}
-.nav-btn.active{color:var(--navy)}
-.nav-btn .icon{font-size:16px}
-.nav-btn .label{font-size:9px;font-weight:400}
-.nav-btn.active .label{font-weight:700}
-.badge{position:absolute;top:0;right:-2px;background:var(--r1);color:#fff;font-size:8px;font-weight:700;border-radius:8px;padding:0 4px;line-height:14px}
-.page{padding:14px;max-width:480px;margin:0 auto;width:100%}
-.page-title{font-size:22px;font-weight:800;color:var(--navy);text-align:center}
-.page-sub{font-size:12px;color:var(--gold);font-weight:600;text-align:center;margin-bottom:16px}
-.field{margin-bottom:8px}
-.field label{font-size:10px;font-weight:600;color:#888;display:block;margin-bottom:2px}
-.field input,.field textarea{width:100%;padding:9px;border-radius:7px;border:1px solid #ddd;font-size:13px;box-sizing:border-box}
-.field textarea{resize:vertical}
-.btn{width:100%;padding:13px;border-radius:9px;border:none;font-size:14px;font-weight:700;cursor:pointer;transition:transform .1s}
-.btn:active{transform:scale(.98)}
-.btn-navy{background:var(--navy);color:#fff}
-.btn-gold{background:var(--gold);color:var(--navy)}
-.btn-outline{background:#fff;color:#888;border:1px solid #ddd}
-.btn-row{display:flex;gap:8px;margin-top:8px}
-.sec-header{padding:10px 12px 6px;border-bottom:2px solid var(--gold);display:flex;justify-content:space-between;align-items:center}
-.sec-title{font-size:15px;font-weight:700;color:var(--navy)}
-.sec-pct{font-size:13px;font-weight:700;padding:2px 8px;border-radius:10px}
-.item{padding:9px 12px;border-bottom:1px solid #eee;transition:background .15s}
-.item.warn{background:#fffbeb}
-.item.danger{background:#fef2f2}
-.item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
-.item-info{flex:1;min-width:0}
-.item-code{font-size:10px;color:#bbb;font-weight:700;letter-spacing:.5px}
-.item-label{font-size:13px;line-height:1.3}
-.rbtns{display:flex;gap:3px}
-.rbtn{width:34px;height:34px;border-radius:7px;border:none;cursor:pointer;font-size:14px;font-weight:700;background:#f0f0f0;color:#aaa;transition:all .12s}
-.rbtn.s1{background:var(--r1);color:#fff;transform:scale(1.08);box-shadow:0 2px 8px rgba(239,68,68,.25)}
-.rbtn.s2{background:var(--r2);color:#fff;transform:scale(1.08);box-shadow:0 2px 8px rgba(249,115,22,.25)}
-.rbtn.s3{background:var(--r3);color:#fff;transform:scale(1.08);box-shadow:0 2px 8px rgba(251,191,36,.25)}
-.rbtn.s4{background:var(--r4);color:#fff;transform:scale(1.08);box-shadow:0 2px 8px rgba(96,165,250,.25)}
-.rbtn.s5{background:var(--r5);color:#fff;transform:scale(1.08);box-shadow:0 2px 8px rgba(34,197,94,.25)}
-.item-actions{display:flex;gap:5px;margin-top:5px}
-.tag{font-size:10px;padding:2px 7px;border-radius:4px;border:1px solid #ddd;background:#fff;color:#888;cursor:pointer}
-.tag.filled-navy{background:var(--navy);color:#fff;border-color:var(--navy)}
-.tag.filled-gold{background:var(--gold);color:#fff;border-color:var(--gold)}
-.room-tabs{display:flex;gap:3px;padding:8px 12px;border-bottom:2px solid var(--gold)}
-.room-tab{flex:1;padding:6px 0;border-radius:7px;border:none;cursor:pointer;text-align:center;font-size:13px;font-weight:700;background:#f0f0f0;color:#888;transition:all .15s}
-.room-tab.active{background:var(--navy);color:#fff}
-.room-tab-pct{font-size:9px;font-weight:400;opacity:.7}
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:flex;align-items:flex-end;justify-content:center}
-.modal{background:#fff;width:100%;max-width:480px;border-radius:14px 14px 0 0;padding:18px}
-.modal-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:10px}
-.bucket-row{display:flex;gap:8px;margin-bottom:12px}
-.bucket-btn{flex:1;padding:10px 0;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:700;background:#f0f0f0;color:#888;text-align:center;transition:all .15s}
-.bucket-btn.active{background:var(--gold);color:#fff}
-.bucket-btn small{display:block;font-size:10px;font-weight:400}
-.plan-bucket{margin-bottom:14px}
-.plan-label{font-size:12px;font-weight:700;padding:5px 9px;border-radius:5px;margin-bottom:5px}
-.plan-item{padding:7px 9px;border-left:3px solid;margin-bottom:3px;background:#fafafa;border-radius:0 5px 5px 0}
-.plan-item-title{font-size:12px;font-weight:600;color:var(--navy)}
-.plan-item-title span{color:#bbb}
-.plan-item-meta{font-size:10px;color:#999;margin-top:1px}
-.plan-item-note{font-size:10px;color:#777;margin-top:1px;font-style:italic}
-.plan-item-row{display:flex;justify-content:space-between;align-items:center}
-.export-card{background:linear-gradient(135deg,#0A1F38,#1E314F);border-radius:12px;padding:18px;margin-bottom:14px;color:#fff}
-.export-prop{font-size:12px;color:var(--lgold);margin-bottom:3px}
-.export-score{font-size:42px;font-weight:800}
-.export-label{font-size:13px;color:#ccc}
-.export-meta{font-size:11px;color:#999;margin-top:3px}
-.q-label{font-size:12px;font-weight:600;color:var(--navy);display:block;margin-bottom:3px}
+.tr{display:flex;justify-content:space-between;align-items:center}
+.tn{font-size:13px;font-weight:700;color:#fff}
+.tb{font-size:10px;color:var(--lgold)}
+.ts{font-size:22px;font-weight:800;text-align:right}
+.tss{font-size:9px;color:#aaa;text-align:right}
+.chips{display:flex;gap:3px;margin-top:6px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.ch{padding:3px 9px;border-radius:10px;border:none;cursor:pointer;font-size:10px;font-weight:600;white-space:nowrap;background:rgba(255,255,255,.1);color:#ccc}
+.ch.a{background:var(--gold);color:var(--navy)}
+.ch.d{background:rgba(34,197,94,.2);color:var(--r5)}
+.cnt{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:56px}
+.nv{position:sticky;bottom:0;z-index:50;background:#fff;border-top:1px solid #eee;display:flex;justify-content:space-around;padding:5px 0}
+.nb{display:flex;flex-direction:column;align-items:center;gap:0;background:none;border:none;cursor:pointer;padding:3px 6px;color:#bbb;position:relative}
+.nb.a{color:var(--navy)}
+.nb .ic{font-size:16px}.nb .lb{font-size:9px}.nb.a .lb{font-weight:700}
+.bg{position:absolute;top:0;right:-2px;background:var(--r1);color:#fff;font-size:8px;font-weight:700;border-radius:8px;padding:0 4px;line-height:14px}
+.pg{padding:14px;max-width:480px;margin:0 auto;width:100%}
+.fl{margin-bottom:8px}
+.fl label{font-size:10px;font-weight:600;color:#888;display:block;margin-bottom:2px}
+.fl input,.fl textarea,.fl select{width:100%;padding:9px;border-radius:7px;border:1px solid #ddd;font-size:13px;box-sizing:border-box}
+.fl textarea{resize:vertical}
+.bt{width:100%;padding:13px;border-radius:9px;border:none;font-size:14px;font-weight:700;cursor:pointer}
+.bt:active{transform:scale(.98)}
+.bn{background:var(--navy);color:#fff}
+.bg2{background:var(--gold);color:var(--navy)}
+.bo{background:#fff;color:#888;border:1px solid #ddd}
+.br{display:flex;gap:8px;margin-top:8px}
+.sh{padding:10px 12px 6px;border-bottom:2px solid var(--gold)}
+.st2{font-size:15px;font-weight:700;color:var(--navy)}
+.ck{padding:5px 12px;border-bottom:1px solid #f5f5f5;font-size:13px;color:#333;display:flex;gap:6px}
+.ck .dt{color:var(--gold);font-weight:700;flex-shrink:0}
+.sa{padding:12px;background:#fafafa;border-bottom:1px solid #eee}
+.sl{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.rbs{display:flex;gap:4px}
+.rb{width:40px;height:40px;border-radius:8px;border:none;cursor:pointer;font-size:15px;font-weight:700;background:#f0f0f0;color:#aaa;transition:all .12s}
+.rb.s1{background:var(--r1);color:#fff;transform:scale(1.08)}
+.rb.s2{background:var(--r2);color:#fff;transform:scale(1.08)}
+.rb.s3{background:var(--r3);color:#fff;transform:scale(1.08)}
+.rb.s4{background:var(--r4);color:#fff;transform:scale(1.08)}
+.rb.s5{background:var(--r5);color:#fff;transform:scale(1.08)}
+.rs{width:34px;height:34px;font-size:14px;border-radius:7px}
+.bkr{display:flex;gap:6px;margin-bottom:10px}
+.bk{flex:1;padding:8px 0;border-radius:8px;border:none;cursor:pointer;font-size:11px;font-weight:700;background:#f0f0f0;color:#888;text-align:center}
+.bk.a{background:var(--gold);color:#fff}
+.tg{font-size:10px;padding:2px 7px;border-radius:4px;border:1px solid #ddd;background:#fff;color:#888;cursor:pointer;white-space:nowrap}
+.tg.on{background:var(--gold);color:#fff;border-color:var(--gold)}
+.tg.nv2{background:var(--navy);color:#fff;border-color:var(--navy)}
+.rtb{display:flex;gap:3px;padding:8px 12px;border-bottom:2px solid var(--gold);overflow-x:auto}
+.rt{padding:6px 12px;border-radius:7px;border:none;cursor:pointer;text-align:center;font-size:12px;font-weight:700;background:#f0f0f0;color:#888;white-space:nowrap}
+.rt.a{background:var(--navy);color:#fff}
+.rtp{font-size:9px;font-weight:400;opacity:.7}
+.ar{padding:6px 12px;border-radius:7px;border:1px dashed #ccc;cursor:pointer;font-size:12px;color:#aaa;background:none;white-space:nowrap}
+.it{padding:9px 12px;border-bottom:1px solid #eee}
+.it.w{background:#fffbeb}.it.dg{background:#fef2f2}
+.itp{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
+.ii{flex:1;min-width:0}
+.ic2{font-size:10px;color:#bbb;font-weight:700}
+.il{font-size:13px;line-height:1.3}
+.ia{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap}
+.mb{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:flex;align-items:flex-end;justify-content:center}
+.md{background:#fff;width:100%;max-width:480px;border-radius:14px 14px 0 0;padding:18px;max-height:80vh;overflow-y:auto}
+.mt{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:10px}
+.ec{background:linear-gradient(135deg,#0A1F38,#1E314F);border-radius:12px;padding:18px;margin-bottom:14px;color:#fff}
+.pi{padding:7px 9px;border-left:3px solid;margin-bottom:3px;background:#fafafa;border-radius:0 5px 5px 0}
+.tt{position:fixed;top:12px;left:50%;transform:translateX(-50%);background:var(--r5);color:#fff;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;z-index:200;opacity:0;transition:opacity .3s}
+.tt.show{opacity:1}
+.thumbs{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.thumb{width:52px;height:52px;border-radius:6px;object-fit:cover;border:1px solid #ddd;position:relative;cursor:pointer}
+.thumb-wrap{position:relative;display:inline-block}
+.thumb-x{position:absolute;top:-4px;right:-4px;width:16px;height:16px;border-radius:50%;background:var(--r1);color:#fff;font-size:10px;line-height:16px;text-align:center;cursor:pointer;border:none;font-weight:700}
+.pb{font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid #ddd;background:#fff;color:#888;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.pb.has{background:#e0f2fe;border-color:#60a5fa;color:#1e40af}
+.upload-progress{margin-top:10px;background:#eee;border-radius:8px;overflow:hidden;height:6px}
+.upload-bar{height:100%;background:var(--r5);transition:width .3s;border-radius:8px}
 </style>
 </head>
 <body>
 <div id="app" class="app"></div>
+<div id="toast" class="tt"></div>
+<input type="file" id="cam" accept="image/*" capture="environment" style="display:none" multiple>
 <script>
-// ─── DATA ────────────────────────────────────────────
-const SECTIONS=[
+// ─── CONFIG ──────────────────────────────────────────
+const SEC=[
 {id:"ext",code:"1",name:"Exterior & Arrival",items:["Building exterior / façade condition","Signage — visible, lit, brand-compliant","Parking lot — condition, striping, lighting","Landscaping and curb appeal","Entrance — clean, well-lit, doors functional","Exterior lighting operational","Trash receptacles clean, not overflowing","Overall curb appeal — would you pull in?"]},
 {id:"lob",code:"2",name:"Lobby & Check-In",items:["First impression — smell, temp, lighting, music","Floors — condition, cleanliness, transitions","Front desk — clean, organized, staffed","Staff — uniform, greeting, professionalism","Lobby furniture and décor — condition","Elevator — cab condition, buttons, lighting","Public restrooms — clean, stocked, fixtures","Wayfinding signage — clear and current","Business center / market / vending","Ambient feel — would you sit in this lobby?"]},
-{id:"cor",code:"3",name:"Corridors & Common",items:["Corridor flooring — stains, wear, transitions","Walls — scuffs, marks, paint condition","Lighting — all bulbs, fixture condition","Exit signs and emergency lighting","Ice / vending areas — clean, functional","Stairwells — clean, lit, signage","Elevator lobbies on guest floors","HK carts — tidy, stocked, not blocking","Noise — HVAC, neighbors, exterior"]},
-{id:"fb",code:"5",name:"F&B / Breakfast",items:["Serving area — clean, organized, stocked","Food presentation and quality","Equipment — coffee, toaster, waffle maker","Dining area — tables, chairs, cleanliness","Kitchen / prep — food safety, temps, storage","Staff hygiene and health postings","Pest evidence — none observed"]},
-{id:"fit",code:"6",name:"Fitness / Pool",items:["Fitness equipment — functional, clean","Fitness center — mirrors, TV, supplies","Pool — water clarity, chemical compliance","Pool deck and furniture condition","Safety signage and equipment","Towels stocked, hours posted, access works"]},
-{id:"boh",code:"7",name:"Back of House",items:["HK storage — organized, stocked, clean","Laundry — equipment, organization","Chemical storage — labeled, SDS, compliant","Maintenance shop — organized, tools","Employee areas — break room, lockers","Office — organized, secure, data protected","Waste / dumpster — contained, clean"]},
-{id:"mep",code:"8",name:"MEP & Systems",items:["Electrical panels — labeled, accessible","Generator — tested, fuel, logs current","Boiler / water heater — condition, age","HVAC units — filters, PM schedule","Roof — last inspection, visible issues","Plumbing — no leaks, pressure adequate","Elevator certificate current","PM program — documented, on schedule"]},
-{id:"saf",code:"9",name:"Life Safety",items:["Fire alarm — tested, panel clear","Sprinkler — inspections current","Fire extinguishers — tagged, accessible","Emergency exits — clear, marked, lit","Emergency lighting — all functional","ADA compliance — rooms, signage, paths","CCTV and key control procedures"]}
+{id:"fb",code:"3",name:"F&B / Breakfast",items:["Serving area — clean, organized, stocked","Food presentation and quality","Equipment — coffee, toaster, waffle maker","Dining area — tables, chairs, cleanliness","Kitchen / prep — food safety, temps, storage","Staff hygiene and health postings","Pest evidence — none observed"]},
+{id:"fit",code:"4",name:"Fitness / Pool",items:["Fitness equipment — functional, clean","Fitness center — mirrors, TV, supplies","Pool — water clarity, chemical compliance","Pool deck and furniture condition","Safety signage and equipment","Towels stocked, hours posted, access works"]},
+{id:"cor",code:"5",name:"Corridors & Common",items:["Corridor flooring — stains, wear, transitions","Walls — scuffs, marks, paint condition","Lighting — all bulbs, fixture condition","Exit signs and emergency lighting","Ice / vending areas — clean, functional","Stairwells — clean, lit, signage","Elevator lobbies on guest floors","HK carts — tidy, stocked, not blocking","Noise — HVAC, neighbors, exterior"]},
+{id:"boh",code:"6",name:"Back of House / MEP / Safety",items:["HK storage — organized, stocked, clean","Laundry — equipment, organization","Chemical storage — labeled, SDS, compliant","Maintenance shop — organized, tools","Employee areas — break room, lockers","Office — organized, secure, data protected","Waste / dumpster — contained, clean","Electrical panels — labeled, accessible","Generator — tested, fuel, logs current","Boiler / water heater — condition, age","HVAC units — filters, PM schedule","Roof — last inspection, visible issues","Plumbing — no leaks, pressure adequate","Elevator certificate current","PM program — documented, on schedule","Fire alarm — tested, panel clear","Sprinkler — inspections current","Fire extinguishers — tagged, accessible","Emergency exits — clear, marked, lit","Emergency lighting — all functional","ADA compliance — rooms, signage, paths","CCTV and key control procedures"]}
 ];
-const RITEMS=["Door, lock, hardware, peephole","First impression — smell, temp, cleanliness","Carpet / flooring condition","Walls, ceiling, baseboards","Bed — linens, mattress, pillows, frame","Furniture — nightstands, desk, dresser","TV, remote, programming","HVAC — functional, quiet, filter","Windows, blinds, curtains","Closet — hangers, iron, safe, rack","Lighting — all fixtures, outlets, USB","Bathroom — cleanliness, fixtures, function","Grout, caulking, tile condition","Amenities — toiletries, towels, dryer","Mini-fridge / coffee maker","Odors — none present","In-room collateral current"];
-const RL=["A","B","C","D","E"];
-const AQS=["What stood out positively?","What would embarrass us in front of an investor?","Worse since last visit?","Improved since last visit?","Where is the GM winning?","Where does the GM need support?","Biggest threat to guest satisfaction?","Fix before we leave today:"];
+const RI=["Door, lock, hardware, peephole","First impression — smell, temp, cleanliness","Carpet / flooring condition","Walls, ceiling, baseboards","Bed — linens, mattress, pillows, frame","Furniture — nightstands, desk, dresser","TV, remote, programming","HVAC — functional, quiet, filter","Windows, blinds, curtains","Closet — hangers, iron, safe, rack","Lighting — all fixtures, outlets, USB","Bathroom — cleanliness, fixtures, function","Grout, caulking, tile condition","Amenities — toiletries, towels, dryer","Mini-fridge / coffee maker","Odors — none present","In-room collateral current"];
+const AQ=["What stood out positively?","What would embarrass us in front of an investor?","Worse since last visit?","Improved since last visit?","Where is the GM winning?","Where does the GM need support?","Biggest threat to guest satisfaction?","Fix before we leave today:"];
+
+// *** PASTE YOUR GOOGLE APPS SCRIPT URL HERE ***
+const UPLOAD_URL="";
 
 // ─── STATE ───────────────────────────────────────────
-let state={
-  view:"setup",secIdx:0,roomIdx:0,noteKey:null,actKey:null,
-  info:{property:"",brand:"",date:new Date().toISOString().split("T")[0],gm:"",agm:"",rmgr:"",inspector:"",occ:"",qa:""},
-  ratings:{},notes:{},actions:{},assessments:{},
-  followUp:{d30:"",d90:"",next:""}
-};
+const DEF={v:"setup",si:0,ri:0,nk:null,ak:null,info:{property:"",brand:"",date:new Date().toISOString().split("T")[0],gm:"",agm:"",rmgr:"",inspector:"",occ:"",qa:""},rat:{},notes:{},acts:{},assess:{},rooms:[{num:"",type:""},{num:"",type:""},{num:"",type:""}],fu:{d30:"",d90:"",next:""},uploaded:false};
+let st=JSON.parse(JSON.stringify(DEF));
+// Photos stored separately (base64 can be large, keep out of main state)
+let photos={}; // { "ext": [{data:"base64...",label:"ext_1"}], "r0": [...] }
+try{const s=localStorage.getItem("wt5");if(s)Object.assign(st,JSON.parse(s));}catch(e){}
+try{const p=localStorage.getItem("wt5p");if(p)photos=JSON.parse(p);}catch(e){}
 
-// Try restore from sessionStorage
-try{const saved=sessionStorage.getItem("wt3923");if(saved){const p=JSON.parse(saved);Object.assign(state,p);}}catch(e){}
+function sv(){try{localStorage.setItem("wt5",JSON.stringify(st));}catch(e){}}
+function svp(){try{localStorage.setItem("wt5p",JSON.stringify(photos));}catch(e){toast("⚠ Storage full — photos may not save");}}
+function U(u){Object.assign(st,u);sv();R();}
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2000);}
+function E(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 
-function save(){try{sessionStorage.setItem("wt3923",JSON.stringify(state));}catch(e){}}
-function S(updates){Object.assign(state,updates);save();render();}
-
-// ─── HELPERS ─────────────────────────────────────────
-function sc(pfx,cnt){let s=0,t=0;for(let i=0;i<cnt;i++){const r=state.ratings[`${pfx}-${i}`];if(r){s+=r;t++;}}return{s,t,mx:cnt*5};}
-function tot(){let s=0,mx=0;SECTIONS.forEach(sec=>{const c=sc(sec.id,sec.items.length);s+=c.s;mx+=c.mx;});RL.forEach(l=>{const c=sc(`room-${l}`,RITEMS.length);if(c.t>0){s+=c.s;mx+=c.mx;}});return{s,mx,pct:mx>0?Math.round((s/mx)*100):0};}
-function flags(){const f=[];SECTIONS.forEach(sec=>sec.items.forEach((item,i)=>{const k=`${sec.id}-${i}`,r=state.ratings[k];if(r&&r<=3)f.push({k,sec:sec.name,code:`${sec.code}.${i+1}`,item,r,note:state.notes[k]||"",act:state.actions[k]||{}});}));RL.forEach(l=>RITEMS.forEach((item,i)=>{const k=`room-${l}-${i}`,r=state.ratings[k];if(r&&r<=3)f.push({k,sec:`Room ${l}`,code:`R${l}.${i+1}`,item,r,note:state.notes[k]||"",act:state.actions[k]||{}});}));return f;}
+// ─── SCORING ─────────────────────────────────────────
+function rsc(i){let s=0,t=0;for(let j=0;j<RI.length;j++){const r=st.rat[`r${i}-${j}`];if(r){s+=r;t++;}}return{s,t};}
+function tot(){let s=0,mx=0;SEC.forEach(c=>{const r=st.rat[c.id];if(r){s+=r;mx+=5;}});st.rooms.forEach((_,i)=>{const c=rsc(i);if(c.t>0){s+=c.s;mx+=c.t*5;}});return{s,mx,pct:mx>0?Math.round(s/mx*100):0};}
+function fl(){const f=[];SEC.forEach(c=>{const r=st.rat[c.id];if(r&&r<=3)f.push({k:c.id,sec:c.name,code:c.code,item:c.name,r,note:st.notes[c.id]||"",act:st.acts[c.id]||{}});});st.rooms.forEach((_,i)=>{RI.forEach((item,j)=>{const k=`r${i}-${j}`,r=st.rat[k];if(r&&r<=3)f.push({k,sec:"Room "+(st.rooms[i].num||i+1),code:`R${i+1}.${j+1}`,item,r,note:st.notes[k]||"",act:st.acts[k]||{}});});});return f;}
 function pc(p){return p>=90?"var(--r5)":p>=75?"var(--r4)":p>=60?"var(--r3)":"var(--r1)";}
 function pl(p){return p>=90?"Excellent":p>=75?"Good":p>=60?"Fair":"Unsatisfactory";}
-function e(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function pcnt(secId){return(photos[secId]||[]).length;}
+
+// ─── PHOTO HANDLING ──────────────────────────────────
+function compressImg(file,maxW,quality){
+  return new Promise((res)=>{
+    const reader=new FileReader();
+    reader.onload=function(e){
+      const img=new Image();
+      img.onload=function(){
+        const canvas=document.createElement("canvas");
+        let w=img.width,h=img.height;
+        if(w>maxW){h=Math.round(h*(maxW/w));w=maxW;}
+        canvas.width=w;canvas.height=h;
+        const ctx=canvas.getContext("2d");
+        ctx.drawImage(img,0,0,w,h);
+        res(canvas.toDataURL("image/jpeg",quality));
+      };
+      img.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function takePhoto(secId){
+  const cam=document.getElementById("cam");
+  cam.onchange=async function(){
+    if(!this.files||!this.files.length)return;
+    for(let i=0;i<this.files.length;i++){
+      const compressed=await compressImg(this.files[i],800,0.7);
+      if(!photos[secId])photos[secId]=[];
+      photos[secId].push({data:compressed,ts:Date.now()});
+    }
+    svp();R();toast(`📷 ${this.files.length} photo${this.files.length>1?"s":""} added`);
+    this.value="";
+  };
+  cam.click();
+}
+
+function delPhoto(secId,idx){
+  if(photos[secId]){photos[secId].splice(idx,1);if(!photos[secId].length)delete photos[secId];svp();R();}
+}
+
+function photoThumbs(secId){
+  const p=photos[secId]||[];
+  if(!p.length)return"";
+  let h=`<div class="thumbs">`;
+  p.forEach((ph,i)=>{h+=`<div class="thumb-wrap"><img class="thumb" src="${ph.data}" onclick="viewPhoto('${secId}',${i})"><button class="thumb-x" onclick="event.stopPropagation();delPhoto('${secId}',${i})">×</button></div>`;});
+  h+=`</div>`;return h;
+}
+
+function viewPhoto(secId,idx){
+  const ph=photos[secId]?.[idx];
+  if(!ph)return;
+  const w=window.open();
+  w.document.write(`<img src="${ph.data}" style="max-width:100%;height:auto">`);
+}
 
 // ─── RENDER ──────────────────────────────────────────
-function render(){
-  // Save scroll position before re-render
-  const contentEl=document.querySelector(".content");
-  const scrollTop=contentEl?contentEl.scrollTop:0;
-
-  const t=tot(),fl=flags();
-  let h="";
-
-  // Top bar (not on setup)
-  if(state.view!=="setup"){
-    h+=`<div class="topbar"><div class="topbar-row"><div><div class="topbar-name">${e(state.info.property)||"Property Walkthrough"}</div><div class="topbar-brand">3923 Management</div></div><div><div class="topbar-score" style="color:${t.mx>0?pc(t.pct):"#666"}">${t.mx>0?t.pct+"%":"—"}</div><div class="topbar-sub">${t.mx>0?t.s+"/"+t.mx:"Start scoring"}</div></div></div>`;
-    if(state.view==="walk"){
-      h+=`<div class="sec-chips">`;
-      SECTIONS.forEach((s,i)=>{const c=sc(s.id,s.items.length);const done=c.t===s.items.length;const partial=c.t>0&&!done;h+=`<button class="chip${state.secIdx===i?" active":""}" onclick="S({secIdx:${i}})">${s.code}${done?" ✓":partial?" ·":""}</button>`;});
-      h+=`</div>`;
-    }
+function R(){
+  const ce=document.querySelector(".cnt");const sy=ce?ce.scrollTop:0;
+  const t=tot(),f=fl();let h="";
+  if(st.v!=="setup"){
+    h+=`<div class="topbar"><div class="tr"><div><div class="tn">${E(st.info.property)||"Property Walkthrough"}</div><div class="tb">3923 Management</div></div><div><div class="ts" style="color:${t.mx>0?pc(t.pct):"#666"}">${t.mx>0?t.pct+"%":"—"}</div><div class="tss">${t.mx>0?t.s+"/"+t.mx:"Start scoring"}</div></div></div>`;
+    if(st.v==="walk"){h+=`<div class="chips">`;SEC.forEach((c,i)=>{const r=st.rat[c.id];h+=`<button class="ch${st.si===i?" a":""}${r?" d":""}" onclick="U({si:${i}})">${c.code}${r?" ✓":""}</button>`;});h+=`</div>`;}
     h+=`</div>`;
   }
-
-  // Content
-  h+=`<div class="content">`;
-  if(state.view==="setup") h+=renderSetup();
-  else if(state.view==="walk") h+=renderWalk();
-  else if(state.view==="rooms") h+=renderRooms();
-  else if(state.view==="assess") h+=renderAssess();
-  else if(state.view==="plan") h+=renderPlan(fl);
-  else if(state.view==="export") h+=renderExport(t,fl);
+  h+=`<div class="cnt">`;
+  if(st.v==="setup")h+=vSetup();else if(st.v==="walk")h+=vWalk();else if(st.v==="rooms")h+=vRooms();else if(st.v==="assess")h+=vAssess();else if(st.v==="plan")h+=vPlan(f);else if(st.v==="export")h+=vExport(t,f);
   h+=`</div>`;
-
-  // Nav
-  const tabs=[["setup","⚙️","Setup"],["walk","🏨","Walk"],["rooms","🛏️","Rooms"],["assess","💬","Assess"],["plan","📋","Plan"],["export","📤","Export"]];
-  h+=`<div class="nav">`;
-  tabs.forEach(([v,ic,lb])=>{
-    h+=`<button class="nav-btn${state.view===v?" active":""}" onclick="S({view:'${v}'})"><span class="icon">${ic}</span><span class="label">${lb}</span>`;
-    if(v==="plan"&&fl.length>0)h+=`<span class="badge">${fl.length}</span>`;
-    h+=`</button>`;
-  });
-  h+=`</div>`;
-
-  // Modals
-  if(state.noteKey) h+=renderNoteModal();
-  if(state.actKey) h+=renderActModal();
-
+  h+=`<div class="nv">`;[["setup","⚙️","Setup"],["walk","🏨","Walk"],["rooms","🛏️","Rooms"],["assess","💬","Assess"],["plan","📋","Plan"],["export","📤","Export"]].forEach(([v,ic,lb])=>{h+=`<button class="nb${st.v===v?" a":""}" onclick="U({v:'${v}'})"><span class="ic">${ic}</span><span class="lb">${lb}</span>${v==="plan"&&f.length>0?`<span class="bg">${f.length}</span>`:""}</button>`;});h+=`</div>`;
+  if(st.nk)h+=mNote();if(st.ak)h+=mAct();
   document.getElementById("app").innerHTML=h;
-
-  // Restore scroll position after re-render
-  const newContentEl=document.querySelector(".content");
-  if(newContentEl)newContentEl.scrollTop=scrollTop;
-
-  // Focus textareas in modals
-  if(state.noteKey){const ta=document.getElementById("note-ta");if(ta){ta.focus();ta.selectionStart=ta.value.length;}}
-  if(state.actKey){const inp=document.getElementById("act-inp");if(inp&&!state.actions[state.actKey]?.bucket){}else if(inp){inp.focus();}}
+  const nc=document.querySelector(".cnt");if(nc)nc.scrollTop=sy;
+  if(st.nk){const ta=document.getElementById("nta");if(ta){ta.focus();ta.selectionStart=ta.value.length;}}
 }
 
-function renderSetup(){
-  const fields=[["property","Property Name"],["brand","Brand / Tier"],["date","Date","date"],["gm","General Manager"],["agm","Accountability Partner GM"],["rmgr","Regional Manager"],["inspector","Your Name"],["occ","Current Occupancy"],["qa","Last QA Score / Date"]];
-  let h=`<div class="page"><div class="page-title">Property Walkthrough</div><div class="page-sub">3923 Management</div>`;
-  fields.forEach(([k,l,type])=>{
-    h+=`<div class="field"><label>${l}</label><input type="${type||"text"}" value="${e(state.info[k])}" oninput="updInfo('${k}',this.value)"></div>`;
-  });
-  h+=`<button class="btn btn-navy" style="margin-top:10px" onclick="S({view:'walk'})">Start Walkthrough →</button>`;
-  h+=`<button class="btn btn-outline" style="margin-top:8px" onclick="resetAll()">Reset All Data</button>`;
-  h+=`</div>`;
-  return h;
+// ─── VIEWS ───────────────────────────────────────────
+function vSetup(){
+  let h=`<div class="pg"><div style="text-align:center;margin-bottom:16px"><div style="font-size:22px;font-weight:800;color:var(--navy)">Property Walkthrough</div><div style="font-size:12px;color:var(--gold);font-weight:600">3923 Management</div></div>`;
+  [["property","Property Name"],["brand","Brand"],["date","Date","date"],["gm","General Manager"],["agm","Accountability Partner GM"],["rmgr","Regional Manager"],["inspector","Your Name"],["occ","Today's Occupancy"],["qa","Last Walkthrough Score / Date"]].forEach(([k,l,t])=>{h+=`<div class="fl"><label>${l}</label><input type="${t||"text"}" value="${E(st.info[k])}" oninput="ui('${k}',this.value)"></div>`;});
+  h+=`<button class="bt bn" style="margin-top:10px" onclick="U({v:'walk'})">Start Walkthrough →</button>`;
+  h+=`<button class="bt bo" style="margin-top:8px" onclick="resetAll()">Reset All Data</button>`;
+  h+=`<div style="text-align:center;margin-top:12px;font-size:10px;color:#bbb">Data saves automatically to this device.</div></div>`;return h;
 }
 
-function renderWalk(){
-  const sec=SECTIONS[state.secIdx],s=sc(sec.id,sec.items.length);
-  const p=s.t>0?Math.round((s.s/(s.t*5))*100):null;
-  const complete=s.t===sec.items.length;
-  let h=`<div style="max-width:480px;margin:0 auto">`;
-  h+=`<div class="sec-header"><div><div class="sec-title">${sec.code}. ${sec.name}</div><div style="font-size:10px;color:${complete?"var(--r5)":"#bbb"};font-weight:600;margin-top:2px">${s.t}/${sec.items.length} scored${complete?" ✓":""}</div></div>`;
-  if(p!==null)h+=`<div class="sec-pct" style="color:${pc(p)};background:${pc(p)}15">${p}%</div>`;
-  h+=`</div>`;
-  sec.items.forEach((item,i)=>{h+=renderItem(`${sec.id}-${i}`,item,`${sec.code}.${i+1}`);});
-  h+=`<div class="btn-row" style="padding:12px">`;
-  if(state.secIdx>0)h+=`<button class="btn btn-outline" style="flex:1" onclick="S({secIdx:${state.secIdx-1}})">← Prev</button>`;
-  if(state.secIdx<SECTIONS.length-1)h+=`<button class="btn btn-navy" style="flex:1" onclick="S({secIdx:${state.secIdx+1}})">Next →</button>`;
-  else h+=`<button class="btn btn-gold" style="flex:1" onclick="S({view:'rooms'})">Rooms →</button>`;
+function vWalk(){
+  const c=SEC[st.si],r=st.rat[c.id],ph=pcnt(c.id);
+  let h=`<div style="max-width:480px;margin:0 auto"><div class="sh"><div style="display:flex;justify-content:space-between;align-items:center"><div class="st2">${c.code}. ${c.name}</div>`;
+  if(r)h+=`<div style="font-size:20px;font-weight:800;color:${pc(r*20)}">${r}/5</div>`;
   h+=`</div></div>`;
-  return h;
-}
-
-function renderRooms(){
-  const l=RL[state.roomIdx],s=sc(`room-${l}`,RITEMS.length);
-  const p=s.t>0?Math.round((s.s/(s.t*5))*100):null;
-  const rcomplete=s.t===RITEMS.length;
-  let h=`<div style="max-width:480px;margin:0 auto"><div class="room-tabs">`;
-  RL.forEach((lt,i)=>{
-    const rs=sc(`room-${lt}`,RITEMS.length),rp=rs.t>0?Math.round((rs.s/(rs.t*5))*100):null;const rd=rs.t===RITEMS.length;
-    h+=`<button class="room-tab${state.roomIdx===i?" active":""}" onclick="S({roomIdx:${i}})">${lt}${rd?" ✓":""}${rp!==null&&!rd?`<div class="room-tab-pct">${rp}%</div>`:""}</button>`;
-  });
+  c.items.forEach(item=>{h+=`<div class="ck"><span class="dt">•</span><span>${E(item)}</span></div>`;});
+  h+=`<div class="sa"><div class="sl">Rate this section overall</div><div class="rbs">`;
+  for(let n=1;n<=5;n++)h+=`<button class="rb${r===n?" s"+n:""}" onclick="rs('${c.id}',${n})">${n}</button>`;
   h+=`</div>`;
-  h+=`<div style="padding:6px 12px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:14px;font-weight:700;color:var(--navy)">Room ${l}</div><div style="font-size:10px;color:${rcomplete?"var(--r5)":"#bbb"};font-weight:600;margin-top:1px">${s.t}/${RITEMS.length} scored${rcomplete?" ✓":""}</div></div>`;
-  if(p!==null)h+=`<div class="sec-pct" style="color:${pc(p)};background:${pc(p)}15">${p}%</div>`;
+  if(r&&r<=3){const a=st.acts[c.id]||{};h+=`<div style="margin-top:10px"><div class="sl">Timeline for repair</div><div class="bkr">`;[["now","Immediately"],["M","30 Days"],["Q","90 Days"],["C","CapEx"]].forEach(([v,l])=>{h+=`<button class="bk${a.bucket===v?" a":""}" onclick="sa('${c.id}','${v}')">${l}</button>`;});h+=`</div></div>`;}
+  h+=`<div style="margin-top:8px"><div class="sl">Comments / Action Items</div><textarea rows="3" placeholder="What did you see? What needs to happen?" oninput="sn('${c.id}',this.value)" style="width:100%;padding:8px;border-radius:7px;border:1px solid #ddd;font-size:13px;box-sizing:border-box;resize:vertical">${E(st.notes[c.id]||"")}</textarea></div>`;
+  h+=`<div style="margin-top:8px"><button class="pb${ph>0?" has":""}" onclick="takePhoto('${c.id}')">📷 ${ph>0?"Add More ("+ph+")":"Take Photo"}</button></div>`;
+  h+=photoThumbs(c.id);
   h+=`</div>`;
-  RITEMS.forEach((item,i)=>{h+=renderItem(`room-${l}-${i}`,item,`R${l}.${i+1}`);});
-  h+=`<div class="btn-row" style="padding:12px"><button class="btn btn-outline" style="flex:1" onclick="S({view:'walk'})">← Walk</button><button class="btn btn-navy" style="flex:1" onclick="S({view:'assess'})">Assessment →</button></div></div>`;
-  return h;
+  h+=`<div class="br" style="padding:12px">`;
+  if(st.si>0)h+=`<button class="bt bo" style="flex:1" onclick="U({si:${st.si-1}})">← Prev</button>`;
+  if(st.si<SEC.length-1)h+=`<button class="bt bn" style="flex:1" onclick="U({si:${st.si+1}})">Next →</button>`;
+  else h+=`<button class="bt bg2" style="flex:1" onclick="U({v:'rooms'})">Rooms →</button>`;
+  h+=`</div></div>`;return h;
 }
 
-function renderItem(k,label,code){
-  const r=state.ratings[k],hn=state.notes[k],ha=state.actions[k];
-  const cls=r&&r<=2?"danger":r===3?"warn":"";
-  let h=`<div class="item ${cls}"><div class="item-top"><div class="item-info"><div class="item-code">${code}</div><div class="item-label">${e(label)}</div></div><div class="rbtns">`;
-  for(let n=1;n<=5;n++){h+=`<button class="rbtn${r===n?" s"+n:""}" onclick="rate('${k}',${n})">${n}</button>`;}
-  h+=`</div></div>`;
-  if(r){
-    h+=`<div class="item-actions">`;
-    h+=`<button class="tag${hn?" filled-navy":""}" onclick="S({noteKey:'${k}'})">${hn?"✎ Note":"+ Note"}</button>`;
-    if(r<=3){h+=`<button class="tag${ha&&ha.bucket?" filled-gold":""}" onclick="S({actKey:'${k}'})">${ha&&ha.bucket?ha.bucket+" · "+(ha.owner||"?"):"+ Action"}</button>`;}
-    h+=`</div>`;
-  }
+function vRooms(){
+  const i=st.ri,rm=st.rooms[i]||{num:"",type:""},s=rsc(i),p=s.t>0?Math.round(s.s/(s.t*5)*100):null,ph=pcnt(`r${i}`);
+  let h=`<div style="max-width:480px;margin:0 auto"><div class="rtb">`;
+  st.rooms.forEach((_,j)=>{const rs2=rsc(j),rp=rs2.t>0?Math.round(rs2.s/(rs2.t*5)*100):null,rn=st.rooms[j].num;h+=`<button class="rt${st.ri===j?" a":""}" onclick="U({ri:${j}})">${rn||"Rm "+(j+1)}${rp!==null?`<div class="rtp">${rp}%</div>`:""}</button>`;});
+  if(st.rooms.length<8)h+=`<button class="ar" onclick="addRm()">+</button>`;
   h+=`</div>`;
-  return h;
-}
-
-function renderAssess(){
-  let h=`<div class="page"><div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:3px">Overall Assessment</div><div style="font-size:11px;color:#999;margin-bottom:14px">Complete as a team after the walkthrough.</div>`;
-  AQS.forEach((q,i)=>{
-    h+=`<div style="margin-bottom:10px"><label class="q-label">${e(q)}</label><textarea rows="2" placeholder="..." oninput="updAssess(${i},this.value)">${e(state.assessments[i]||"")}</textarea></div>`;
-  });
-  h+=`<button class="btn btn-navy" onclick="S({view:'plan'})">View Action Plan →</button></div>`;
-  return h;
-}
-
-function renderPlan(fl){
-  let h=`<div class="page"><div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:3px">Action Plan</div><div style="font-size:11px;color:#999;margin-bottom:10px">Auto-populated from items rated 3 or below. ${fl.length} flagged.</div>`;
-  const buckets=[["M","This Month (30d)","#fef3c7","#92400e"],["Q","This Quarter (90d)","#dbeafe","#1e40af"],["C","Future CapEx","#f3e8ff","#6b21a8"]];
-  buckets.forEach(([b,lb,bg,fg])=>{
-    const items=fl.filter(f=>f.act.bucket===b);
-    h+=`<div class="plan-bucket"><div class="plan-label" style="background:${bg};color:${fg}">${lb} (${items.length})</div>`;
-    if(!items.length)h+=`<div style="font-size:11px;color:#ddd;padding:3px 9px">None assigned</div>`;
-    items.forEach(f=>{
-      const bc=f.r===1?"var(--r1)":f.r===2?"var(--r2)":"var(--r3)";
-      h+=`<div class="plan-item" style="border-color:${bc}"><div class="plan-item-title"><span>${f.code}</span> ${e(f.item)}</div><div class="plan-item-meta">Rating: ${f.r} · ${e(f.sec)}${f.act.owner?" · "+e(f.act.owner):""}</div>`;
-      if(f.note)h+=`<div class="plan-item-note">${e(f.note)}</div>`;
-      h+=`</div>`;
-    });
-    h+=`</div>`;
-  });
-  const unassigned=fl.filter(f=>!f.act.bucket);
-  if(unassigned.length){
-    h+=`<div class="plan-bucket"><div class="plan-label" style="background:#fee2e2;color:#991b1b">Unassigned (${unassigned.length})</div>`;
-    unassigned.forEach(f=>{
-      const bc=f.r===1?"var(--r1)":f.r===2?"var(--r2)":"var(--r3)";
-      h+=`<div class="plan-item" style="border-color:${bc}"><div class="plan-item-row"><div><div class="plan-item-title"><span>${f.code}</span> ${e(f.item)}</div><div class="plan-item-meta">Rating: ${f.r} · ${e(f.sec)}</div></div><button class="tag" onclick="S({actKey:'${f.k}'})">Assign</button></div></div>`;
-    });
-    h+=`</div>`;
-  }
-  h+=`<div class="btn-row"><button class="btn btn-outline" style="flex:1" onclick="S({view:'assess'})">← Assessment</button><button class="btn btn-gold" style="flex:1" onclick="S({view:'export'})">Export →</button></div></div>`;
-  return h;
-}
-
-function renderExport(t,fl){
-  let h=`<div class="page"><div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:14px">Export Report</div>`;
-  h+=`<div class="export-card"><div class="export-prop">${e(state.info.property)||"Property"}</div><div class="export-score" style="color:${pc(t.pct)}">${t.pct}%</div><div class="export-label">${t.s} / ${t.mx} — ${pl(t.pct)}</div><div class="export-meta">${fl.length} action items · ${fl.filter(f=>f.act.bucket).length} assigned</div></div>`;
-  // Section completion breakdown
-  h+=`<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px">Section Scores</div>`;
-  h+=`<div style="margin-bottom:14px">`;
-  SECTIONS.forEach(sec=>{
-    const s=sc(sec.id,sec.items.length);const p=s.t>0?Math.round((s.s/(s.t*5))*100):null;const done=s.t===sec.items.length;const skipped=sec.items.length-s.t;
-    h+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:12px">`;
-    h+=`<div style="color:#333">${sec.code}. ${sec.name}</div>`;
-    h+=`<div style="display:flex;align-items:center;gap:6px">`;
-    if(skipped>0&&s.t>0)h+=`<span style="color:var(--r2);font-size:10px;font-weight:600">${skipped} skipped</span>`;
-    else if(s.t===0)h+=`<span style="color:#ccc;font-size:10px">not scored</span>`;
-    if(p!==null)h+=`<span style="font-weight:700;color:${pc(p)}">${p}%</span>`;
-    if(done)h+=`<span style="color:var(--r5);font-size:10px">✓</span>`;
+  h+=`<div style="padding:8px 12px;display:flex;gap:8px;border-bottom:1px solid #eee"><div class="fl" style="flex:1;margin:0"><label>Room # *</label><input value="${E(rm.num)}" placeholder="214" oninput="ur(${i},'num',this.value)"></div><div class="fl" style="flex:1;margin:0"><label>Type</label><select onchange="ur(${i},'type',this.value)"><option value="">Select</option>${["King","Double","Suite","ADA","Other"].map(t=>`<option${rm.type===t?" selected":""}>${t}</option>`).join("")}</select></div></div>`;
+  h+=`<div style="padding:4px 12px;display:flex;justify-content:space-between;align-items:center"><div style="font-size:10px;color:${s.t===RI.length?"var(--r5)":"#bbb"};font-weight:600">${s.t}/${RI.length} scored${s.t===RI.length?" ✓":""}</div>`;
+  if(p!==null)h+=`<div style="font-size:13px;font-weight:700;color:${pc(p)};background:${pc(p)}15;padding:2px 8px;border-radius:10px">${p}%</div>`;
+  h+=`</div>`;
+  RI.forEach((item,j)=>{
+    const k=`r${i}-${j}`,r=st.rat[k],hn=st.notes[k],ha=st.acts[k];
+    h+=`<div class="it${r&&r<=2?" dg":r===3?" w":""}"><div class="itp"><div class="ii"><div class="ic2">R${i+1}.${j+1}</div><div class="il">${E(item)}</div></div><div class="rbs">`;
+    for(let n=1;n<=5;n++)h+=`<button class="rb rs${r===n?" s"+n:""}" onclick="rt('r${i}-${j}',${n})">${n}</button>`;
     h+=`</div></div>`;
+    if(r){h+=`<div class="ia"><button class="tg${hn?" nv2":""}" onclick="U({nk:'r${i}-${j}'})">${hn?"✎ Note":"+ Note"}</button>`;if(r<=3)h+=`<button class="tg${ha&&ha.bucket?" on":""}" onclick="U({ak:'r${i}-${j}'})">${ha&&ha.bucket?ha.bucket+(ha.owner?" · "+E(ha.owner):""):"+ Action"}</button>`;h+=`</div>`;}
+    h+=`</div>`;
   });
-  RL.forEach(l=>{
-    const s=sc(`room-${l}`,RITEMS.length);const p=s.t>0?Math.round((s.s/(s.t*5))*100):null;const done=s.t===RITEMS.length;const skipped=RITEMS.length-s.t;
-    if(s.t>0){
-      h+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:12px">`;
-      h+=`<div style="color:#333">Room ${l}</div>`;
-      h+=`<div style="display:flex;align-items:center;gap:6px">`;
-      if(skipped>0)h+=`<span style="color:var(--r2);font-size:10px;font-weight:600">${skipped} skipped</span>`;
-      if(p!==null)h+=`<span style="font-weight:700;color:${pc(p)}">${p}%</span>`;
-      if(done)h+=`<span style="color:var(--r5);font-size:10px">✓</span>`;
-      h+=`</div></div>`;
-    }
+  h+=`<div style="padding:10px 12px"><button class="pb${ph>0?" has":""}" onclick="takePhoto('r${i}')">📷 ${ph>0?"Add More ("+ph+")":"Take Photo"}</button></div>`;
+  h+=photoThumbs(`r${i}`);
+  h+=`<div class="br" style="padding:12px"><button class="bt bo" style="flex:1" onclick="U({v:'walk'})">← Walk</button><button class="bt bn" style="flex:1" onclick="U({v:'assess'})">Assessment →</button></div></div>`;return h;
+}
+
+function vAssess(){
+  let h=`<div class="pg"><div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:3px">Overall Assessment</div><div style="font-size:11px;color:#999;margin-bottom:14px">Complete as a team after the walkthrough.</div>`;
+  AQ.forEach((q,i)=>{h+=`<div style="margin-bottom:10px"><label style="font-size:12px;font-weight:600;color:var(--navy);display:block;margin-bottom:3px">${E(q)}</label><textarea rows="2" placeholder="..." oninput="ua(${i},this.value)">${E(st.assess[i]||"")}</textarea></div>`;});
+  h+=`<button class="bt bn" onclick="U({v:'plan'})">View Action Plan →</button></div>`;return h;
+}
+
+function vPlan(f){
+  let h=`<div class="pg"><div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:3px">Action Plan</div><div style="font-size:11px;color:#999;margin-bottom:10px">${f.length} items flagged.</div>`;
+  [["now","Immediately","#fee2e2","#991b1b"],["M","30 Days","#fef3c7","#92400e"],["Q","90 Days","#dbeafe","#1e40af"],["C","CapEx","#f3e8ff","#6b21a8"]].forEach(([b,lb,bg,fg])=>{
+    const items=f.filter(x=>x.act.bucket===b);
+    h+=`<div style="margin-bottom:14px"><div style="font-size:12px;font-weight:700;padding:5px 9px;border-radius:5px;background:${bg};color:${fg};margin-bottom:5px">${lb} (${items.length})</div>`;
+    if(!items.length)h+=`<div style="font-size:11px;color:#ddd;padding:3px 9px">None</div>`;
+    items.forEach(x=>{const bc=x.r<=1?"var(--r1)":x.r===2?"var(--r2)":"var(--r3)";h+=`<div class="pi" style="border-color:${bc}"><div style="font-size:12px;font-weight:600;color:var(--navy)"><span style="color:#bbb">${x.code}</span> ${E(x.item)}</div><div style="font-size:10px;color:#999;margin-top:1px">Rating: ${x.r} · ${E(x.sec)}${x.act.owner?" · "+E(x.act.owner):""}</div>${x.note?`<div style="font-size:10px;color:#777;font-style:italic;margin-top:1px">${E(x.note)}</div>`:""}</div>`;});
+    h+=`</div>`;
   });
+  const u=f.filter(x=>!x.act.bucket);if(u.length){h+=`<div style="margin-bottom:14px"><div style="font-size:12px;font-weight:700;padding:5px 9px;border-radius:5px;background:#fef2f2;color:#991b1b;margin-bottom:5px">Unassigned (${u.length})</div>`;u.forEach(x=>{h+=`<div class="pi" style="border-color:var(--r2);display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:12px;font-weight:600;color:var(--navy)"><span style="color:#bbb">${x.code}</span> ${E(x.item)}</div><div style="font-size:10px;color:#999">Rating: ${x.r}</div></div><button class="tg" onclick="U({ak:'${x.k}'})">Assign</button></div>`;});h+=`</div>`;}
+  h+=`<div class="br"><button class="bt bo" style="flex:1" onclick="U({v:'assess'})">← Assess</button><button class="bt bg2" style="flex:1" onclick="U({v:'export'})">Export →</button></div></div>`;return h;
+}
+
+function vExport(t,f){
+  let tp=0;Object.values(photos).forEach(a=>{tp+=a.length;});
+  let h=`<div class="pg"><div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:14px">Export Report</div>`;
+  h+=`<div class="ec"><div style="font-size:12px;color:var(--lgold);margin-bottom:3px">${E(st.info.property)||"Property"}</div><div style="font-size:42px;font-weight:800;color:${pc(t.pct)}">${t.pct}%</div><div style="font-size:13px;color:#ccc">${t.s} / ${t.mx} — ${pl(t.pct)}</div><div style="font-size:11px;color:#999;margin-top:3px">${f.length} action items · ${tp} photos</div></div>`;
+  h+=`<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px">Section Scores</div><div style="margin-bottom:14px">`;
+  SEC.forEach(c=>{const r=st.rat[c.id],ph=pcnt(c.id);h+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:12px"><span>${c.code}. ${c.name}${ph>0?" 📷"+ph:""}</span>${r?`<span style="font-weight:700;color:${pc(r*20)}">${r}/5</span>`:`<span style="color:#ccc">—</span>`}</div>`;});
+  st.rooms.forEach((rm,i)=>{const s=rsc(i);if(s.t>0){const p=Math.round(s.s/(s.t*5)*100),ph=pcnt(`r${i}`);h+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:12px"><span>Room ${rm.num||i+1} (${rm.type||"—"})${ph>0?" 📷"+ph:""}</span><span style="font-weight:700;color:${pc(p)}">${p}%</span></div>`;}});
   h+=`</div>`;
   h+=`<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px">Follow-Up Schedule</div>`;
-  [["d30","30-Day Check-In"],["d90","90-Day Check-In"],["next","Next Full Walkthrough"]].forEach(([k,l])=>{
-    h+=`<div class="field"><label>${l}</label><input type="date" value="${state.followUp[k]}" oninput="updFU('${k}',this.value)"></div>`;
-  });
-  h+=`<div class="btn-row" style="margin-top:14px"><button class="btn btn-navy" style="flex:1" onclick="copyReport()">📋 Copy</button><button class="btn btn-gold" style="flex:1" onclick="dlReport()">⬇ Download</button></div>`;
-  h+=`<button class="btn" style="margin-top:8px;background:#1E314F;color:#fff;width:100%" onclick="emailReport()">✉ Email Report to JD</button>`;
-  h+=`</div>`;
-  return h;
+  [["d30","30-Day Check-In"],["d90","90-Day Check-In"],["next","Next Full Walkthrough"]].forEach(([k,l])=>{h+=`<div class="fl"><label>${l}</label><input type="date" value="${st.fu[k]}" oninput="uf('${k}',this.value)"></div>`;});
+  h+=`<button class="bt" style="margin-top:14px;background:var(--r5);color:#fff" onclick="uploadAll()">☁ Upload Report${tp>0?" & "+tp+" Photos":""}</button>`;
+  h+=`<div id="uprog"></div>`;
+  if(st.uploaded)h+=`<div style="text-align:center;margin-top:8px;font-size:11px;color:var(--r5);font-weight:600">✓ Report uploaded successfully</div>`;
+  h+=`<div class="br" style="margin-top:8px"><button class="bt bo" style="flex:1" onclick="cpRpt()">📋 Copy</button><button class="bt bo" style="flex:1" onclick="dlRpt()">⬇ Download</button></div>`;
+  h+=`<div style="text-align:center;margin-top:12px;font-size:10px;color:#bbb">Upload sends all data + photos. Copy/Download are text-only backups.</div>`;
+  h+=`</div>`;return h;
 }
 
-function renderNoteModal(){
-  return `<div class="modal-bg" onclick="S({noteKey:null})"><div class="modal" onclick="event.stopPropagation()"><div class="modal-title">Notes</div><textarea id="note-ta" placeholder="What did you see?" oninput="updNote(this.value)" style="width:100%;min-height:70px;border-radius:8px;border:1px solid #ddd;padding:10px;font-size:14px;box-sizing:border-box;resize:vertical">${e(state.notes[state.noteKey]||"")}</textarea><button class="btn btn-navy" style="margin-top:8px" onclick="S({noteKey:null})">Done</button></div></div>`;
-}
-
-function renderActModal(){
-  const a=state.actions[state.actKey]||{};
-  let h=`<div class="modal-bg" onclick="S({actKey:null})"><div class="modal" onclick="event.stopPropagation()"><div class="modal-title">Action Item</div><div style="font-size:11px;font-weight:600;color:#888;margin-bottom:5px">Bucket</div><div class="bucket-row">`;
-  [["M","Month"],["Q","Quarter"],["C","CapEx"]].forEach(([v,l])=>{
-    h+=`<button class="bucket-btn${a.bucket===v?" active":""}" onclick="updAct('bucket','${v}')">${v}<small>${l}</small></button>`;
-  });
-  h+=`</div><div style="font-size:11px;font-weight:600;color:#888;margin-bottom:4px">Owner</div><input id="act-inp" value="${e(a.owner||"")}" placeholder="Who owns this?" oninput="updAct('owner',this.value)" style="width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;font-size:14px;box-sizing:border-box;margin-bottom:8px"><button class="btn btn-navy" onclick="S({actKey:null})">Done</button></div></div>`;
-  return h;
-}
+// ─── MODALS ──────────────────────────────────────────
+function mNote(){return `<div class="mb" onclick="U({nk:null})"><div class="md" onclick="event.stopPropagation()"><div class="mt">Notes</div><textarea id="nta" placeholder="What did you see?" oninput="un(this.value)" style="width:100%;min-height:70px;border-radius:8px;border:1px solid #ddd;padding:10px;font-size:14px;box-sizing:border-box;resize:vertical">${E(st.notes[st.nk]||"")}</textarea><button class="bt bn" style="margin-top:8px" onclick="U({nk:null})">Done</button></div></div>`;}
+function mAct(){const a=st.acts[st.ak]||{};let h=`<div class="mb" onclick="U({ak:null})"><div class="md" onclick="event.stopPropagation()"><div class="mt">Action Item</div><div style="font-size:11px;font-weight:600;color:#888;margin-bottom:5px">Timeline</div><div class="bkr">`;[["now","Immediately"],["M","30 Days"],["Q","90 Days"],["C","CapEx"]].forEach(([v,l])=>{h+=`<button class="bk${a.bucket===v?" a":""}" onclick="uaf('bucket','${v}')">${l}</button>`;});h+=`</div><div style="font-size:11px;font-weight:600;color:#888;margin-bottom:4px">Owner</div><input value="${E(a.owner||"")}" placeholder="Who owns this?" oninput="uaf('owner',this.value)" style="width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;font-size:14px;box-sizing:border-box;margin-bottom:8px"><button class="bt bn" onclick="U({ak:null})">Done</button></div></div>`;return h;}
 
 // ─── ACTIONS ─────────────────────────────────────────
-function rate(k,v){state.ratings[k]=state.ratings[k]===v?undefined:v;save();render();}
-function updInfo(k,v){state.info[k]=v;save();}
-function updNote(v){state.notes[state.noteKey]=v;save();}
-function updAct(field,v){if(!state.actions[state.actKey])state.actions[state.actKey]={};state.actions[state.actKey][field]=v;save();if(field!=="owner")render();}
-function updAssess(i,v){state.assessments[i]=v;save();}
-function updFU(k,v){state.followUp[k]=v;save();}
-function resetAll(){if(confirm("Reset all walkthrough data? This cannot be undone.")){sessionStorage.removeItem("wt3923");state={view:"setup",secIdx:0,roomIdx:0,noteKey:null,actKey:null,info:{property:"",brand:"",date:new Date().toISOString().split("T")[0],gm:"",agm:"",rmgr:"",inspector:"",occ:"",qa:""},ratings:{},notes:{},actions:{},assessments:{},followUp:{d30:"",d90:"",next:""}};render();}}
+function rt(k,v){st.rat[k]=st.rat[k]===v?undefined:v;sv();R();}
+function rs(id,v){st.rat[id]=st.rat[id]===v?undefined:v;sv();R();}
+function ui(k,v){st.info[k]=v;sv();}
+function un(v){st.notes[st.nk]=v;sv();}
+function sn(id,v){st.notes[id]=v;sv();}
+function sa(id,v){if(!st.acts[id])st.acts[id]={};st.acts[id].bucket=st.acts[id].bucket===v?undefined:v;sv();R();}
+function uaf(f,v){if(!st.acts[st.ak])st.acts[st.ak]={};st.acts[st.ak][f]=v;sv();if(f!=="owner")R();}
+function ua(i,v){st.assess[i]=v;sv();}
+function uf(k,v){st.fu[k]=v;sv();}
+function ur(i,f,v){st.rooms[i][f]=v;sv();if(f!=="num")R();}
+function addRm(){st.rooms.push({num:"",type:""});st.ri=st.rooms.length-1;sv();R();}
+function resetAll(){if(confirm("Reset ALL data including photos? This cannot be undone.")){localStorage.removeItem("wt5");localStorage.removeItem("wt5p");st=JSON.parse(JSON.stringify(DEF));photos={};R();}}
 
-function genReport(){
-  const t=tot(),fl=flags();
-  let r=`3923 MANAGEMENT — PROPERTY WALKTHROUGH\n${"=".repeat(50)}\n\nProperty: ${state.info.property}\nBrand: ${state.info.brand}\nDate: ${state.info.date}\nGM: ${state.info.gm}\nAccountability GM: ${state.info.agm}\nRegional Mgr: ${state.info.rmgr}\nInspector: ${state.info.inspector}\nOccupancy: ${state.info.occ}\nLast QA: ${state.info.qa}\n\nOVERALL SCORE: ${t.s}/${t.mx} (${t.pct}%) — ${pl(t.pct)}\n${"-".repeat(50)}\n\nSECTION SCORES\n`;
-  SECTIONS.forEach(sec=>{const s=sc(sec.id,sec.items.length);const p=s.t>0?Math.round((s.s/(s.t*5))*100):0;r+=`  ${sec.code}. ${sec.name}: ${s.s}/${s.mx} (${p}%)\n`;});
-  RL.forEach(l=>{const s=sc(`room-${l}`,RITEMS.length);if(s.t>0)r+=`  Room ${l}: ${s.s}/${s.mx} (${Math.round((s.s/(s.t*5))*100)}%)\n`;});
-  r+=`\n${"=".repeat(50)}\nDETAILED RATINGS\n${"=".repeat(50)}\n\n`;
-  SECTIONS.forEach(sec=>{r+=`${sec.code}. ${sec.name}\n`;sec.items.forEach((item,i)=>{const k=`${sec.id}-${i}`,rt=state.ratings[k];if(rt){r+=`  ${sec.code}.${i+1} [${rt}] ${item}`;if(state.notes[k])r+=` — ${state.notes[k]}`;r+="\n";}});r+="\n";});
-  RL.forEach(l=>{const s=sc(`room-${l}`,RITEMS.length);if(s.t>0){r+=`Room ${l}\n`;RITEMS.forEach((item,i)=>{const k=`room-${l}-${i}`,rt=state.ratings[k];if(rt){r+=`  R${l}.${i+1} [${rt}] ${item}`;if(state.notes[k])r+=` — ${state.notes[k]}`;r+="\n";}});r+="\n";}});
-  r+=`${"=".repeat(50)}\nACTION PLAN (${fl.length} items)\n${"=".repeat(50)}\n\n`;
-  ["M","Q","C"].forEach(b=>{const lb=b==="M"?"THIS MONTH (30d)":b==="Q"?"THIS QUARTER (90d)":"FUTURE CAPEX";const items=fl.filter(f=>f.act.bucket===b);r+=`${lb} (${items.length})\n`;items.forEach(f=>{r+=`  [${f.r}] ${f.code} ${f.item}${f.act.owner?" — Owner: "+f.act.owner:""}\n`;if(f.note)r+=`      Note: ${f.note}\n`;});r+="\n";});
-  const u=fl.filter(f=>!f.act.bucket);if(u.length){r+=`UNASSIGNED (${u.length})\n`;u.forEach(f=>{r+=`  [${f.r}] ${f.code} ${f.item}\n`;if(f.note)r+=`      Note: ${f.note}\n`;});r+="\n";}
-  r+=`${"=".repeat(50)}\nOVERALL ASSESSMENT\n${"=".repeat(50)}\n\n`;
-  AQS.forEach((q,i)=>{r+=`${q}\n${state.assessments[i]||"(not completed)"}\n\n`;});
-  r+=`FOLLOW-UP\n30-Day: ${state.followUp.d30||"TBD"}\n90-Day: ${state.followUp.d90||"TBD"}\nNext Walk: ${state.followUp.next||"TBD"}\n\n"We take care of people." — Genesis 39:23\n`;
-  return r;
+// ─── REPORT GEN ──────────────────────────────────────
+function genRpt(){
+  const t=tot(),f=fl();
+  let r=`3923 MANAGEMENT — PROPERTY WALKTHROUGH\n${"=".repeat(50)}\n\nProperty: ${st.info.property}\nBrand: ${st.info.brand}\nDate: ${st.info.date}\nGM: ${st.info.gm}\nAccountability GM: ${st.info.agm}\nRegional Mgr: ${st.info.rmgr}\nInspector: ${st.info.inspector}\nOccupancy: ${st.info.occ}\nLast Walkthrough: ${st.info.qa}\n\nOVERALL SCORE: ${t.s}/${t.mx} (${t.pct}%) — ${pl(t.pct)}\n${"-".repeat(50)}\n\nSECTION SCORES\n`;
+  SEC.forEach(c=>{const v=st.rat[c.id];r+=`  ${c.code}. ${c.name}: ${v?v+"/5":"—"}\n`;if(st.notes[c.id])r+=`     Notes: ${st.notes[c.id]}\n`;const a=st.acts[c.id];if(a&&a.bucket)r+=`     Timeline: ${a.bucket}\n`;r+=`     Photos: ${pcnt(c.id)}\n`;});
+  r+=`\nROOM SCORES\n`;
+  st.rooms.forEach((rm,i)=>{const s=rsc(i);if(s.t>0){const p=Math.round(s.s/(s.t*5)*100);r+=`\n  Room ${rm.num||i+1} (${rm.type||"—"}): ${s.s}/${s.t*5} (${p}%)\n`;RI.forEach((item,j)=>{const k=`r${i}-${j}`,rv=st.rat[k];if(rv){r+=`    R${i+1}.${j+1} [${rv}] ${item}`;if(st.notes[k])r+=` — ${st.notes[k]}`;const a=st.acts[k];if(a&&a.bucket)r+=` [${a.bucket}${a.owner?" "+a.owner:""}]`;r+="\n";}});r+=`    Photos: ${pcnt("r"+i)}\n`;}});
+  r+=`\n${"=".repeat(50)}\nACTION PLAN (${f.length} items)\n${"=".repeat(50)}\n\n`;
+  ["now","M","Q","C"].forEach(b=>{const lb=b==="now"?"IMMEDIATELY":b==="M"?"30 DAYS":b==="Q"?"90 DAYS":"CAPEX";const items=f.filter(x=>x.act.bucket===b);if(items.length){r+=`${lb} (${items.length})\n`;items.forEach(x=>{r+=`  [${x.r}] ${x.code} ${x.item}${x.act.owner?" — "+x.act.owner:""}\n`;if(x.note)r+=`      ${x.note}\n`;});r+="\n";}});
+  r+=`${"=".repeat(50)}\nASSESSMENT\n${"=".repeat(50)}\n\n`;AQ.forEach((q,i)=>{r+=`${q}\n${st.assess[i]||"(not completed)"}\n\n`;});
+  r+=`FOLLOW-UP\n30-Day: ${st.fu.d30||"TBD"}\n90-Day: ${st.fu.d90||"TBD"}\nNext Walk: ${st.fu.next||"TBD"}\n\n"We take care of people." — Genesis 39:23\n`;return r;
+}
+function cpRpt(){navigator.clipboard.writeText(genRpt()).then(()=>toast("📋 Copied!")).catch(()=>{const t=document.createElement("textarea");t.value=genRpt();document.body.appendChild(t);t.select();document.execCommand("copy");document.body.removeChild(t);toast("📋 Copied!");});}
+function dlRpt(){const b=new Blob([genRpt()],{type:"text/plain"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download=`walkthrough_${(st.info.property||"report").replace(/\s+/g,"_")}_${st.info.date}.txt`;a.click();URL.revokeObjectURL(u);}
+
+// ─── UPLOAD ──────────────────────────────────────────
+async function uploadAll(){
+  const prog=document.getElementById("uprog");
+  if(prog)prog.innerHTML=`<div class="upload-progress"><div class="upload-bar" style="width:10%"></div></div><div style="text-align:center;font-size:11px;color:#888;margin-top:4px">Preparing upload...</div>`;
+  toast("Preparing...");
+
+  // Build full payload
+  const payload={
+    timestamp:new Date().toISOString(),
+    info:st.info,
+    ratings:st.rat,
+    notes:st.notes,
+    actions:st.acts,
+    rooms:st.rooms,
+    assessments:st.assess,
+    followUp:st.fu,
+    score:tot(),
+    flagCount:fl().length,
+    flags:fl(),
+    sections:SEC.map(c=>({id:c.id,code:c.code,name:c.name,rating:st.rat[c.id]||null,notes:st.notes[c.id]||"",action:st.acts[c.id]||null,photoCount:pcnt(c.id)})),
+    roomDetails:st.rooms.map((rm,i)=>{const s=rsc(i);return{num:rm.num,type:rm.type,scored:s.t,total:RI.length,score:s.s,maxScore:s.t*5,pct:s.t>0?Math.round(s.s/(s.t*5)*100):0,photoCount:pcnt("r"+i),items:RI.map((item,j)=>{const k=`r${i}-${j}`;return{item,rating:st.rat[k]||null,note:st.notes[k]||"",action:st.acts[k]||null};})};}).filter(r=>r.scored>0),
+    photos:photos
+  };
+
+  if(!UPLOAD_URL){
+    // No backend configured — save JSON locally
+    if(prog)prog.innerHTML=`<div class="upload-progress"><div class="upload-bar" style="width:100%"></div></div>`;
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+    const u=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=u;
+    a.download=`walkthrough_${(st.info.property||"report").replace(/\s+/g,"_")}_${st.info.date}.json`;
+    a.click();
+    URL.revokeObjectURL(u);
+    st.uploaded=true;sv();R();
+    toast("✓ Downloaded — send JSON to JD");
+    return;
+  }
+
+  // Upload to Google Apps Script
+  try{
+    if(prog)prog.innerHTML=`<div class="upload-progress"><div class="upload-bar" style="width:30%"></div></div><div style="text-align:center;font-size:11px;color:#888;margin-top:4px">Uploading data + photos...</div>`;
+    const resp=await fetch(UPLOAD_URL,{method:"POST",body:JSON.stringify(payload)});
+    if(prog)prog.innerHTML=`<div class="upload-progress"><div class="upload-bar" style="width:100%"></div></div>`;
+    if(resp.ok){
+      st.uploaded=true;sv();R();toast("✓ Report uploaded!");
+    }else{
+      toast("⚠ Upload issue — try again or use Download");
+    }
+  }catch(e){
+    if(prog)prog.innerHTML="";
+    toast("⚠ Upload failed — use Download as backup");
+  }
 }
 
-function copyReport(){navigator.clipboard.writeText(genReport()).then(()=>alert("Report copied to clipboard!")).catch(()=>{const ta=document.createElement("textarea");ta.value=genReport();document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);alert("Report copied!");});}
-
-function dlReport(){const b=new Blob([genReport()],{type:"text/plain"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download=`walkthrough_${(state.info.property||"report").replace(/\s+/g,"_")}_${state.info.date}.txt`;a.click();URL.revokeObjectURL(u);}
-
-function emailReport(){
-  const t=tot(),fl=flags();
-  const to="johndavid@3923mgmt.com";
-  const subj=`Walkthrough: ${state.info.property||"Property"} — ${t.pct}% (${pl(t.pct)}) — ${state.info.date}`;
-  // Build a compact body that fits mailto limits
-  let body=`PROPERTY WALKTHROUGH REPORT\n\nProperty: ${state.info.property}\nBrand: ${state.info.brand}\nDate: ${state.info.date}\nInspector: ${state.info.inspector}\nGM: ${state.info.gm}\n\nOVERALL SCORE: ${t.s}/${t.mx} (${t.pct}%) — ${pl(t.pct)}\n\n`;
-  body+=`SECTION SCORES\n`;
-  SECTIONS.forEach(sec=>{const s=sc(sec.id,sec.items.length);const p=s.t>0?Math.round((s.s/(s.t*5))*100):0;body+=`  ${sec.code}. ${sec.name}: ${p}%\n`;});
-  RL.forEach(l=>{const s=sc(`room-${l}`,RITEMS.length);if(s.t>0)body+=`  Room ${l}: ${Math.round((s.s/(s.t*5))*100)}%\n`;});
-  body+=`\nACTION ITEMS (${fl.length})\n`;
-  ["M","Q","C"].forEach(b=>{const lb=b==="M"?"MONTH":b==="Q"?"QUARTER":"CAPEX";const items=fl.filter(f=>f.act.bucket===b);if(items.length){body+=`\n${lb}:\n`;items.forEach(f=>{body+=`  [${f.r}] ${f.code} ${f.item}${f.act.owner?" — "+f.act.owner:""}\n`;if(f.note)body+=`    ${f.note}\n`;});}});
-  const u=fl.filter(f=>!f.act.bucket);if(u.length){body+=`\nUNASSIGNED:\n`;u.forEach(f=>{body+=`  [${f.r}] ${f.code} ${f.item}\n`;});}
-  body+=`\nASSESSMENT\n`;
-  AQS.forEach((q,i)=>{if(state.assessments[i])body+=`${q}\n${state.assessments[i]}\n\n`;});
-  body+=`\n— "We take care of people." Genesis 39:23`;
-  // Check length and truncate if needed
-  const maxLen=1800;
-  if(body.length>maxLen){body=body.substring(0,maxLen)+"\n\n[Report truncated — full version available via Copy or Download]";}
-  const mailtoUrl=`mailto:${to}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
-  window.location.href=mailtoUrl;
-}
-
-// ─── INIT ────────────────────────────────────────────
-render();
+R();
 </script>
 </body>
 </html>
