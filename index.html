@@ -2,389 +2,1533 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>3923 Property Walkthrough</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Site Inspection — 3923 Management</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--navy:#0A1F38;--navy2:#1E314F;--gold:#F9A61A;--lgold:#FBC05E;--r5:#22c55e;--r4:#60a5fa;--r3:#fbbf24;--r2:#f97316;--r1:#ef4444}
-html,body{height:100%;overflow:hidden}
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#fff;color:#1a1a1a}
-input,textarea,button,select{font-family:inherit}
-.app{display:flex;flex-direction:column;height:100dvh;height:100vh}
-.topbar{position:sticky;top:0;z-index:50;background:var(--navy);padding:8px 12px;box-shadow:0 2px 10px rgba(0,0,0,.15)}
-.tr{display:flex;justify-content:space-between;align-items:center}
-.tn{font-size:13px;font-weight:700;color:#fff}
-.tb{font-size:10px;color:var(--lgold)}
-.ts{font-size:22px;font-weight:800;text-align:right}
-.tss{font-size:9px;color:#aaa;text-align:right}
-.chips{display:flex;gap:3px;margin-top:6px;overflow-x:auto;scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.ch{padding:3px 9px;border-radius:10px;border:none;cursor:pointer;font-size:10px;font-weight:600;white-space:nowrap;background:rgba(255,255,255,.1);color:#ccc}
-.ch.a{background:var(--gold);color:var(--navy)}
-.ch.d{background:rgba(34,197,94,.2);color:var(--r5)}
-.cnt{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:56px}
-.nv{position:sticky;bottom:0;z-index:50;background:#fff;border-top:1px solid #eee;display:flex;justify-content:space-around;padding:5px 0}
-.nb{display:flex;flex-direction:column;align-items:center;gap:0;background:none;border:none;cursor:pointer;padding:3px 6px;color:#bbb;position:relative}
-.nb.a{color:var(--navy)}
-.nb .ic{font-size:16px}.nb .lb{font-size:9px}.nb.a .lb{font-weight:700}
-.bg{position:absolute;top:0;right:-2px;background:var(--r1);color:#fff;font-size:8px;font-weight:700;border-radius:8px;padding:0 4px;line-height:14px}
-.pg{padding:14px;max-width:480px;margin:0 auto;width:100%}
-.fl{margin-bottom:8px}
-.fl label{font-size:10px;font-weight:600;color:#888;display:block;margin-bottom:2px}
-.fl input,.fl textarea,.fl select{width:100%;padding:9px;border-radius:7px;border:1px solid #ddd;font-size:13px;box-sizing:border-box}
-.fl textarea{resize:vertical}
-.bt{width:100%;padding:13px;border-radius:9px;border:none;font-size:14px;font-weight:700;cursor:pointer}
-.bt:active{transform:scale(.98)}
-.bn{background:var(--navy);color:#fff}
-.bg2{background:var(--gold);color:var(--navy)}
-.bo{background:#fff;color:#888;border:1px solid #ddd}
-.br{display:flex;gap:8px;margin-top:8px}
-.sh{padding:10px 12px 6px;border-bottom:2px solid var(--gold)}
-.st2{font-size:15px;font-weight:700;color:var(--navy)}
-.ck{padding:5px 12px;border-bottom:1px solid #f5f5f5;font-size:13px;color:#333;display:flex;gap:6px}
-.ck .dt{color:var(--gold);font-weight:700;flex-shrink:0}
-.sa{padding:12px;background:#fafafa;border-bottom:1px solid #eee}
-.sl{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:6px}
-.rbs{display:flex;gap:4px}
-.rb{width:40px;height:40px;border-radius:8px;border:none;cursor:pointer;font-size:15px;font-weight:700;background:#f0f0f0;color:#aaa;transition:all .12s}
-.rb.s1{background:var(--r1);color:#fff;transform:scale(1.08)}
-.rb.s2{background:var(--r2);color:#fff;transform:scale(1.08)}
-.rb.s3{background:var(--r3);color:#fff;transform:scale(1.08)}
-.rb.s4{background:var(--r4);color:#fff;transform:scale(1.08)}
-.rb.s5{background:var(--r5);color:#fff;transform:scale(1.08)}
-.rs{width:34px;height:34px;font-size:14px;border-radius:7px}
-.bkr{display:flex;gap:6px;margin-bottom:10px}
-.bk{flex:1;padding:8px 0;border-radius:8px;border:none;cursor:pointer;font-size:11px;font-weight:700;background:#f0f0f0;color:#888;text-align:center}
-.bk.a{background:var(--gold);color:#fff}
-.tg{font-size:10px;padding:2px 7px;border-radius:4px;border:1px solid #ddd;background:#fff;color:#888;cursor:pointer;white-space:nowrap}
-.tg.on{background:var(--gold);color:#fff;border-color:var(--gold)}
-.tg.nv2{background:var(--navy);color:#fff;border-color:var(--navy)}
-.rtb{display:flex;gap:3px;padding:8px 12px;border-bottom:2px solid var(--gold);overflow-x:auto}
-.rt{padding:6px 12px;border-radius:7px;border:none;cursor:pointer;text-align:center;font-size:12px;font-weight:700;background:#f0f0f0;color:#888;white-space:nowrap}
-.rt.a{background:var(--navy);color:#fff}
-.rtp{font-size:9px;font-weight:400;opacity:.7}
-.ar{padding:6px 12px;border-radius:7px;border:1px dashed #ccc;cursor:pointer;font-size:12px;color:#aaa;background:none;white-space:nowrap}
-.it{padding:9px 12px;border-bottom:1px solid #eee}
-.it.w{background:#fffbeb}.it.dg{background:#fef2f2}
-.itp{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
-.ii{flex:1;min-width:0}
-.ic2{font-size:10px;color:#bbb;font-weight:700}
-.il{font-size:13px;line-height:1.3}
-.ia{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap}
-.mb{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:flex;align-items:flex-end;justify-content:center}
-.md{background:#fff;width:100%;max-width:480px;border-radius:14px 14px 0 0;padding:18px;max-height:80vh;overflow-y:auto}
-.mt{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:10px}
-.ec{background:linear-gradient(135deg,#0A1F38,#1E314F);border-radius:12px;padding:18px;margin-bottom:14px;color:#fff}
-.pi{padding:7px 9px;border-left:3px solid;margin-bottom:3px;background:#fafafa;border-radius:0 5px 5px 0}
-.tt{position:fixed;top:12px;left:50%;transform:translateX(-50%);background:var(--r5);color:#fff;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;z-index:200;opacity:0;transition:opacity .3s}
-.tt.show{opacity:1}
-.thumbs{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
-.thumb{width:52px;height:52px;border-radius:6px;object-fit:cover;border:1px solid #ddd;position:relative;cursor:pointer}
-.thumb-wrap{position:relative;display:inline-block}
-.thumb-x{position:absolute;top:-4px;right:-4px;width:16px;height:16px;border-radius:50%;background:var(--r1);color:#fff;font-size:10px;line-height:16px;text-align:center;cursor:pointer;border:none;font-weight:700}
-.pb{font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid #ddd;background:#fff;color:#888;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
-.pb.has{background:#e0f2fe;border-color:#60a5fa;color:#1e40af}
-.upload-progress{margin-top:10px;background:#eee;border-radius:8px;overflow:hidden;height:6px}
-.upload-bar{height:100%;background:var(--r5);transition:width .3s;border-radius:8px}
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+  :root {
+    --navy: #0A1F38;
+    --navy-light: #1E314F;
+    --navy-mid: #142a45;
+    --gold: #F9A61A;
+    --gold-light: #FBC05E;
+    --gold-pale: #FEF3D0;
+    --white: #FFFFFF;
+    --gray-50: #F8FAFC;
+    --gray-100: #F1F5F9;
+    --gray-200: #E2E8F0;
+    --gray-300: #CBD5E1;
+    --gray-400: #94A3B8;
+    --gray-500: #64748B;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1E293B;
+    --green: #16A34A;
+    --green-bg: #F0FDF4;
+    --green-border: #BBF7D0;
+    --red: #DC2626;
+    --red-bg: #FEF2F2;
+    --red-border: #FECACA;
+    --amber: #B45309;
+    --amber-bg: #FFFBEB;
+    --amber-border: #FDE68A;
+    --blue-bg: #EFF6FF;
+    --blue-border: #BFDBFE;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-700);
+    line-height: 1.5;
+    min-height: 100vh;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--navy);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .header-logo {
+    width: 42px; height: 42px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; color: var(--navy);
+    letter-spacing: -0.5px; flex-shrink: 0;
+  }
+  .header h1 { color: var(--white); font-size: 20px; font-weight: 600; letter-spacing: -0.3px; }
+  .header h1 span { color: var(--gold); }
+  .header-tagline { color: var(--gray-400); font-size: 12px; font-style: italic; }
+  .header-right { display: flex; align-items: center; gap: 8px; }
+  .save-status {
+    font-size: 12px; padding: 5px 12px; border-radius: 20px; font-weight: 500;
+    background: rgba(148,163,184,0.15); color: var(--gray-400); white-space: nowrap;
+  }
+  .save-status.saved { background: rgba(22,163,74,0.15); color: #4ADE80; }
+  .save-status.warn { background: rgba(220,38,38,0.15); color: #FCA5A5; }
+
+  /* ── Toolbar ── */
+  .toolbar {
+    max-width: 1100px; margin: 20px auto 0; padding: 0 24px;
+    display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap;
+  }
+  .toolbar .prop-pick { flex: 1 1 320px; min-width: 260px; }
+  .toolbar label {
+    display: block; font-size: 12px; font-weight: 600; color: var(--gray-600);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;
+  }
+  select, input[type="text"], input[type="date"], input[type="time"], textarea {
+    padding: 10px 12px; border: 1.5px solid var(--gray-200); border-radius: 8px;
+    font-size: 15px; font-family: inherit; color: var(--gray-700);
+    background: var(--white); width: 100%; transition: border-color .2s, box-shadow .2s;
+  }
+  select:focus, input:focus, textarea:focus {
+    outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(249,166,26,0.15);
+  }
+  .prop-select { font-size: 16px; font-weight: 600; color: var(--navy); }
+  textarea { resize: vertical; min-height: 40px; line-height: 1.45; }
+
+  .toolbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  button {
+    padding: 10px 16px; border: none; border-radius: 8px; font-size: 14px;
+    font-weight: 600; cursor: pointer; transition: all .15s; font-family: inherit;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--navy); color: var(--white); }
+  .btn-primary:hover { background: var(--navy-light); }
+  .btn-gold { background: var(--gold); color: var(--navy); }
+  .btn-gold:hover { background: var(--gold-light); }
+  .btn-secondary { background: var(--gray-200); color: var(--gray-700); }
+  .btn-secondary:hover { background: var(--gray-300); }
+  .btn-ghost { background: transparent; color: var(--gray-500); border: 1.5px solid var(--gray-200); }
+  .btn-ghost:hover { background: var(--gray-100); color: var(--gray-700); }
+  .btn-danger-ghost { background: transparent; color: var(--red); border: 1.5px solid var(--red-border); }
+  .btn-danger-ghost:hover { background: var(--red-bg); }
+  .btn-sm { padding: 6px 12px; font-size: 13px; }
+
+  /* ── Status chip row ── */
+  .status-row {
+    max-width: 1100px; margin: 12px auto 0; padding: 0 24px;
+    font-size: 13px; color: var(--gray-500); display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .status-row b { color: var(--gray-700); }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px;
+    border-radius: 20px; font-size: 12px; font-weight: 600;
+  }
+  .chip.draft { background: var(--gold-pale); color: var(--amber); }
+  .chip.none { background: var(--gray-100); color: var(--gray-500); }
+  .chip.done { background: var(--green-bg); color: var(--green); }
+
+  /* ── Container / cards ── */
+  .container { max-width: 1100px; margin: 20px auto 60px; padding: 0 24px; }
+  .card {
+    background: var(--white); border: 1.5px solid var(--gray-200);
+    border-radius: 12px; margin-bottom: 18px; overflow: hidden;
+  }
+  .card-head {
+    background: var(--navy); color: var(--white); padding: 13px 18px;
+    font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 10px;
+  }
+  .card-head .num {
+    background: var(--gold); color: var(--navy); width: 24px; height: 24px;
+    border-radius: 6px; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+  .card-body { padding: 6px 18px 16px; }
+
+  /* ── Meta grid (header fields) ── */
+  .meta-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 16px 18px;
+  }
+  .field label {
+    display: block; font-size: 11px; font-weight: 600; color: var(--gray-600);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;
+  }
+  .field.span-2 { grid-column: span 2; }
+  .field.span-3 { grid-column: span 3; }
+
+  .rating-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  .rating-btn {
+    flex: 1; min-width: 120px; padding: 10px; border: 1.5px solid var(--gray-200);
+    border-radius: 8px; background: var(--white); font-size: 13px; font-weight: 600;
+    color: var(--gray-500); cursor: pointer; text-align: center; transition: all .15s;
+  }
+  .rating-btn:hover { border-color: var(--gray-300); }
+  .rating-btn.sel-sat { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+  .rating-btn.sel-ni { background: var(--gold-pale); border-color: var(--gold); color: var(--amber); }
+  .rating-btn.sel-unsat { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+
+  /* ── Inspection item rows ── */
+  .item-row {
+    display: grid; grid-template-columns: 1fr auto; gap: 12px 16px;
+    padding: 12px 0; border-bottom: 1px solid var(--gray-100); align-items: start;
+  }
+  .item-row:last-child { border-bottom: none; }
+  .item-label { font-size: 14.5px; color: var(--gray-700); padding-top: 6px; }
+  .item-controls { display: flex; gap: 6px; align-items: center; }
+  .pfn-btn {
+    width: 42px; height: 38px; border: 1.5px solid var(--gray-200); border-radius: 8px;
+    background: var(--white); font-size: 16px; font-weight: 700; cursor: pointer;
+    color: var(--gray-400); transition: all .12s; display: flex; align-items: center; justify-content: center;
+  }
+  .pfn-btn small { font-size: 10px; font-weight: 600; letter-spacing: .5px; }
+  .pfn-btn:hover { border-color: var(--gray-300); }
+  .pfn-btn.pass.on { background: var(--green); border-color: var(--green); color: #fff; }
+  .pfn-btn.fail.on { background: var(--red); border-color: var(--red); color: #fff; }
+  .pfn-btn.na.on { background: var(--gray-500); border-color: var(--gray-500); color: #fff; }
+  .item-comment { grid-column: 1 / -1; }
+  .item-comment textarea { font-size: 13.5px; background: var(--gray-50); }
+  .item-comment textarea.flag { background: var(--red-bg); border-color: var(--red-border); }
+
+  .section-notes { margin-top: 14px; }
+  .section-notes label {
+    font-size: 11px; font-weight: 600; color: var(--gray-500);
+    text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; display: block;
+  }
+
+  /* ── Compliance rows ── */
+  .comp-row {
+    display: grid; grid-template-columns: 1fr auto 1.4fr; gap: 12px; align-items: center;
+    padding: 11px 0; border-bottom: 1px solid var(--gray-100);
+  }
+  .comp-row:last-child { border-bottom: none; }
+  .yn-group { display: flex; gap: 6px; }
+  .yn-btn {
+    padding: 8px 16px; border: 1.5px solid var(--gray-200); border-radius: 8px;
+    background: var(--white); font-size: 13px; font-weight: 700; color: var(--gray-400); cursor: pointer;
+  }
+  .yn-btn.yes.on { background: var(--green); border-color: var(--green); color: #fff; }
+  .yn-btn.no.on { background: var(--red); border-color: var(--red); color: #fff; }
+  .comp-row input[type="text"] { font-size: 13.5px; background: var(--gray-50); }
+  @media (max-width: 640px) {
+    .comp-row { grid-template-columns: 1fr; gap: 8px; }
+  }
+
+  /* ── Room walk ── */
+  .room-card {
+    border: 1.5px solid var(--gray-200); border-radius: 10px; padding: 14px; margin-bottom: 12px;
+    background: var(--gray-50);
+  }
+  .room-top { display: flex; gap: 14px; flex-wrap: wrap; align-items: end; margin-bottom: 10px; }
+  .room-num { width: 120px; }
+  .room-pf { display: flex; flex-direction: column; gap: 4px; }
+  .room-pf span { font-size: 11px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: .5px; }
+  .pf-toggle { display: flex; gap: 5px; }
+  .pf-toggle button {
+    padding: 7px 14px; border: 1.5px solid var(--gray-200); border-radius: 7px;
+    background: var(--white); font-size: 12.5px; font-weight: 700; color: var(--gray-400); cursor: pointer;
+  }
+  .pf-toggle button.pass.on { background: var(--green); border-color: var(--green); color: #fff; }
+  .pf-toggle button.fail.on { background: var(--red); border-color: var(--red); color: #fff; }
+
+  /* ── Action items ── */
+  .action-row {
+    display: grid; grid-template-columns: 150px 1fr 160px auto; gap: 10px; align-items: center;
+    padding: 8px 0;
+  }
+  .action-row select { font-size: 13.5px; }
+  @media (max-width: 720px) {
+    .action-row { grid-template-columns: 1fr 1fr; }
+    .action-row .act-text { grid-column: 1 / -1; }
+  }
+  .tl-badge { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 5px; white-space: nowrap; }
+  .tl-immediately { background: var(--gold-pale); color: var(--amber); }
+  .tl-week { background: var(--blue-bg); color: #1D4ED8; }
+  .tl-month { background: var(--green-bg); color: var(--green); }
+  .tl-capex { background: #F3E8FF; color: #7E22CE; }
+
+  /* ── Priorities ── */
+  .prio-row { display: flex; align-items: center; gap: 12px; padding: 7px 0; }
+  .prio-num {
+    background: var(--navy); color: #fff; width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;
+  }
+
+  /* ── Carried-over panel ── */
+  .carry-panel { border: 2px solid var(--amber-border); background: var(--amber-bg); border-radius: 12px; margin-bottom: 18px; overflow: hidden; }
+  .carry-head {
+    background: var(--gold); color: var(--navy); padding: 13px 18px; font-weight: 700; font-size: 15px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .carry-head .badge { background: var(--navy); color: var(--gold); border-radius: 20px; padding: 2px 10px; font-size: 12px; }
+  .carry-body { padding: 8px 18px 16px; }
+  .carry-item {
+    background: var(--white); border: 1.5px solid var(--amber-border); border-radius: 10px;
+    padding: 12px 14px; margin-top: 12px;
+  }
+  .carry-item.resolved { border-color: var(--green-border); background: var(--green-bg); opacity: .85; }
+  .carry-item-top { display: flex; justify-content: space-between; gap: 12px; align-items: start; flex-wrap: wrap; }
+  .carry-text { font-size: 14.5px; font-weight: 600; color: var(--gray-800); }
+  .carry-meta { font-size: 12px; color: var(--gray-500); margin-top: 3px; }
+  .carry-meta .age { color: var(--amber); font-weight: 700; }
+  .carry-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .carry-resolve-note { margin-top: 8px; }
+  .carry-resolve-note textarea { font-size: 13px; background: var(--gray-50); }
+  .src-tag {
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+    padding: 2px 7px; border-radius: 5px; background: var(--gray-100); color: var(--gray-500);
+  }
+
+  /* ── Empty / info states ── */
+  .empty-hint {
+    padding: 40px 24px; text-align: center; color: var(--gray-400); font-size: 15px;
+    background: var(--white); border: 1.5px dashed var(--gray-200); border-radius: 12px;
+  }
+  .info-line { font-size: 13px; color: var(--gray-500); margin: 2px 0 10px; }
+
+  .add-btn { margin-top: 10px; }
+
+  /* ── Sticky action bar ── */
+  .sticky-bar {
+    position: sticky; bottom: 0; z-index: 20; background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(6px); border-top: 1.5px solid var(--gray-200);
+    padding: 12px 24px; display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap;
+    margin: 0 -24px;
+  }
+  .sticky-bar .left { margin-right: auto; font-size: 13px; color: var(--gray-500); align-self: center; }
+
+  /* ── Modal ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(10,31,56,0.55);
+    z-index: 100; align-items: flex-start; justify-content: center; padding: 40px 20px; overflow-y: auto;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #fff; border-radius: 14px; max-width: 760px; width: 100%; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  }
+  .modal-head {
+    background: var(--navy); color: #fff; padding: 16px 22px; display: flex;
+    justify-content: space-between; align-items: center;
+  }
+  .modal-head h2 { font-size: 17px; font-weight: 600; }
+  .modal-close { background: transparent; color: var(--gray-300); font-size: 22px; padding: 0 6px; }
+  .modal-close:hover { color: #fff; }
+  .modal-body { padding: 20px 22px; max-height: 70vh; overflow-y: auto; }
+
+  .hist-item {
+    border: 1.5px solid var(--gray-200); border-radius: 10px; padding: 14px; margin-bottom: 10px;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .hist-item .h-meta { font-size: 13px; color: var(--gray-500); }
+  .hist-item .h-title { font-weight: 600; color: var(--gray-800); font-size: 15px; }
+  .rating-pill { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; }
+  .rating-pill.sat { background: var(--green-bg); color: var(--green); }
+  .rating-pill.ni { background: var(--gold-pale); color: var(--amber); }
+  .rating-pill.unsat { background: var(--red-bg); color: var(--red); }
+
+  .toast {
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--navy); color: #fff; padding: 12px 22px; border-radius: 10px;
+    font-size: 14px; font-weight: 500; z-index: 200; opacity: 0; pointer-events: none;
+    transition: all .25s; box-shadow: 0 8px 24px rgba(0,0,0,.25);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.err { background: var(--red); }
+
+  .del-x {
+    background: transparent; color: var(--gray-400); border: none; font-size: 18px;
+    cursor: pointer; padding: 4px 8px; line-height: 1;
+  }
+  .del-x:hover { color: var(--red); }
+
+  /* ── Print / PDF summary ── */
+  #printArea { display: none; }
+
+  @media print {
+    @page { margin: 0.5in; }
+    body { background: #fff; }
+    .header, .toolbar, .status-row, .container, .sticky-bar, .modal-overlay, .toast { display: none !important; }
+    #printArea { display: block !important; color: #111; font-size: 12px; }
+    #printArea .p-head { display: flex; align-items: center; gap: 12px; border-bottom: 2px solid var(--navy); padding-bottom: 12px; margin-bottom: 14px; }
+    #printArea .p-logo { width: 40px; height: 40px; background: var(--gold); color: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+    #printArea h1 { color: var(--navy); font-size: 19px; margin: 0; }
+    #printArea .p-sub { color: #666; font-size: 11px; }
+    #printArea h2 {
+      font-size: 13px; color: #fff; background: var(--navy); padding: 6px 10px; margin: 16px 0 8px;
+      border-radius: 4px; page-break-after: avoid;
+    }
+    #printArea .p-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px 18px; font-size: 12px; margin-bottom: 6px; }
+    #printArea .p-meta div { padding: 2px 0; }
+    #printArea .p-meta b { color: #000; }
+    #printArea table { width: 100%; border-collapse: collapse; font-size: 11.5px; margin-bottom: 6px; }
+    #printArea th, #printArea td { border: 1px solid #ccc; padding: 5px 7px; text-align: left; vertical-align: top; }
+    #printArea th { background: #f0f0f0; font-size: 10.5px; text-transform: uppercase; letter-spacing: .3px; }
+    #printArea .b-pass { color: var(--green); font-weight: 700; }
+    #printArea .b-fail { color: var(--red); font-weight: 700; }
+    #printArea .b-na { color: #888; font-weight: 700; }
+    #printArea tr, #printArea table { page-break-inside: avoid; }
+    #printArea .p-sign { display: flex; gap: 40px; margin-top: 34px; }
+    #printArea .p-sign div { flex: 1; border-top: 1px solid #333; padding-top: 6px; font-size: 11px; }
+    #printArea .p-foot { margin-top: 24px; border-top: 1px solid #ccc; padding-top: 8px; text-align: center; font-size: 10px; color: #888; }
+    #printArea .p-flag { background: #fff5f5; }
+    #printArea .p-open { background: #fffbeb; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 720px) {
+    .meta-grid { grid-template-columns: 1fr 1fr; }
+    .field.span-3 { grid-column: span 2; }
+    .action-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .header { flex-direction: column; align-items: flex-start; }
+    .meta-grid { grid-template-columns: 1fr; }
+    .field.span-2, .field.span-3 { grid-column: span 1; }
+    .item-row { grid-template-columns: 1fr; }
+    .item-controls { justify-content: flex-start; }
+    .container, .toolbar, .status-row { padding-left: 16px; padding-right: 16px; }
+    /* Bigger touch targets + full-width controls for phone use */
+    .pfn-btn { width: 56px; height: 48px; font-size: 18px; }
+    .yn-btn { padding: 12px 22px; font-size: 14px; }
+    .pf-toggle button { padding: 11px 20px; font-size: 14px; }
+    .toolbar-actions { width: 100%; }
+    .toolbar-actions button { flex: 1 1 auto; }
+    .sticky-bar { gap: 8px; }
+    .sticky-bar .left { flex-basis: 100%; order: -1; }
+    .sticky-bar button { flex: 1 1 auto; }
+    .carry-actions { width: 100%; }
+    .carry-actions button { flex: 1 1 auto; }
+  }
 </style>
+<!-- Microsoft Authentication Library (only used if cloud sync is configured; harmless if offline) -->
+<script src="https://alcdn.msauth.net/browser/2.38.4/js/msal-browser.min.js"></script>
 </head>
 <body>
-<div id="app" class="app"></div>
-<div id="toast" class="tt"></div>
-<input type="file" id="cam" accept="image/*" capture="environment" style="display:none" multiple>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">3923</div>
+    <div>
+      <h1>Weekly Site <span>Inspection</span></h1>
+      <div class="header-tagline">Regional Manager Property Review — We take care of people (Genesis 39:23)</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="save-status" id="saveStatus">Ready</div>
+  </div>
+</div>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <div class="prop-pick">
+    <label for="propSelect">Property</label>
+    <select id="propSelect" class="prop-select"></select>
+  </div>
+  <div class="toolbar-actions">
+    <button class="btn-gold" id="btnPrint">Print / Save PDF</button>
+    <button class="btn-ghost" id="btnHistory">History</button>
+    <button class="btn-ghost" id="btnExport">Export Backup</button>
+    <button class="btn-ghost" id="btnImport">Import</button>
+    <button class="btn-ghost" id="btnCloud" style="display:none"></button>
+    <button class="btn-ghost btn-sm" id="btnCloudOut" style="display:none" title="Sign out of SharePoint">Sign out</button>
+    <span class="save-status" id="cloudStatus" style="display:none"></span>
+    <input type="file" id="importFile" accept="application/json" style="display:none">
+  </div>
+</div>
+
+<!-- Status row -->
+<div class="status-row" id="statusRow"></div>
+
+<!-- Main container -->
+<div class="container" id="app"></div>
+
+<!-- History modal -->
+<div class="modal-overlay" id="histModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="histTitle">Walk History</h2>
+      <button class="modal-close" id="histClose">&times;</button>
+    </div>
+    <div class="modal-body" id="histBody"></div>
+  </div>
+</div>
+
+<!-- Print area (filled on demand) -->
+<div id="printArea"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
 <script>
-// ─── CONFIG ──────────────────────────────────────────
-const SEC=[
-{id:"ext",code:"1",name:"Exterior & Arrival",items:["Building exterior / façade condition","Signage — visible, lit, brand-compliant","Parking lot — condition, striping, lighting","Landscaping and curb appeal","Entrance — clean, well-lit, doors functional","Exterior lighting operational","Trash receptacles clean, not overflowing","Overall curb appeal — would you pull in?"]},
-{id:"lob",code:"2",name:"Lobby & Check-In",items:["First impression — smell, temp, lighting, music","Floors — condition, cleanliness, transitions","Front desk — clean, organized, staffed","Staff — uniform, greeting, professionalism","Lobby furniture and décor — condition","Elevator — cab condition, buttons, lighting","Public restrooms — clean, stocked, fixtures","Wayfinding signage — clear and current","Business center / market / vending","Ambient feel — would you sit in this lobby?"]},
-{id:"fb",code:"3",name:"F&B / Breakfast",items:["Serving area — clean, organized, stocked","Food presentation and quality","Equipment — coffee, toaster, waffle maker","Dining area — tables, chairs, cleanliness","Kitchen / prep — food safety, temps, storage","Staff hygiene and health postings","Pest evidence — none observed"]},
-{id:"fit",code:"4",name:"Fitness / Pool",items:["Fitness equipment — functional, clean","Fitness center — mirrors, TV, supplies","Pool — water clarity, chemical compliance","Pool deck and furniture condition","Safety signage and equipment","Towels stocked, hours posted, access works"]},
-{id:"cor",code:"5",name:"Corridors & Common",items:["Corridor flooring — stains, wear, transitions","Walls — scuffs, marks, paint condition","Lighting — all bulbs, fixture condition","Exit signs and emergency lighting","Ice / vending areas — clean, functional","Stairwells — clean, lit, signage","Elevator lobbies on guest floors","HK carts — tidy, stocked, not blocking","Noise — HVAC, neighbors, exterior"]},
-{id:"boh",code:"6",name:"Back of House / MEP / Safety",items:["HK storage — organized, stocked, clean","Laundry — equipment, organization","Chemical storage — labeled, SDS, compliant","Maintenance shop — organized, tools","Employee areas — break room, lockers","Office — organized, secure, data protected","Waste / dumpster — contained, clean","Electrical panels — labeled, accessible","Generator — tested, fuel, logs current","Boiler / water heater — condition, age","HVAC units — filters, PM schedule","Roof — last inspection, visible issues","Plumbing — no leaks, pressure adequate","Elevator certificate current","PM program — documented, on schedule","Fire alarm — tested, panel clear","Sprinkler — inspections current","Fire extinguishers — tagged, accessible","Emergency exits — clear, marked, lit","Emergency lighting — all functional","ADA compliance — rooms, signage, paths","CCTV and key control procedures"]}
+/* ══════════════════════════════════════════════════════════════
+   3923 WEEKLY SITE INSPECTION — Regional Manager Walkthrough
+   Single-file tool. Auto-saves to the browser (localStorage).
+   Open action items + failed items carry forward to the next visit.
+   ══════════════════════════════════════════════════════════════ */
+
+const STORAGE_KEY = 'rm_walkthrough_v1';
+
+/* ══════════════════════════════════════════════════════════════
+   CLOUD SYNC CONFIG  (optional — SharePoint / Microsoft 365)
+   ──────────────────────────────────────────────────────────────
+   Fill in the 4 values below AFTER registering the app (see the
+   setup runbook). Until a real Client ID is pasted here — or when
+   the file is opened directly from disk (file://) — the tool runs
+   100% locally in the browser (localStorage) and every cloud
+   feature stays hidden. Nothing breaks if this is left blank.
+   ══════════════════════════════════════════════════════════════ */
+const CLOUD = {
+  clientId:     'PASTE-CLIENT-ID-HERE',           // Entra "Application (client) ID" (a GUID)
+  tenant:       '3923mgmt.com',                   // Directory (tenant) ID or a verified domain
+  useOneDrive:  true,                             // true = store in the signed-in user's OneDrive (follows HER across devices; Files.ReadWrite, user-consentable — no admin consent)
+                                                  // false = store in a shared SharePoint site (org-owned; lets you/GMs see it too; needs Sites.ReadWrite.All + admin consent)
+  siteHostname: 'nelsonslawfirm.sharepoint.com',  // (only used when useOneDrive:false) SharePoint host, NOT the "-my" OneDrive host
+  sitePath:     '/sites/Operations',              // (only used when useOneDrive:false) site whose Documents library holds the data file
+  fileName:     'RM-Walkthrough-Data.json',       // the single JSON file that stores all walk history + open items
+};
+const CLOUD_SCOPES = CLOUD.useOneDrive
+  ? ['User.Read', 'Files.ReadWrite']
+  : ['User.Read', 'Sites.ReadWrite.All'];
+// Cloud is active only when a real GUID Client ID is present AND we're served over http(s) (OAuth can't redirect to file://).
+const CLOUD_ENABLED = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(CLOUD.clientId)
+  && location.protocol !== 'file:';
+
+let msalApp = null, cloudAccount = null, cloudBusy = false, driveItemBase = null, lastSyncLabel = '';
+
+const PROPERTIES = [
+  { id: 'mp_ama', name: 'My Place Amarillo',   brand: 'My Place (Independent)' },
+  { id: 'mp_lub', name: 'My Place Lubbock',    brand: 'My Place (Independent)' },
+  { id: 'tru',    name: 'Tru by Hilton',       brand: 'Hilton' },
+  { id: 'hyatt',  name: 'Hyatt Place',         brand: 'Hyatt' },
+  { id: 'home2',  name: 'Home2 Suites',        brand: 'Hilton' },
+  { id: 'cy',     name: 'Courtyard Downtown',  brand: 'Marriott' },
 ];
-const RI=["Door, lock, hardware, peephole","First impression — smell, temp, cleanliness","Carpet / flooring condition","Walls, ceiling, baseboards","Bed — linens, mattress, pillows, frame","Furniture — nightstands, desk, dresser","TV, remote, programming","HVAC — functional, quiet, filter","Windows, blinds, curtains","Closet — hangers, iron, safe, rack","Lighting — all fixtures, outlets, USB","Bathroom — cleanliness, fixtures, function","Grout, caulking, tile condition","Amenities — toiletries, towels, dryer","Mini-fridge / coffee maker","Odors — none present","In-room collateral current"];
-const AQ=["What stood out positively?","What would embarrass us in front of an investor?","Worse since last visit?","Improved since last visit?","Where is the GM winning?","Where does the GM need support?","Biggest threat to guest satisfaction?","Fix before we leave today:"];
 
-// *** PASTE YOUR GOOGLE APPS SCRIPT URL HERE ***
-const UPLOAD_URL="https://script.google.com/macros/s/AKfycbzbEOoS8rdG8iz8Jo-ZkY4KAVdgpd_8fIXxUNfEAFyHqpD6a3hxfmXP8slN8VzSC3eQ/exec";
+// Inspection sections (pass / fail / N/A per item, with comment). Faithful to the RM form.
+const SECTIONS = [
+  { id: 'parking', title: 'Parking & Outdoor Appearance', items: [
+    'Lot clean — no litter, debris, or stains; striping visible',
+    'Exterior lighting, signage illuminated and undamaged',
+    'Landscaping trimmed; entry/driveway clear; trash area clean',
+    'Building façade clean — no damage or staining',
+  ]},
+  { id: 'uniforms', title: 'Uniforms & Staff Presentation', items: [
+    'All on-duty staff in proper uniform — clean, pressed, name badge visible',
+    'Grooming standards met — professional appearance and demeanor',
+    'Housekeeping / maintenance properly uniformed',
+  ]},
+  { id: 'public', title: 'Public Space & Lobby', items: [
+    'Lobby, front desk, and surfaces clean and organized',
+    'Complimentary beverage/coffee station stocked and clean',
+    'Public restrooms clean — soap, paper, fixtures working',
+    'Pool/spa water clear; chemical log current and in range',
+    'Deck clean, no slip hazards; gate/access control working; towels stocked',
+    'Fitness center clean; equipment functional',
+    'Hallways, elevators, vending/ice areas clean',
+  ]},
+];
 
-// ─── STATE ───────────────────────────────────────────
-const DEF={v:"setup",si:0,ri:0,nk:null,ak:null,info:{property:"",brand:"",date:new Date().toISOString().split("T")[0],gm:"",agm:"",rmgr:"",inspector:"",occ:"",qa:""},rat:{},notes:{},acts:{},assess:{},rooms:[{num:"",type:""},{num:"",type:""},{num:"",type:""}],fu:{d30:"",d90:"",next:""},uploaded:false};
-let st=JSON.parse(JSON.stringify(DEF));
-// Photos stored separately (base64 can be large, keep out of main state)
-let photos={}; // { "ext": [{data:"base64...",label:"ext_1"}], "r0": [...] }
-try{const s=localStorage.getItem("wt5");if(s)Object.assign(st,JSON.parse(s));}catch(e){}
-try{const p=localStorage.getItem("wt5p");if(p)photos=JSON.parse(p);}catch(e){}
+// Compliance (Yes / No + note)
+const COMPLIANCE = { id: 'compliance', title: 'Compliance', items: [
+  'Keys secured and locked when not in use',
+  'Key sign-in / sign-out log current and complete',
+  'Vendor log in use — all vendors signed in and out',
+  'Guest complaint log on site and actively being utilized',
+  'Daily huddle agenda binder on site and current',
+]};
 
-function sv(){try{localStorage.setItem("wt5",JSON.stringify(st));}catch(e){}}
-function svp(){try{localStorage.setItem("wt5p",JSON.stringify(photos));}catch(e){toast("⚠ Storage full — photos may not save");}}
-function U(u){Object.assign(st,u);sv();R();}
-function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2000);}
-function E(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+const TIMELINES = [
+  { id: 'immediately', label: 'Immediately', cls: 'tl-immediately' },
+  { id: 'week',        label: 'This Week',   cls: 'tl-week' },
+  { id: 'month',       label: 'This Month',  cls: 'tl-month' },
+  { id: 'capex',       label: 'CapEx',       cls: 'tl-capex' },
+];
+const TL_MAP = Object.fromEntries(TIMELINES.map(t => [t.id, t]));
 
-// ─── SCORING ─────────────────────────────────────────
-function rsc(i){let s=0,t=0;for(let j=0;j<RI.length;j++){const r=st.rat[`r${i}-${j}`];if(r){s+=r;t++;}}return{s,t};}
-function tot(){let s=0,mx=0;SEC.forEach(c=>{const r=st.rat[c.id];if(r){s+=r;mx+=5;}});st.rooms.forEach((_,i)=>{const c=rsc(i);if(c.t>0){s+=c.s;mx+=c.t*5;}});return{s,mx,pct:mx>0?Math.round(s/mx*100):0};}
-function fl(){const f=[];SEC.forEach(c=>{const r=st.rat[c.id];if(r&&r<=3)f.push({k:c.id,sec:c.name,code:c.code,item:c.name,r,note:st.notes[c.id]||"",act:st.acts[c.id]||{}});});st.rooms.forEach((_,i)=>{RI.forEach((item,j)=>{const k=`r${i}-${j}`,r=st.rat[k];if(r&&r<=3)f.push({k,sec:"Room "+(st.rooms[i].num||i+1),code:`R${i+1}.${j+1}`,item,r,note:st.notes[k]||"",act:st.acts[k]||{}});});});return f;}
-function pc(p){return p>=90?"var(--r5)":p>=75?"var(--r4)":p>=60?"var(--r3)":"var(--r1)";}
-function pl(p){return p>=90?"Excellent":p>=75?"Good":p>=60?"Fair":"Unsatisfactory";}
-function pcnt(secId){return(photos[secId]||[]).length;}
+/* ══════════════════════════════════════════════════════════════
+   STORAGE  (localStorage with in-memory fallback for sandboxes)
+   ══════════════════════════════════════════════════════════════ */
+let memoryStore = null;      // fallback if localStorage unavailable
+let storageOK = true;
 
-// ─── PHOTO HANDLING ──────────────────────────────────
-function compressImg(file,maxW,quality){
-  return new Promise((res)=>{
-    const reader=new FileReader();
-    reader.onload=function(e){
-      const img=new Image();
-      img.onload=function(){
-        const canvas=document.createElement("canvas");
-        let w=img.width,h=img.height;
-        if(w>maxW){h=Math.round(h*(maxW/w));w=maxW;}
-        canvas.width=w;canvas.height=h;
-        const ctx=canvas.getContext("2d");
-        ctx.drawImage(img,0,0,w,h);
-        res(canvas.toDataURL("image/jpeg",quality));
-      };
-      img.src=e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) { storageOK = false; }
+  if (memoryStore) return memoryStore;
+  return { version: 1, drafts: {}, history: {} };  // history[propId] = [walks]
 }
 
-function takePhoto(secId){
-  const cam=document.getElementById("cam");
-  cam.onchange=async function(){
-    if(!this.files||!this.files.length)return;
-    for(let i=0;i<this.files.length;i++){
-      const compressed=await compressImg(this.files[i],800,0.7);
-      if(!photos[secId])photos[secId]=[];
-      photos[secId].push({data:compressed,ts:Date.now()});
-    }
-    svp();R();toast(`📷 ${this.files.length} photo${this.files.length>1?"s":""} added`);
-    this.value="";
-  };
-  cam.click();
-}
-
-function delPhoto(secId,idx){
-  if(photos[secId]){photos[secId].splice(idx,1);if(!photos[secId].length)delete photos[secId];svp();R();}
-}
-
-function photoThumbs(secId){
-  const p=photos[secId]||[];
-  if(!p.length)return"";
-  let h=`<div class="thumbs">`;
-  p.forEach((ph,i)=>{h+=`<div class="thumb-wrap"><img class="thumb" src="${ph.data}" onclick="viewPhoto('${secId}',${i})"><button class="thumb-x" onclick="event.stopPropagation();delPhoto('${secId}',${i})">×</button></div>`;});
-  h+=`</div>`;return h;
-}
-
-function viewPhoto(secId,idx){
-  const ph=photos[secId]?.[idx];
-  if(!ph)return;
-  const w=window.open();
-  w.document.write(`<img src="${ph.data}" style="max-width:100%;height:auto">`);
-}
-
-// ─── RENDER ──────────────────────────────────────────
-function R(){
-  const ce=document.querySelector(".cnt");const sy=ce?ce.scrollTop:0;
-  const t=tot(),f=fl();let h="";
-  if(st.v!=="setup"){
-    h+=`<div class="topbar"><div class="tr"><div><div class="tn">${E(st.info.property)||"Property Walkthrough"}</div><div class="tb">3923 Management</div></div><div><div class="ts" style="color:${t.mx>0?pc(t.pct):"#666"}">${t.mx>0?t.pct+"%":"—"}</div><div class="tss">${t.mx>0?t.s+"/"+t.mx:"Start scoring"}</div></div></div>`;
-    if(st.v==="walk"){h+=`<div class="chips">`;SEC.forEach((c,i)=>{const r=st.rat[c.id];h+=`<button class="ch${st.si===i?" a":""}${r?" d":""}" onclick="U({si:${i}})">${c.code}${r?" ✓":""}</button>`;});h+=`</div>`;}
-    h+=`</div>`;
+function saveData(data) {
+  memoryStore = data;
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    return true;
+  } catch (e) {
+    storageOK = false;
+    return false;
   }
-  h+=`<div class="cnt">`;
-  if(st.v==="setup")h+=vSetup();else if(st.v==="walk")h+=vWalk();else if(st.v==="rooms")h+=vRooms();else if(st.v==="assess")h+=vAssess();else if(st.v==="plan")h+=vPlan(f);else if(st.v==="export")h+=vExport(t,f);
-  h+=`</div>`;
-  h+=`<div class="nv">`;[["setup","⚙️","Setup"],["walk","🏨","Walk"],["rooms","🛏️","Rooms"],["assess","💬","Assess"],["plan","📋","Plan"],["export","📤","Export"]].forEach(([v,ic,lb])=>{h+=`<button class="nb${st.v===v?" a":""}" onclick="U({v:'${v}'})"><span class="ic">${ic}</span><span class="lb">${lb}</span>${v==="plan"&&f.length>0?`<span class="bg">${f.length}</span>`:""}</button>`;});h+=`</div>`;
-  if(st.nk)h+=mNote();if(st.ak)h+=mAct();
-  document.getElementById("app").innerHTML=h;
-  const nc=document.querySelector(".cnt");if(nc)nc.scrollTop=sy;
-  if(st.nk){const ta=document.getElementById("nta");if(ta){ta.focus();ta.selectionStart=ta.value.length;}}
 }
 
-// ─── VIEWS ───────────────────────────────────────────
-function vSetup(){
-  let h=`<div class="pg"><div style="text-align:center;margin-bottom:16px"><div style="font-size:22px;font-weight:800;color:var(--navy)">Property Walkthrough</div><div style="font-size:12px;color:var(--gold);font-weight:600">3923 Management</div></div>`;
-  [["property","Property Name"],["brand","Brand"],["date","Date","date"],["gm","General Manager"],["agm","Accountability Partner GM"],["rmgr","Regional Manager"],["inspector","Your Name"],["occ","Today's Occupancy"],["qa","Last Walkthrough Score / Date"]].forEach(([k,l,t])=>{h+=`<div class="fl"><label>${l}</label><input type="${t||"text"}" value="${E(st.info[k])}" oninput="ui('${k}',this.value)"></div>`;});
-  h+=`<button class="bt bn" style="margin-top:10px" onclick="U({v:'walk'})">Start Walkthrough →</button>`;
-  h+=`<button class="bt bo" style="margin-top:8px" onclick="resetAll()">Reset All Data</button>`;
-  h+=`<div style="text-align:center;margin-top:12px;font-size:10px;color:#bbb">Data saves automatically to this device.</div></div>`;return h;
+let DATA = loadData();
+let currentProp = PROPERTIES[0].id;
+
+/* ══════════════════════════════════════════════════════════════
+   HELPERS
+   ══════════════════════════════════════════════════════════════ */
+function uid() { return 'i' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function esc(s) { return (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function propName(id) { const p = PROPERTIES.find(x => x.id === id); return p ? p.name : id; }
+function propBrand(id) { const p = PROPERTIES.find(x => x.id === id); return p ? p.brand : ''; }
+function todayISO() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const [y,m,d] = iso.split('-'); if (!d) return iso;
+  return new Date(+y, +m-1, +d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+function fmtDateShort(iso) {
+  if (!iso) return '—';
+  const [y,m,d] = iso.split('-'); if (!d) return iso;
+  return (+m) + '/' + (+d) + '/' + String(y).slice(2);
 }
 
-function vWalk(){
-  const c=SEC[st.si],r=st.rat[c.id],ph=pcnt(c.id);
-  let h=`<div style="max-width:480px;margin:0 auto"><div class="sh"><div style="display:flex;justify-content:space-between;align-items:center"><div class="st2">${c.code}. ${c.name}</div>`;
-  if(r)h+=`<div style="font-size:20px;font-weight:800;color:${pc(r*20)}">${r}/5</div>`;
-  h+=`</div></div>`;
-  c.items.forEach(item=>{h+=`<div class="ck"><span class="dt">•</span><span>${E(item)}</span></div>`;});
-  h+=`<div class="sa"><div class="sl">Rate this section overall</div><div class="rbs">`;
-  for(let n=1;n<=5;n++)h+=`<button class="rb${r===n?" s"+n:""}" onclick="rs('${c.id}',${n})">${n}</button>`;
-  h+=`</div>`;
-  if(r&&r<=3){const a=st.acts[c.id]||{};h+=`<div style="margin-top:10px"><div class="sl">Timeline for repair</div><div class="bkr">`;[["now","Immediately"],["M","30 Days"],["Q","90 Days"],["C","CapEx"]].forEach(([v,l])=>{h+=`<button class="bk${a.bucket===v?" a":""}" onclick="sa('${c.id}','${v}')">${l}</button>`;});h+=`</div></div>`;}
-  h+=`<div style="margin-top:8px"><div class="sl">Comments / Action Items</div><textarea rows="3" placeholder="What did you see? What needs to happen?" oninput="sn('${c.id}',this.value)" style="width:100%;padding:8px;border-radius:7px;border:1px solid #ddd;font-size:13px;box-sizing:border-box;resize:vertical">${E(st.notes[c.id]||"")}</textarea></div>`;
-  h+=`<div style="margin-top:8px"><button class="pb${ph>0?" has":""}" onclick="takePhoto('${c.id}')">📷 ${ph>0?"Add More ("+ph+")":"Take Photo"}</button></div>`;
-  h+=photoThumbs(c.id);
-  h+=`</div>`;
-  h+=`<div class="br" style="padding:12px">`;
-  if(st.si>0)h+=`<button class="bt bo" style="flex:1" onclick="U({si:${st.si-1}})">← Prev</button>`;
-  if(st.si<SEC.length-1)h+=`<button class="bt bn" style="flex:1" onclick="U({si:${st.si+1}})">Next →</button>`;
-  else h+=`<button class="bt bg2" style="flex:1" onclick="U({v:'rooms'})">Rooms →</button>`;
-  h+=`</div></div>`;return h;
+function lastCompleted(propId) {
+  const h = DATA.history[propId];
+  if (!h || !h.length) return null;
+  return h[h.length - 1];
 }
 
-function vRooms(){
-  const i=st.ri,rm=st.rooms[i]||{num:"",type:""},s=rsc(i),p=s.t>0?Math.round(s.s/(s.t*5)*100):null,ph=pcnt(`r${i}`);
-  let h=`<div style="max-width:480px;margin:0 auto"><div class="rtb">`;
-  st.rooms.forEach((_,j)=>{const rs2=rsc(j),rp=rs2.t>0?Math.round(rs2.s/(rs2.t*5)*100):null,rn=st.rooms[j].num;h+=`<button class="rt${st.ri===j?" a":""}" onclick="U({ri:${j}})">${rn||"Rm "+(j+1)}${rp!==null?`<div class="rtp">${rp}%</div>`:""}</button>`;});
-  if(st.rooms.length<8)h+=`<button class="ar" onclick="addRm()">+</button>`;
-  h+=`</div>`;
-  h+=`<div style="padding:8px 12px;display:flex;gap:8px;border-bottom:1px solid #eee"><div class="fl" style="flex:1;margin:0"><label>Room # *</label><input value="${E(rm.num)}" placeholder="214" oninput="ur(${i},'num',this.value)"></div><div class="fl" style="flex:1;margin:0"><label>Type</label><select onchange="ur(${i},'type',this.value)"><option value="">Select</option>${["King","Double","Suite","ADA","Other"].map(t=>`<option${rm.type===t?" selected":""}>${t}</option>`).join("")}</select></div></div>`;
-  h+=`<div style="padding:4px 12px;display:flex;justify-content:space-between;align-items:center"><div style="font-size:10px;color:${s.t===RI.length?"var(--r5)":"#bbb"};font-weight:600">${s.t}/${RI.length} scored${s.t===RI.length?" ✓":""}</div>`;
-  if(p!==null)h+=`<div style="font-size:13px;font-weight:700;color:${pc(p)};background:${pc(p)}15;padding:2px 8px;border-radius:10px">${p}%</div>`;
-  h+=`</div>`;
-  RI.forEach((item,j)=>{
-    const k=`r${i}-${j}`,r=st.rat[k],hn=st.notes[k],ha=st.acts[k];
-    h+=`<div class="it${r&&r<=2?" dg":r===3?" w":""}"><div class="itp"><div class="ii"><div class="ic2">R${i+1}.${j+1}</div><div class="il">${E(item)}</div></div><div class="rbs">`;
-    for(let n=1;n<=5;n++)h+=`<button class="rb rs${r===n?" s"+n:""}" onclick="rt('r${i}-${j}',${n})">${n}</button>`;
-    h+=`</div></div>`;
-    if(r){h+=`<div class="ia"><button class="tg${hn?" nv2":""}" onclick="U({nk:'r${i}-${j}'})">${hn?"✎ Note":"+ Note"}</button>`;if(r<=3)h+=`<button class="tg${ha&&ha.bucket?" on":""}" onclick="U({ak:'r${i}-${j}'})">${ha&&ha.bucket?ha.bucket+(ha.owner?" · "+E(ha.owner):""):"+ Action"}</button>`;h+=`</div>`;}
-    h+=`</div>`;
-  });
-  h+=`<div style="padding:10px 12px"><button class="pb${ph>0?" has":""}" onclick="takePhoto('r${i}')">📷 ${ph>0?"Add More ("+ph+")":"Take Photo"}</button></div>`;
-  h+=photoThumbs(`r${i}`);
-  h+=`<div class="br" style="padding:12px"><button class="bt bo" style="flex:1" onclick="U({v:'walk'})">← Walk</button><button class="bt bn" style="flex:1" onclick="U({v:'assess'})">Assessment →</button></div></div>`;return h;
-}
-
-function vAssess(){
-  let h=`<div class="pg"><div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:3px">Overall Assessment</div><div style="font-size:11px;color:#999;margin-bottom:14px">Complete as a team after the walkthrough.</div>`;
-  AQ.forEach((q,i)=>{h+=`<div style="margin-bottom:10px"><label style="font-size:12px;font-weight:600;color:var(--navy);display:block;margin-bottom:3px">${E(q)}</label><textarea rows="2" placeholder="..." oninput="ua(${i},this.value)">${E(st.assess[i]||"")}</textarea></div>`;});
-  h+=`<button class="bt bn" onclick="U({v:'plan'})">View Action Plan →</button></div>`;return h;
-}
-
-function vPlan(f){
-  let h=`<div class="pg"><div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:3px">Action Plan</div><div style="font-size:11px;color:#999;margin-bottom:10px">${f.length} items flagged.</div>`;
-  [["now","Immediately","#fee2e2","#991b1b"],["M","30 Days","#fef3c7","#92400e"],["Q","90 Days","#dbeafe","#1e40af"],["C","CapEx","#f3e8ff","#6b21a8"]].forEach(([b,lb,bg,fg])=>{
-    const items=f.filter(x=>x.act.bucket===b);
-    h+=`<div style="margin-bottom:14px"><div style="font-size:12px;font-weight:700;padding:5px 9px;border-radius:5px;background:${bg};color:${fg};margin-bottom:5px">${lb} (${items.length})</div>`;
-    if(!items.length)h+=`<div style="font-size:11px;color:#ddd;padding:3px 9px">None</div>`;
-    items.forEach(x=>{const bc=x.r<=1?"var(--r1)":x.r===2?"var(--r2)":"var(--r3)";h+=`<div class="pi" style="border-color:${bc}"><div style="font-size:12px;font-weight:600;color:var(--navy)"><span style="color:#bbb">${x.code}</span> ${E(x.item)}</div><div style="font-size:10px;color:#999;margin-top:1px">Rating: ${x.r} · ${E(x.sec)}${x.act.owner?" · "+E(x.act.owner):""}</div>${x.note?`<div style="font-size:10px;color:#777;font-style:italic;margin-top:1px">${E(x.note)}</div>`:""}</div>`;});
-    h+=`</div>`;
-  });
-  const u=f.filter(x=>!x.act.bucket);if(u.length){h+=`<div style="margin-bottom:14px"><div style="font-size:12px;font-weight:700;padding:5px 9px;border-radius:5px;background:#fef2f2;color:#991b1b;margin-bottom:5px">Unassigned (${u.length})</div>`;u.forEach(x=>{h+=`<div class="pi" style="border-color:var(--r2);display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:12px;font-weight:600;color:var(--navy)"><span style="color:#bbb">${x.code}</span> ${E(x.item)}</div><div style="font-size:10px;color:#999">Rating: ${x.r}</div></div><button class="tg" onclick="U({ak:'${x.k}'})">Assign</button></div>`;});h+=`</div>`;}
-  h+=`<div class="br"><button class="bt bo" style="flex:1" onclick="U({v:'assess'})">← Assess</button><button class="bt bg2" style="flex:1" onclick="U({v:'export'})">Export →</button></div></div>`;return h;
-}
-
-function vExport(t,f){
-  let tp=0;Object.values(photos).forEach(a=>{tp+=a.length;});
-  let h=`<div class="pg"><div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:14px">Export Report</div>`;
-  h+=`<div class="ec"><div style="font-size:12px;color:var(--lgold);margin-bottom:3px">${E(st.info.property)||"Property"}</div><div style="font-size:42px;font-weight:800;color:${pc(t.pct)}">${t.pct}%</div><div style="font-size:13px;color:#ccc">${t.s} / ${t.mx} — ${pl(t.pct)}</div><div style="font-size:11px;color:#999;margin-top:3px">${f.length} action items · ${tp} photos</div></div>`;
-  h+=`<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px">Section Scores</div><div style="margin-bottom:14px">`;
-  SEC.forEach(c=>{const r=st.rat[c.id],ph=pcnt(c.id);h+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:12px"><span>${c.code}. ${c.name}${ph>0?" 📷"+ph:""}</span>${r?`<span style="font-weight:700;color:${pc(r*20)}">${r}/5</span>`:`<span style="color:#ccc">—</span>`}</div>`;});
-  st.rooms.forEach((rm,i)=>{const s=rsc(i);if(s.t>0){const p=Math.round(s.s/(s.t*5)*100),ph=pcnt(`r${i}`);h+=`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:12px"><span>Room ${rm.num||i+1} (${rm.type||"—"})${ph>0?" 📷"+ph:""}</span><span style="font-weight:700;color:${pc(p)}">${p}%</span></div>`;}});
-  h+=`</div>`;
-  h+=`<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px">Follow-Up Schedule</div>`;
-  [["d30","30-Day Check-In"],["d90","90-Day Check-In"],["next","Next Full Walkthrough"]].forEach(([k,l])=>{h+=`<div class="fl"><label>${l}</label><input type="date" value="${st.fu[k]}" oninput="uf('${k}',this.value)"></div>`;});
-  h+=`<button class="bt" style="margin-top:14px;background:var(--r5);color:#fff" onclick="uploadAll()">☁ Upload Report${tp>0?" & "+tp+" Photos":""}</button>`;
-  h+=`<div id="uprog"></div>`;
-  if(st.uploaded)h+=`<div style="text-align:center;margin-top:8px;font-size:11px;color:var(--r5);font-weight:600">✓ Report uploaded successfully</div>`;
-  h+=`<div class="br" style="margin-top:8px"><button class="bt bo" style="flex:1" onclick="cpRpt()">📋 Copy</button><button class="bt bo" style="flex:1" onclick="dlRpt()">⬇ Download</button></div>`;
-  h+=`<div style="text-align:center;margin-top:12px;font-size:10px;color:#bbb">Upload sends all data + photos. Copy/Download are text-only backups.</div>`;
-  h+=`</div>`;return h;
-}
-
-// ─── MODALS ──────────────────────────────────────────
-function mNote(){return `<div class="mb" onclick="U({nk:null})"><div class="md" onclick="event.stopPropagation()"><div class="mt">Notes</div><textarea id="nta" placeholder="What did you see?" oninput="un(this.value)" style="width:100%;min-height:70px;border-radius:8px;border:1px solid #ddd;padding:10px;font-size:14px;box-sizing:border-box;resize:vertical">${E(st.notes[st.nk]||"")}</textarea><button class="bt bn" style="margin-top:8px" onclick="U({nk:null})">Done</button></div></div>`;}
-function mAct(){const a=st.acts[st.ak]||{};let h=`<div class="mb" onclick="U({ak:null})"><div class="md" onclick="event.stopPropagation()"><div class="mt">Action Item</div><div style="font-size:11px;font-weight:600;color:#888;margin-bottom:5px">Timeline</div><div class="bkr">`;[["now","Immediately"],["M","30 Days"],["Q","90 Days"],["C","CapEx"]].forEach(([v,l])=>{h+=`<button class="bk${a.bucket===v?" a":""}" onclick="uaf('bucket','${v}')">${l}</button>`;});h+=`</div><div style="font-size:11px;font-weight:600;color:#888;margin-bottom:4px">Owner</div><input value="${E(a.owner||"")}" placeholder="Who owns this?" oninput="uaf('owner',this.value)" style="width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;font-size:14px;box-sizing:border-box;margin-bottom:8px"><button class="bt bn" onclick="U({ak:null})">Done</button></div></div>`;return h;}
-
-// ─── ACTIONS ─────────────────────────────────────────
-function rt(k,v){st.rat[k]=st.rat[k]===v?undefined:v;sv();R();}
-function rs(id,v){st.rat[id]=st.rat[id]===v?undefined:v;sv();R();}
-function ui(k,v){st.info[k]=v;sv();}
-function un(v){st.notes[st.nk]=v;sv();}
-function sn(id,v){st.notes[id]=v;sv();}
-function sa(id,v){if(!st.acts[id])st.acts[id]={};st.acts[id].bucket=st.acts[id].bucket===v?undefined:v;sv();R();}
-function uaf(f,v){if(!st.acts[st.ak])st.acts[st.ak]={};st.acts[st.ak][f]=v;sv();if(f!=="owner")R();}
-function ua(i,v){st.assess[i]=v;sv();}
-function uf(k,v){st.fu[k]=v;sv();}
-function ur(i,f,v){st.rooms[i][f]=v;sv();if(f!=="num")R();}
-function addRm(){st.rooms.push({num:"",type:""});st.ri=st.rooms.length-1;sv();R();}
-function resetAll(){if(confirm("Reset ALL data including photos? This cannot be undone.")){localStorage.removeItem("wt5");localStorage.removeItem("wt5p");st=JSON.parse(JSON.stringify(DEF));photos={};R();}}
-
-// ─── REPORT GEN ──────────────────────────────────────
-function genRpt(){
-  const t=tot(),f=fl();
-  let r=`3923 MANAGEMENT — PROPERTY WALKTHROUGH\n${"=".repeat(50)}\n\nProperty: ${st.info.property}\nBrand: ${st.info.brand}\nDate: ${st.info.date}\nGM: ${st.info.gm}\nAccountability GM: ${st.info.agm}\nRegional Mgr: ${st.info.rmgr}\nInspector: ${st.info.inspector}\nOccupancy: ${st.info.occ}\nLast Walkthrough: ${st.info.qa}\n\nOVERALL SCORE: ${t.s}/${t.mx} (${t.pct}%) — ${pl(t.pct)}\n${"-".repeat(50)}\n\nSECTION SCORES\n`;
-  SEC.forEach(c=>{const v=st.rat[c.id];r+=`  ${c.code}. ${c.name}: ${v?v+"/5":"—"}\n`;if(st.notes[c.id])r+=`     Notes: ${st.notes[c.id]}\n`;const a=st.acts[c.id];if(a&&a.bucket)r+=`     Timeline: ${a.bucket}\n`;r+=`     Photos: ${pcnt(c.id)}\n`;});
-  r+=`\nROOM SCORES\n`;
-  st.rooms.forEach((rm,i)=>{const s=rsc(i);if(s.t>0){const p=Math.round(s.s/(s.t*5)*100);r+=`\n  Room ${rm.num||i+1} (${rm.type||"—"}): ${s.s}/${s.t*5} (${p}%)\n`;RI.forEach((item,j)=>{const k=`r${i}-${j}`,rv=st.rat[k];if(rv){r+=`    R${i+1}.${j+1} [${rv}] ${item}`;if(st.notes[k])r+=` — ${st.notes[k]}`;const a=st.acts[k];if(a&&a.bucket)r+=` [${a.bucket}${a.owner?" "+a.owner:""}]`;r+="\n";}});r+=`    Photos: ${pcnt("r"+i)}\n`;}});
-  r+=`\n${"=".repeat(50)}\nACTION PLAN (${f.length} items)\n${"=".repeat(50)}\n\n`;
-  ["now","M","Q","C"].forEach(b=>{const lb=b==="now"?"IMMEDIATELY":b==="M"?"30 DAYS":b==="Q"?"90 DAYS":"CAPEX";const items=f.filter(x=>x.act.bucket===b);if(items.length){r+=`${lb} (${items.length})\n`;items.forEach(x=>{r+=`  [${x.r}] ${x.code} ${x.item}${x.act.owner?" — "+x.act.owner:""}\n`;if(x.note)r+=`      ${x.note}\n`;});r+="\n";}});
-  r+=`${"=".repeat(50)}\nASSESSMENT\n${"=".repeat(50)}\n\n`;AQ.forEach((q,i)=>{r+=`${q}\n${st.assess[i]||"(not completed)"}\n\n`;});
-  r+=`FOLLOW-UP\n30-Day: ${st.fu.d30||"TBD"}\n90-Day: ${st.fu.d90||"TBD"}\nNext Walk: ${st.fu.next||"TBD"}\n\n"We take care of people." — Genesis 39:23\n`;return r;
-}
-function cpRpt(){navigator.clipboard.writeText(genRpt()).then(()=>toast("📋 Copied!")).catch(()=>{const t=document.createElement("textarea");t.value=genRpt();document.body.appendChild(t);t.select();document.execCommand("copy");document.body.removeChild(t);toast("📋 Copied!");});}
-function dlRpt(){const b=new Blob([genRpt()],{type:"text/plain"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download=`walkthrough_${(st.info.property||"report").replace(/\s+/g,"_")}_${st.info.date}.txt`;a.click();URL.revokeObjectURL(u);}
-
-// ─── UPLOAD ──────────────────────────────────────────
-async function uploadAll(){
-  const prog=document.getElementById("uprog");
-  if(prog)prog.innerHTML=`<div class="upload-progress"><div class="upload-bar" style="width:10%"></div></div><div style="text-align:center;font-size:11px;color:#888;margin-top:4px">Preparing upload...</div>`;
-  toast("Preparing...");
-
-  // Build full payload
-  const payload={
-    timestamp:new Date().toISOString(),
-    info:st.info,
-    ratings:st.rat,
-    notes:st.notes,
-    actions:st.acts,
-    rooms:st.rooms,
-    assessments:st.assess,
-    followUp:st.fu,
-    score:tot(),
-    flagCount:fl().length,
-    flags:fl(),
-    sections:SEC.map(c=>({id:c.id,code:c.code,name:c.name,rating:st.rat[c.id]||null,notes:st.notes[c.id]||"",action:st.acts[c.id]||null,photoCount:pcnt(c.id)})),
-    roomDetails:st.rooms.map((rm,i)=>{const s=rsc(i);return{num:rm.num,type:rm.type,scored:s.t,total:RI.length,score:s.s,maxScore:s.t*5,pct:s.t>0?Math.round(s.s/(s.t*5)*100):0,photoCount:pcnt("r"+i),items:RI.map((item,j)=>{const k=`r${i}-${j}`;return{item,rating:st.rat[k]||null,note:st.notes[k]||"",action:st.acts[k]||null};})};}).filter(r=>r.scored>0),
-    photos:photos
+/* ══════════════════════════════════════════════════════════════
+   DRAFT MODEL
+   ══════════════════════════════════════════════════════════════ */
+function blankDraft(propId) {
+  const prev = lastCompleted(propId);
+  // Pull still-open items from the previous completed walk to carry forward.
+  let carried = [];
+  if (prev && Array.isArray(prev.openItems)) {
+    carried = prev.openItems.map(it => ({
+      id: it.id,
+      text: it.text,
+      detail: it.detail || '',
+      source: it.source,
+      sectionTitle: it.sectionTitle || '',
+      timeline: it.timeline || '',
+      owner: it.owner || '',
+      originatedDate: it.originatedDate,
+      visitsOpen: (it.visitsOpen || 1),
+      resolution: 'open',        // open | resolved
+      resolutionNote: '',
+    }));
+  }
+  return {
+    propId,
+    date: todayISO(),
+    timeIn: '', timeOut: '',
+    gmMod: '', inspector: '',
+    rating: '',                  // sat | ni | unsat
+    carried,
+    inspection: {},              // {sectionId: {idx: {status, comment}}}
+    compliance: {},              // {idx: {status:'yes'|'no', note}}
+    sectionNotes: {},            // {sectionId: notesText}
+    rooms: [ blankRoom(), blankRoom(), blankRoom() ],
+    actions: [],                 // {id, timeline, text, owner}
+    priorities: ['', '', ''],
+    startedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   };
+}
+function blankRoom() { return { num: '', clean: '', work: '', obs: '' }; }
 
-  if(!UPLOAD_URL){
-    // No backend configured — save JSON locally
-    if(prog)prog.innerHTML=`<div class="upload-progress"><div class="upload-bar" style="width:100%"></div></div>`;
-    const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
-    const u=URL.createObjectURL(blob);
-    const a=document.createElement("a");
-    a.href=u;
-    a.download=`walkthrough_${(st.info.property||"report").replace(/\s+/g,"_")}_${st.info.date}.json`;
-    a.click();
-    URL.revokeObjectURL(u);
-    st.uploaded=true;sv();R();
-    toast("✓ Downloaded — send JSON to JD");
+function getDraft(propId) {
+  if (!DATA.drafts[propId]) {
+    DATA.drafts[propId] = blankDraft(propId);
+    saveData(DATA);
+  }
+  // Guard against drafts saved by an earlier version missing newer fields.
+  const d = DATA.drafts[propId];
+  d.sectionNotes = d.sectionNotes || {};
+  d.inspection = d.inspection || {};
+  d.compliance = d.compliance || {};
+  d.carried = d.carried || [];
+  d.actions = d.actions || [];
+  d.rooms = d.rooms || [ blankRoom(), blankRoom(), blankRoom() ];
+  d.priorities = d.priorities || ['', '', ''];
+  d.updatedAt = d.updatedAt || d.startedAt || new Date().toISOString();
+  return d;
+}
+
+let draft = null;    // active draft reference
+let saveTimer = null;
+
+function scheduleSave() {
+  if (draft) draft.updatedAt = new Date().toISOString();
+  setStatus('Saving…', '');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    const ok = saveData(DATA);
+    setStatus(ok ? 'Saved' : 'Not saved — storage blocked', ok ? 'saved' : 'warn');
+    renderStatusRow();
+  }, 350);
+}
+
+function setStatus(text, cls) {
+  const el = document.getElementById('saveStatus');
+  el.textContent = text;
+  el.className = 'save-status' + (cls ? ' ' + cls : '');
+}
+
+/* ══════════════════════════════════════════════════════════════
+   OPEN-ITEM GENERATION (what carries forward)
+   ══════════════════════════════════════════════════════════════ */
+function computeNewOpenItems(d) {
+  const items = [];
+  // Failed inspection items
+  SECTIONS.forEach(sec => {
+    const st = d.inspection[sec.id] || {};
+    sec.items.forEach((label, idx) => {
+      const cell = st[idx];
+      if (cell && cell.status === 'fail') {
+        items.push({
+          id: uid(), source: 'inspection', sectionTitle: sec.title,
+          text: label, detail: cell.comment || '', timeline: '', owner: '',
+          originatedDate: d.date, visitsOpen: 1,
+        });
+      }
+    });
+  });
+  // Compliance "No"
+  COMPLIANCE.items.forEach((label, idx) => {
+    const cell = d.compliance[idx];
+    if (cell && cell.status === 'no') {
+      items.push({
+        id: uid(), source: 'compliance', sectionTitle: 'Compliance',
+        text: label, detail: cell.note || '', timeline: 'immediately', owner: '',
+        originatedDate: d.date, visitsOpen: 1,
+      });
+    }
+  });
+  // Room walk fails
+  (d.rooms || []).forEach(r => {
+    const fails = [];
+    if (r.clean === 'fail') fails.push('cleanliness');
+    if (r.work === 'fail') fails.push('working order');
+    if (fails.length) {
+      items.push({
+        id: uid(), source: 'room', sectionTitle: 'Room Walk',
+        text: 'Room ' + (r.num || '—') + ' — ' + fails.join(' & ') + ' failed',
+        detail: r.obs || '', timeline: '', owner: '',
+        originatedDate: d.date, visitsOpen: 1,
+      });
+    }
+  });
+  // Explicit action items
+  (d.actions || []).forEach(a => {
+    if ((a.text || '').trim()) {
+      items.push({
+        id: uid(), source: 'action', sectionTitle: 'Action Item',
+        text: a.text.trim(), detail: '', timeline: a.timeline || '', owner: a.owner || '',
+        originatedDate: d.date, visitsOpen: 1,
+      });
+    }
+  });
+  return items;
+}
+
+// Count what will carry forward, live, for the button label.
+function pendingCarryCount(d) {
+  const stillOpen = (d.carried || []).filter(c => c.resolution !== 'resolved').length;
+  return stillOpen + computeNewOpenItems(d).length;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   STATE ACCESSORS
+   ══════════════════════════════════════════════════════════════ */
+function ensureInsp(sid, idx) {
+  draft.inspection[sid] = draft.inspection[sid] || {};
+  draft.inspection[sid][idx] = draft.inspection[sid][idx] || { status: '', comment: '' };
+  return draft.inspection[sid][idx];
+}
+function ensureComp(idx) {
+  draft.compliance[idx] = draft.compliance[idx] || { status: '', note: '' };
+  return draft.compliance[idx];
+}
+
+function applyPath(path, value) {
+  const p = path.split(':');
+  const head = p[0];
+  if (['date','timeIn','timeOut','gmMod','inspector'].includes(head)) draft[head] = value;
+  else if (head === 'insp')  { ensureInsp(p[1], +p[2])[p[3]] = value; }
+  else if (head === 'comp')  { ensureComp(+p[1])[p[2]] = value; }
+  else if (head === 'note')  { draft.sectionNotes[p[1]] = value; }
+  else if (head === 'room')  { draft.rooms[+p[1]][p[2]] = value; }
+  else if (head === 'action'){ const a = draft.actions.find(x => x.id === p[1]); if (a) a[p[2]] = value; }
+  else if (head === 'prio')  { draft.priorities[+p[1]] = value; }
+  else if (head === 'carry') { const c = draft.carried.find(x => x.id === p[1]); if (c) c[p[2]] = value; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RENDER
+   ══════════════════════════════════════════════════════════════ */
+function render() {
+  const scrollY = window.scrollY;
+  document.getElementById('app').innerHTML =
+    renderCarry() +
+    renderMeta() +
+    SECTIONS.map((s, i) => renderSection(s, i + 1)).join('') +
+    renderCompliance(4) +
+    renderRooms(5) +
+    renderActions(6) +
+    renderPriorities() +
+    renderSticky();
+  window.scrollTo(0, scrollY);
+  renderStatusRow();
+}
+
+function renderCarry() {
+  const list = draft.carried || [];
+  if (!list.length) return '';
+  const stillOpen = list.filter(c => c.resolution !== 'resolved').length;
+  const prev = lastCompleted(draft.propId);
+  const rows = list.map(c => {
+    const resolved = c.resolution === 'resolved';
+    const age = (c.visitsOpen || 1) <= 1 ? 'Carried from last visit'
+              : 'Open across ' + c.visitsOpen + ' visits';
+    const tl = c.timeline && TL_MAP[c.timeline]
+      ? ` · <span class="tl-badge ${TL_MAP[c.timeline].cls}">${TL_MAP[c.timeline].label}</span>` : '';
+    const owner = c.owner ? ' · Owner: ' + esc(c.owner) : '';
+    const detail = c.detail ? '<div class="carry-meta">“' + esc(c.detail) + '”</div>' : '';
+    return `
+      <div class="carry-item ${resolved ? 'resolved' : ''}">
+        <div class="carry-item-top">
+          <div style="flex:1;min-width:200px">
+            <span class="src-tag">${esc(c.sectionTitle || c.source)}</span>
+            <span class="carry-text"> ${esc(c.text)}</span>
+            <div class="carry-meta">From ${fmtDateShort(c.originatedDate)} · <span class="age">${age}</span>${tl}${owner}</div>
+            ${detail}
+          </div>
+          <div class="carry-actions">
+            <button class="btn-sm ${resolved ? 'btn-gold' : 'btn-ghost'}" data-click="carry:${c.id}:resolved">✓ Resolved</button>
+            <button class="btn-sm ${resolved ? 'btn-ghost' : 'btn-secondary'}" data-click="carry:${c.id}:open">Still open</button>
+          </div>
+        </div>
+        <div class="carry-resolve-note">
+          <textarea rows="1" data-path="carry:${c.id}:resolutionNote" placeholder="${resolved ? 'How was it resolved? (optional)' : 'Update / note (optional)'}">${esc(c.resolutionNote)}</textarea>
+        </div>
+      </div>`;
+  }).join('');
+  return `
+    <div class="carry-panel">
+      <div class="carry-head">
+        ⚠ Open Items From Last Visit
+        <span class="badge">${stillOpen} to verify</span>
+      </div>
+      <div class="carry-body">
+        <div class="info-line">These carried over from the walk on <b>${prev ? fmtDate(prev.date) : '—'}</b>. Mark each Resolved or Still open. Anything left open rolls forward again.</div>
+        ${rows}
+      </div>
+    </div>`;
+}
+
+function renderMeta() {
+  const r = draft.rating;
+  return `
+    <div class="card">
+      <div class="card-head">Visit Details</div>
+      <div class="meta-grid">
+        <div class="field"><label>Property</label><input type="text" value="${esc(propName(draft.propId))}" disabled></div>
+        <div class="field"><label>Brand</label><input type="text" value="${esc(propBrand(draft.propId))}" disabled></div>
+        <div class="field"><label>Date</label><input type="date" data-path="date" value="${esc(draft.date)}"></div>
+        <div class="field"><label>Time In</label><input type="time" data-path="timeIn" value="${esc(draft.timeIn)}"></div>
+        <div class="field"><label>Time Out</label><input type="time" data-path="timeOut" value="${esc(draft.timeOut)}"></div>
+        <div class="field"><label>GM / MOD</label><input type="text" data-path="gmMod" value="${esc(draft.gmMod)}" placeholder="Name"></div>
+        <div class="field"><label>Inspector (Regional Manager)</label><input type="text" data-path="inspector" value="${esc(draft.inspector)}" placeholder="Name"></div>
+        <div class="field span-2">
+          <label>Overall Rating</label>
+          <div class="rating-group">
+            <button class="rating-btn ${r==='sat'?'sel-sat':''}" data-click="rating:sat">Satisfactory</button>
+            <button class="rating-btn ${r==='ni'?'sel-ni':''}" data-click="rating:ni">Needs Improvement</button>
+            <button class="rating-btn ${r==='unsat'?'sel-unsat':''}" data-click="rating:unsat">Unsatisfactory</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function pfnButtons(sid, idx, status) {
+  return `
+    <div class="item-controls">
+      <button class="pfn-btn pass ${status==='pass'?'on':''}" data-click="pfn:${sid}:${idx}:pass" title="Pass">✓</button>
+      <button class="pfn-btn fail ${status==='fail'?'on':''}" data-click="pfn:${sid}:${idx}:fail" title="Fail">✗</button>
+      <button class="pfn-btn na ${status==='na'?'on':''}" data-click="pfn:${sid}:${idx}:na" title="N/A"><small>N/A</small></button>
+    </div>`;
+}
+
+function renderSection(sec, num) {
+  const st = draft.inspection[sec.id] || {};
+  const rows = sec.items.map((label, idx) => {
+    const cell = st[idx] || { status: '', comment: '' };
+    const flag = cell.status === 'fail' ? 'flag' : '';
+    return `
+      <div class="item-row">
+        <div class="item-label">${esc(label)}</div>
+        ${pfnButtons(sec.id, idx, cell.status)}
+        <div class="item-comment">
+          <textarea class="${flag}" rows="1" data-path="insp:${sec.id}:${idx}:comment" placeholder="${cell.status==='fail'?'Describe the issue / action needed':'Comments / action (optional)'}">${esc(cell.comment)}</textarea>
+        </div>
+      </div>`;
+  }).join('');
+  return `
+    <div class="card">
+      <div class="card-head"><span class="num">${num}</span> ${esc(sec.title)}</div>
+      <div class="card-body">
+        ${rows}
+        <div class="section-notes">
+          <label>Section Notes</label>
+          <textarea rows="1" data-path="note:${sec.id}" placeholder="Notes">${esc(draft.sectionNotes[sec.id] || '')}</textarea>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderCompliance(num) {
+  const rows = COMPLIANCE.items.map((label, idx) => {
+    const cell = draft.compliance[idx] || { status: '', note: '' };
+    return `
+      <div class="comp-row">
+        <div class="item-label">${esc(label)}</div>
+        <div class="yn-group">
+          <button class="yn-btn yes ${cell.status==='yes'?'on':''}" data-click="yn:${idx}:yes">Yes</button>
+          <button class="yn-btn no ${cell.status==='no'?'on':''}" data-click="yn:${idx}:no">No</button>
+        </div>
+        <input type="text" data-path="comp:${idx}:note" value="${esc(cell.note)}" placeholder="Notes">
+      </div>`;
+  }).join('');
+  return `
+    <div class="card">
+      <div class="card-head"><span class="num">${num}</span> ${esc(COMPLIANCE.title)}</div>
+      <div class="card-body">
+        ${rows}
+        <div class="section-notes">
+          <label>Section Notes</label>
+          <textarea rows="1" data-path="note:compliance" placeholder="Notes">${esc(draft.sectionNotes['compliance'] || '')}</textarea>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderRooms(num) {
+  const rows = draft.rooms.map((r, idx) => `
+    <div class="room-card">
+      <div class="room-top">
+        <div class="room-num">
+          <label style="font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px">Room #</label>
+          <input type="text" data-path="room:${idx}:num" value="${esc(r.num)}" placeholder="e.g. 214">
+        </div>
+        <div class="room-pf">
+          <span>Cleanliness</span>
+          <div class="pf-toggle">
+            <button class="pass ${r.clean==='pass'?'on':''}" data-click="roompf:${idx}:clean:pass">Pass</button>
+            <button class="fail ${r.clean==='fail'?'on':''}" data-click="roompf:${idx}:clean:fail">Fail</button>
+          </div>
+        </div>
+        <div class="room-pf">
+          <span>Working Order</span>
+          <div class="pf-toggle">
+            <button class="pass ${r.work==='pass'?'on':''}" data-click="roompf:${idx}:work:pass">Pass</button>
+            <button class="fail ${r.work==='fail'?'on':''}" data-click="roompf:${idx}:work:fail">Fail</button>
+          </div>
+        </div>
+        ${draft.rooms.length > 1 ? `<button class="del-x" data-click="delroom:${idx}" title="Remove room" style="margin-left:auto;align-self:center">&times;</button>` : ''}
+      </div>
+      <textarea rows="1" data-path="room:${idx}:obs" placeholder="Observations / items to address">${esc(r.obs)}</textarea>
+    </div>`).join('');
+  return `
+    <div class="card">
+      <div class="card-head"><span class="num">${num}</span> Room Walk</div>
+      <div class="card-body">
+        ${rows}
+        <button class="btn-ghost btn-sm add-btn" data-click="addroom">+ Add Room</button>
+      </div>
+    </div>`;
+}
+
+function renderActions(num) {
+  const rows = draft.actions.map(a => {
+    const opts = TIMELINES.map(t => `<option value="${t.id}" ${a.timeline===t.id?'selected':''}>${t.label}</option>`).join('');
+    return `
+      <div class="action-row">
+        <select data-path="action:${a.id}:timeline">${opts}</select>
+        <input class="act-text" type="text" data-path="action:${a.id}:text" value="${esc(a.text)}" placeholder="Action required">
+        <input type="text" data-path="action:${a.id}:owner" value="${esc(a.owner)}" placeholder="Owner">
+        <button class="del-x" data-click="delaction:${a.id}" title="Remove">&times;</button>
+      </div>`;
+  }).join('');
+  return `
+    <div class="card">
+      <div class="card-head"><span class="num">${num}</span> Action Items</div>
+      <div class="card-body">
+        <div class="info-line">Failed inspection items and compliance “No” answers carry forward automatically. Use this list for any additional tasks.</div>
+        ${rows || '<div style="color:var(--gray-400);font-size:14px;padding:6px 0">No additional action items yet.</div>'}
+        <button class="btn-ghost btn-sm add-btn" data-click="addaction">+ Add Action Item</button>
+      </div>
+    </div>`;
+}
+
+function renderPriorities() {
+  const rows = [0,1,2].map(i => `
+    <div class="prio-row">
+      <div class="prio-num">#${i+1}</div>
+      <input type="text" data-path="prio:${i}" value="${esc(draft.priorities[i] || '')}" placeholder="Top priority for the week">
+    </div>`).join('');
+  return `
+    <div class="card">
+      <div class="card-head" style="background:var(--gold);color:var(--navy)">★ Top 3 Priorities for the Week</div>
+      <div class="card-body">${rows}</div>
+    </div>`;
+}
+
+function renderSticky() {
+  const n = pendingCarryCount(draft);
+  return `
+    <div class="sticky-bar">
+      <div class="left"><b>${n}</b> open item${n===1?'':'s'} will carry to the next visit</div>
+      <button class="btn-danger-ghost" data-click="discard">Discard Draft</button>
+      <button class="btn-primary" data-click="complete">Complete Walk ✓</button>
+    </div>`;
+}
+
+function renderStatusRow() {
+  const prev = lastCompleted(currentProp);
+  const carriedIn = (draft.carried || []).filter(c => c.resolution !== 'resolved').length;
+  const parts = [];
+  parts.push(`<span>Property: <b>${esc(propName(currentProp))}</b></span>`);
+  if (prev) {
+    const r = ratingInfo(prev.rating);
+    parts.push(`<span>Last completed: <b>${fmtDate(prev.date)}</b> ${r.cls ? `<span class="rating-pill ${r.cls}">${r.label}</span>` : ''}</span>`);
+  } else {
+    parts.push(`<span class="chip none">No completed walks yet</span>`);
+  }
+  parts.push(`<span class="chip draft">Draft in progress</span>`);
+  if (carriedIn) parts.push(`<span><b>${carriedIn}</b> open item${carriedIn===1?'':'s'} carried in</span>`);
+  document.getElementById('statusRow').innerHTML = parts.join('');
+}
+
+function ratingInfo(r) {
+  return r==='sat'  ? { label: 'Satisfactory', cls: 'sat' }
+       : r==='ni'   ? { label: 'Needs Improvement', cls: 'ni' }
+       : r==='unsat'? { label: 'Unsatisfactory', cls: 'unsat' }
+       : { label: '—', cls: '' };
+}
+
+/* ══════════════════════════════════════════════════════════════
+   EVENTS
+   ══════════════════════════════════════════════════════════════ */
+function onField(e) {
+  const el = e.target.closest('[data-path]');
+  if (!el) return;
+  applyPath(el.dataset.path, el.value);
+  updateStickyCount();
+  scheduleSave();
+}
+
+function updateStickyCount() {
+  const el = document.querySelector('.sticky-bar .left');
+  if (!el) return;
+  const n = pendingCarryCount(draft);
+  el.innerHTML = '<b>' + n + '</b> open item' + (n === 1 ? '' : 's') + ' will carry to the next visit';
+}
+
+function onClick(e) {
+  const t = e.target.closest('[data-click]');
+  if (!t) return;
+  const p = t.dataset.click.split(':');
+  const head = p[0];
+  if (head === 'rating')      { draft.rating = (draft.rating === p[1]) ? '' : p[1]; }
+  else if (head === 'pfn')    { const c = ensureInsp(p[1], +p[2]); c.status = (c.status === p[3]) ? '' : p[3]; }
+  else if (head === 'yn')     { const c = ensureComp(+p[1]); c.status = (c.status === p[2]) ? '' : p[2]; }
+  else if (head === 'roompf') { const r = draft.rooms[+p[1]]; r[p[2]] = (r[p[2]] === p[3]) ? '' : p[3]; }
+  else if (head === 'carry')  { const c = draft.carried.find(x => x.id === p[1]); if (c) c.resolution = p[2]; }
+  else if (head === 'addaction') { draft.actions.push({ id: uid(), timeline: 'week', text: '', owner: '' }); }
+  else if (head === 'delaction') { draft.actions = draft.actions.filter(a => a.id !== p[1]); }
+  else if (head === 'addroom')   { draft.rooms.push(blankRoom()); }
+  else if (head === 'delroom')   { draft.rooms.splice(+p[1], 1); }
+  else if (head === 'complete')  { completeWalk(); return; }
+  else if (head === 'discard')   { discardDraft(); return; }
+  else return;
+  if (draft) draft.updatedAt = new Date().toISOString();
+  saveData(DATA);
+  render();
+}
+
+function switchProp(propId) {
+  currentProp = propId;
+  draft = getDraft(propId);
+  render();
+}
+
+/* ══════════════════════════════════════════════════════════════
+   COMPLETE / DISCARD
+   ══════════════════════════════════════════════════════════════ */
+function completeWalk() {
+  if (!draft.date) { toast('Please set the walk date before completing.', 'err'); return; }
+  const resolved = (draft.carried || []).filter(c => c.resolution === 'resolved')
+    .map(c => ({ ...c }));
+  const stillOpen = (draft.carried || []).filter(c => c.resolution !== 'resolved')
+    .map(c => ({
+      id: c.id, text: c.text, detail: c.detail, source: c.source,
+      sectionTitle: c.sectionTitle, timeline: c.timeline, owner: c.owner,
+      originatedDate: c.originatedDate, visitsOpen: (c.visitsOpen || 1) + 1,
+    }));
+  const fresh = computeNewOpenItems(draft);
+  const walk = {
+    id: uid(), propId: draft.propId,
+    date: draft.date, timeIn: draft.timeIn, timeOut: draft.timeOut,
+    gmMod: draft.gmMod, inspector: draft.inspector, rating: draft.rating,
+    inspection: draft.inspection, compliance: draft.compliance,
+    sectionNotes: draft.sectionNotes, rooms: draft.rooms,
+    actions: draft.actions, priorities: draft.priorities,
+    carriedResolved: resolved, carriedForward: stillOpen, newItems: fresh,
+    openItems: stillOpen.concat(fresh),
+    completedAt: new Date().toISOString(),
+  };
+  DATA.history[draft.propId] = DATA.history[draft.propId] || [];
+  DATA.history[draft.propId].push(walk);
+  delete DATA.drafts[draft.propId];
+  saveData(DATA);
+  draft = getDraft(currentProp);   // fresh draft; carries forward walk.openItems
+  render();
+  toast('Walk completed & saved · ' + walk.openItems.length + ' item(s) carry to next visit');
+  if (cloudAccount) cloudSync(true);   // push the completed record to SharePoint
+  setTimeout(() => printWalk(walk, true), 400);
+}
+
+function discardDraft() {
+  if (!confirm('Discard this in-progress walk for ' + propName(currentProp) + '? Carried-over items will be restored fresh. This cannot be undone.')) return;
+  delete DATA.drafts[currentProp];
+  saveData(DATA);
+  draft = getDraft(currentProp);
+  render();
+  toast('Draft discarded.');
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PRINT / PDF SUMMARY
+   ══════════════════════════════════════════════════════════════ */
+function badge(status) {
+  return status === 'pass' ? '<span class="b-pass">✓ Pass</span>'
+       : status === 'fail' ? '<span class="b-fail">✗ Fail</span>'
+       : status === 'na'   ? '<span class="b-na">N/A</span>'
+       : status === 'yes'  ? '<span class="b-pass">Yes</span>'
+       : status === 'no'   ? '<span class="b-fail">No</span>'
+       : '—';
+}
+
+function buildSummary(w, finalized) {
+  const r = ratingInfo(w.rating);
+  const sectionNotes = w.sectionNotes || {};
+  const resolvedList   = finalized ? (w.carriedResolved || []) : (w.carried || []).filter(c => c.resolution === 'resolved');
+  const carryFwd       = finalized ? (w.carriedForward || [])  : (w.carried || []).filter(c => c.resolution !== 'resolved');
+  const newList        = finalized ? (w.newItems || [])        : computeNewOpenItems(w);
+  const openNext       = carryFwd.concat(newList);
+
+  let h = `
+    <div class="p-head">
+      <div class="p-logo">3923</div>
+      <div><h1>Weekly Site Inspection${finalized ? '' : ' <span style="font-size:12px;color:#b45309">(in progress)</span>'}</h1>
+        <div class="p-sub">Regional Manager Property Review — 3923 Management · We take care of people</div></div>
+      <div style="margin-left:auto;text-align:right">
+        <div style="font-weight:700;font-size:15px">${esc(propName(w.propId))}</div>
+        <div class="p-sub">${esc(propBrand(w.propId))}</div>
+      </div>
+    </div>
+    <div class="p-meta">
+      <div><b>Date:</b> ${fmtDate(w.date)}</div>
+      <div><b>Time In:</b> ${esc(w.timeIn) || '—'}</div>
+      <div><b>Time Out:</b> ${esc(w.timeOut) || '—'}</div>
+      <div><b>GM / MOD:</b> ${esc(w.gmMod) || '—'}</div>
+      <div><b>Inspector:</b> ${esc(w.inspector) || '—'}</div>
+      <div><b>Overall Rating:</b> ${r.label}</div>
+    </div>`;
+
+  if (resolvedList.length) {
+    h += `<h2>Open Items Resolved This Visit (${resolvedList.length})</h2><table><thead><tr><th>Item</th><th style="width:38%">Resolution note</th></tr></thead><tbody>`;
+    resolvedList.forEach(c => { h += `<tr><td>${esc(c.text)}</td><td>${esc(c.resolutionNote) || '—'}</td></tr>`; });
+    h += `</tbody></table>`;
+  }
+
+  SECTIONS.forEach((sec, i) => {
+    const st = w.inspection[sec.id] || {};
+    h += `<h2>${i+1}. ${esc(sec.title)}</h2><table><thead><tr><th>Item</th><th style="width:90px">Result</th><th style="width:38%">Comments / Action</th></tr></thead><tbody>`;
+    sec.items.forEach((label, idx) => {
+      const cell = st[idx] || {};
+      const cls = cell.status === 'fail' ? ' class="p-flag"' : '';
+      h += `<tr${cls}><td>${esc(label)}</td><td>${badge(cell.status)}</td><td>${esc(cell.comment) || ''}</td></tr>`;
+    });
+    h += `</tbody></table>`;
+    if (sectionNotes[sec.id]) h += `<div style="font-size:11px;margin:2px 0 4px"><b>Notes:</b> ${esc(sectionNotes[sec.id])}</div>`;
+  });
+
+  // Compliance
+  h += `<h2>4. Compliance</h2><table><thead><tr><th>Item</th><th style="width:90px">Result</th><th style="width:38%">Notes</th></tr></thead><tbody>`;
+  COMPLIANCE.items.forEach((label, idx) => {
+    const cell = w.compliance[idx] || {};
+    const cls = cell.status === 'no' ? ' class="p-flag"' : '';
+    h += `<tr${cls}><td>${esc(label)}</td><td>${badge(cell.status)}</td><td>${esc(cell.note) || ''}</td></tr>`;
+  });
+  h += `</tbody></table>`;
+  if (sectionNotes['compliance']) h += `<div style="font-size:11px;margin:2px 0 4px"><b>Notes:</b> ${esc(sectionNotes['compliance'])}</div>`;
+
+  // Rooms
+  const roomsUsed = (w.rooms || []).filter(rm => rm.num || rm.clean || rm.work || rm.obs);
+  if (roomsUsed.length) {
+    h += `<h2>5. Room Walk</h2><table><thead><tr><th style="width:70px">Room #</th><th style="width:90px">Cleanliness</th><th style="width:90px">Working Order</th><th>Observations</th></tr></thead><tbody>`;
+    roomsUsed.forEach(rm => {
+      const cls = (rm.clean === 'fail' || rm.work === 'fail') ? ' class="p-flag"' : '';
+      h += `<tr${cls}><td>${esc(rm.num) || '—'}</td><td>${badge(rm.clean)}</td><td>${badge(rm.work)}</td><td>${esc(rm.obs) || ''}</td></tr>`;
+    });
+    h += `</tbody></table>`;
+  }
+
+  // Open items carried forward
+  h += `<h2>Open Items Carried to Next Visit (${openNext.length})</h2>`;
+  if (openNext.length) {
+    h += `<table><thead><tr><th>Item</th><th style="width:110px">Source</th><th style="width:110px">Timeline</th><th style="width:90px">Owner</th><th style="width:70px">Age</th></tr></thead><tbody>`;
+    openNext.forEach(it => {
+      const tl = it.timeline && TL_MAP[it.timeline] ? TL_MAP[it.timeline].label : '—';
+      const age = (it.visitsOpen || 1) <= 1 ? 'New' : (it.visitsOpen + ' visits');
+      const detail = it.detail ? `<br><span style="color:#666">${esc(it.detail)}</span>` : '';
+      h += `<tr class="p-open"><td>${esc(it.text)}${detail}</td><td>${esc(it.sectionTitle || it.source)}</td><td>${tl}</td><td>${esc(it.owner) || '—'}</td><td>${age}</td></tr>`;
+    });
+    h += `</tbody></table>`;
+  } else {
+    h += `<div style="font-size:12px;color:#16A34A;margin:4px 0">No open items — all clear.</div>`;
+  }
+
+  // Priorities
+  const prio = (w.priorities || []).filter(x => (x || '').trim());
+  if (prio.length) {
+    h += `<h2>Top 3 Priorities for the Week</h2><table><tbody>`;
+    prio.forEach((x, i) => { h += `<tr><td style="width:40px;font-weight:700">#${i+1}</td><td>${esc(x)}</td></tr>`; });
+    h += `</tbody></table>`;
+  }
+
+  h += `
+    <div class="p-sign">
+      <div>Regional Manager: ${esc(w.inspector) || ''}<br><span style="color:#888">Signature / Date</span></div>
+      <div>GM / MOD: ${esc(w.gmMod) || ''}<br><span style="color:#888">Signature / Date</span></div>
+    </div>
+    <div class="p-foot">3923 Management — Confidential — ${propName(w.propId)} — Generated ${new Date().toLocaleDateString()}</div>`;
+  return h;
+}
+
+function printWalk(w, finalized) {
+  document.getElementById('printArea').innerHTML = buildSummary(w, finalized);
+  window.print();
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HISTORY MODAL
+   ══════════════════════════════════════════════════════════════ */
+function openHistory() {
+  const h = (DATA.history[currentProp] || []).slice().reverse();
+  document.getElementById('histTitle').textContent = propName(currentProp) + ' — Walk History';
+  const body = document.getElementById('histBody');
+  if (!h.length) {
+    body.innerHTML = `<div class="empty-hint">No completed walks yet for ${esc(propName(currentProp))}.</div>`;
+  } else {
+    body.innerHTML = h.map(w => {
+      const r = ratingInfo(w.rating);
+      const open = (w.openItems || []).length;
+      return `
+        <div class="hist-item">
+          <div>
+            <div class="h-title">${fmtDate(w.date)} ${r.cls ? `<span class="rating-pill ${r.cls}">${r.label}</span>` : ''}</div>
+            <div class="h-meta">Inspector: ${esc(w.inspector) || '—'} · ${open} open item${open===1?'':'s'} carried forward</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn-gold btn-sm" data-hist="print:${w.id}">Print / PDF</button>
+            <button class="btn-danger-ghost btn-sm" data-hist="del:${w.id}">Delete</button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+  document.getElementById('histModal').classList.add('open');
+}
+function closeHistory() { document.getElementById('histModal').classList.remove('open'); }
+
+function onHistClick(e) {
+  const t = e.target.closest('[data-hist]');
+  if (!t) return;
+  const [action, id] = t.dataset.hist.split(':');
+  const w = (DATA.history[currentProp] || []).find(x => x.id === id);
+  if (!w) return;
+  if (action === 'print') { closeHistory(); setTimeout(() => printWalk(w, true), 200); }
+  else if (action === 'del') {
+    if (!confirm('Delete the walk from ' + fmtDate(w.date) + '? If this was the most recent walk, its carried-over items will no longer appear on the next visit.')) return;
+    DATA.history[currentProp] = DATA.history[currentProp].filter(x => x.id !== id);
+    saveData(DATA);
+    // If the active draft carried items from this now-deleted walk and hasn't been touched, refresh it.
+    openHistory();
+    renderStatusRow();
+    toast('Walk deleted.');
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   EXPORT / IMPORT  (backup to network share, move between devices)
+   ══════════════════════════════════════════════════════════════ */
+function exportData() {
+  const blob = new Blob([JSON.stringify(DATA, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'walkthrough-backup-' + todayISO() + '.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+  toast('Backup downloaded.');
+}
+
+function importData(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const obj = JSON.parse(reader.result);
+      if (!obj || typeof obj !== 'object' || !('history' in obj) || !('drafts' in obj)) {
+        throw new Error('Not a walkthrough backup file.');
+      }
+      if (!confirm('Import will REPLACE all walk data in this browser with the backup file. Continue?')) return;
+      DATA = obj;
+      DATA.drafts = DATA.drafts || {};
+      DATA.history = DATA.history || {};
+      saveData(DATA);
+      draft = getDraft(currentProp);
+      render();
+      toast('Backup imported.');
+    } catch (err) {
+      toast('Import failed: ' + err.message, 'err');
+    }
+  };
+  reader.readAsText(file);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TOAST
+   ══════════════════════════════════════════════════════════════ */
+let toastTimer = null;
+function toast(msg, kind) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (kind === 'err' ? ' err' : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.className = 'toast' + (kind === 'err' ? ' err' : ''); }, 3200);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CLOUD SYNC  (SharePoint / OneDrive via Microsoft Graph)
+   Local-first: the browser copy is always the working copy. We PULL
+   + merge on load / sign-in, and PUSH on Complete or manual Sync now.
+   ══════════════════════════════════════════════════════════════ */
+
+// Merge two data sets without losing walks. Completed walks are immutable,
+// so history is a union keyed by walk id; drafts keep the most recently edited.
+function mergeData(local, remote) {
+  local = local || { drafts: {}, history: {} };
+  remote = remote || { drafts: {}, history: {} };
+  const out = { version: 1, drafts: {}, history: {} };
+  const histProps = new Set([...Object.keys(local.history || {}), ...Object.keys(remote.history || {})]);
+  histProps.forEach(pid => {
+    const byId = {};
+    (local.history[pid] || []).forEach(w => { byId[w.id] = w; });
+    (remote.history[pid] || []).forEach(w => { if (!byId[w.id]) byId[w.id] = w; });
+    out.history[pid] = Object.values(byId).sort((a, b) =>
+      ((a.date || '').localeCompare(b.date || '')) || ((a.completedAt || '').localeCompare(b.completedAt || '')));
+  });
+  const draftProps = new Set([...Object.keys(local.drafts || {}), ...Object.keys(remote.drafts || {})]);
+  draftProps.forEach(pid => {
+    const l = local.drafts[pid], r = remote.drafts[pid];
+    if (l && r) out.drafts[pid] = ((l.updatedAt || '') >= (r.updatedAt || '')) ? l : r;
+    else out.drafts[pid] = l || r;
+  });
+  return out;
+}
+
+function nowLabel() { try { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } }
+
+function renderCloud(state, msg) {
+  const btn = document.getElementById('btnCloud');
+  const out = document.getElementById('btnCloudOut');
+  const st = document.getElementById('cloudStatus');
+  if (!btn || !st) return;
+  const show = (el, on) => { if (el) el.style.display = on ? '' : 'none'; };
+  if (state === 'off') {
+    show(btn, false); show(out, false); show(st, true);
+    const guid = /^[0-9a-fA-F-]{36}$/.test(CLOUD.clientId);
+    st.textContent = (guid && location.protocol === 'file:') ? 'Local only — host on web to enable cloud' : 'Local only';
+    st.className = 'save-status';
     return;
   }
-
-  // Upload to Google Apps Script
-  try{
-    if(prog)prog.innerHTML=`<div class="upload-progress"><div class="upload-bar" style="width:30%"></div></div><div style="text-align:center;font-size:11px;color:#888;margin-top:4px">Uploading data + photos...</div>`;
-    const resp=await fetch(UPLOAD_URL,{method:"POST",body:JSON.stringify(payload)});
-    if(prog)prog.innerHTML=`<div class="upload-progress"><div class="upload-bar" style="width:100%"></div></div>`;
-    if(resp.ok){
-      st.uploaded=true;sv();R();toast("✓ Report uploaded!");
-    }else{
-      toast("⚠ Upload issue — try again or use Download");
-    }
-  }catch(e){
-    if(prog)prog.innerHTML="";
-    toast("⚠ Upload failed — use Download as backup");
-  }
+  show(st, true);
+  if (state === 'signin') { show(btn, true); show(out, false); btn.textContent = 'Connect SharePoint'; st.textContent = 'Not signed in'; st.className = 'save-status'; }
+  else if (state === 'signedin') { show(btn, true); show(out, true); btn.textContent = 'Sync now'; st.textContent = 'Signed in'; st.className = 'save-status saved'; }
+  else if (state === 'syncing') { show(btn, true); show(out, true); btn.textContent = 'Sync now'; st.textContent = 'Syncing…'; st.className = 'save-status'; }
+  else if (state === 'synced') { show(btn, true); show(out, true); btn.textContent = 'Sync now'; st.textContent = 'Synced ✓ ' + nowLabel(); st.className = 'save-status saved'; }
+  else if (state === 'error') { show(btn, true); show(out, !!cloudAccount); btn.textContent = cloudAccount ? 'Retry sync' : 'Connect SharePoint'; st.textContent = 'Sync issue: ' + String(msg || '').slice(0, 70); st.className = 'save-status warn'; }
 }
 
-R();
+async function cloudInit() {
+  if (!CLOUD_ENABLED) { renderCloud('off'); return; }
+  if (typeof msal === 'undefined' || !msal.PublicClientApplication) { renderCloud('error', 'sign-in library did not load'); return; }
+  try {
+    msalApp = new msal.PublicClientApplication({
+      auth: {
+        clientId: CLOUD.clientId,
+        authority: 'https://login.microsoftonline.com/' + CLOUD.tenant,
+        redirectUri: location.origin + location.pathname,
+      },
+      cache: { cacheLocation: 'localStorage' },
+    });
+    if (typeof msalApp.initialize === 'function') await msalApp.initialize();
+    const accts = msalApp.getAllAccounts();
+    if (accts.length) {
+      cloudAccount = accts[0];
+      if (msalApp.setActiveAccount) msalApp.setActiveAccount(cloudAccount);
+      renderCloud('signedin');
+      cloudSync(true);
+    } else {
+      renderCloud('signin');
+    }
+  } catch (e) { renderCloud('error', e.message); }
+}
+
+async function cloudSignIn() {
+  if (!msalApp) return;
+  try {
+    const res = await msalApp.loginPopup({ scopes: CLOUD_SCOPES, prompt: 'select_account' });
+    cloudAccount = res.account;
+    if (msalApp.setActiveAccount) msalApp.setActiveAccount(cloudAccount);
+    renderCloud('signedin');
+    cloudSync(true);
+  } catch (e) { renderCloud('error', e.message); }
+}
+
+function cloudSignOut() {
+  try { if (msalApp && cloudAccount && msalApp.logoutPopup) msalApp.logoutPopup({ account: cloudAccount, mainWindowRedirectUri: location.origin + location.pathname }); } catch (e) {}
+  cloudAccount = null; driveItemBase = null; renderCloud('signin');
+}
+
+async function cloudToken() {
+  const req = { scopes: CLOUD_SCOPES, account: cloudAccount };
+  try { return (await msalApp.acquireTokenSilent(req)).accessToken; }
+  catch (e) { return (await msalApp.acquireTokenPopup(req)).accessToken; }
+}
+
+async function cloudGraph(path, opts) {
+  opts = opts || {};
+  const token = await cloudToken();
+  return fetch('https://graph.microsoft.com/v1.0' + path, {
+    ...opts,
+    headers: { Authorization: 'Bearer ' + token, ...(opts.headers || {}) },
+  });
+}
+
+async function resolveItemBase() {
+  if (driveItemBase) return driveItemBase;
+  const name = encodeURIComponent(CLOUD.fileName);
+  if (CLOUD.useOneDrive) { driveItemBase = '/me/drive/root:/' + name; return driveItemBase; }
+  const r = await cloudGraph('/sites/' + CLOUD.siteHostname + ':' + CLOUD.sitePath);
+  if (!r.ok) throw new Error('SharePoint site not found (' + r.status + ')');
+  const site = await r.json();
+  driveItemBase = '/sites/' + site.id + '/drive/root:/' + name;
+  return driveItemBase;
+}
+
+async function cloudPull() {
+  const base = await resolveItemBase();
+  const meta = await cloudGraph(base);
+  if (meta.status === 404) return { data: null, etag: null };
+  if (!meta.ok) throw new Error('read failed (' + meta.status + ')');
+  const m = await meta.json();
+  const c = await cloudGraph(base + ':/content');
+  if (!c.ok) throw new Error('download failed (' + c.status + ')');
+  const data = await c.json();
+  return { data, etag: m.cTag || m.eTag || null };
+}
+
+async function cloudPush(data, etag) {
+  const base = await resolveItemBase();
+  const headers = { 'Content-Type': 'application/json' };
+  if (etag) headers['if-match'] = etag;
+  return cloudGraph(base + ':/content', { method: 'PUT', headers, body: JSON.stringify(data) });
+}
+
+async function cloudSync(alsoPush) {
+  if (!cloudAccount || cloudBusy) return;
+  cloudBusy = true; renderCloud('syncing');
+  try {
+    const pulled = await cloudPull();
+    if (pulled.data) { DATA = mergeData(DATA, pulled.data); saveData(DATA); draft = getDraft(currentProp); render(); }
+    if (alsoPush) {
+      let r = await cloudPush(DATA, pulled.etag);
+      if (r.status === 412) {                       // remote changed under us — re-pull, merge, retry once
+        const again = await cloudPull();
+        DATA = again.data ? mergeData(DATA, again.data) : DATA;
+        saveData(DATA); draft = getDraft(currentProp); render();
+        r = await cloudPush(DATA, again.etag);
+      }
+      if (!r.ok) throw new Error('save failed (' + r.status + ')');
+    }
+    renderCloud('synced');
+  } catch (e) { renderCloud('error', e.message); }
+  finally { cloudBusy = false; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════════════════════════ */
+function init() {
+  const sel = document.getElementById('propSelect');
+  sel.innerHTML = PROPERTIES.map(p => `<option value="${p.id}">${esc(p.name)}</option>`).join('');
+  sel.value = currentProp;
+  sel.addEventListener('change', () => switchProp(sel.value));
+
+  const app = document.getElementById('app');
+  app.addEventListener('input', onField);
+  app.addEventListener('change', onField);
+  app.addEventListener('click', onClick);
+
+  document.getElementById('btnPrint').addEventListener('click', () => printWalk(draft, false));
+  document.getElementById('btnHistory').addEventListener('click', openHistory);
+  document.getElementById('histClose').addEventListener('click', closeHistory);
+  document.getElementById('histModal').addEventListener('click', (e) => {
+    if (e.target.id === 'histModal') closeHistory();
+  });
+  document.getElementById('histBody').addEventListener('click', onHistClick);
+  document.getElementById('btnExport').addEventListener('click', exportData);
+  document.getElementById('btnImport').addEventListener('click', () => document.getElementById('importFile').click());
+  document.getElementById('importFile').addEventListener('change', (e) => {
+    if (e.target.files[0]) importData(e.target.files[0]);
+    e.target.value = '';
+  });
+
+  document.getElementById('btnCloud').addEventListener('click', () => {
+    if (!cloudAccount) cloudSignIn(); else cloudSync(true);
+  });
+  document.getElementById('btnCloudOut').addEventListener('click', cloudSignOut);
+
+  if (!storageOK) setStatus('Storage blocked — using this tab only', 'warn');
+  else setStatus('Ready', '');
+
+  draft = getDraft(currentProp);
+  render();
+  cloudInit();
+}
+
+document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
