@@ -482,8 +482,8 @@ const STORAGE_KEY = 'rm_walkthrough_v1';
    feature stays hidden. Nothing breaks if this is left blank.
    ══════════════════════════════════════════════════════════════ */
 const CLOUD = {
-  clientId:     'PASTE-CLIENT-ID-HERE',           // Entra "Application (client) ID" (a GUID)
-  tenant:       '3923mgmt.com',                   // Directory (tenant) ID or a verified domain
+  clientId:     'd46c1f09-d5b9-4397-9b08-2a4bd1305232',   // Entra "Application (client) ID" — 3923 RM Walkthrough
+  tenant:       '6adeec31-1afd-44a7-8087-ac761ad15aa4',   // Directory (tenant) ID — Nelsons Law
   useOneDrive:  true,                             // true = store in the signed-in user's OneDrive (follows HER across devices; Files.ReadWrite, user-consentable — no admin consent)
                                                   // false = store in a shared SharePoint site (org-owned; lets you/GMs see it too; needs Sites.ReadWrite.All + admin consent)
   siteHostname: 'nelsonslawfirm.sharepoint.com',  // (only used when useOneDrive:false) SharePoint host, NOT the "-my" OneDrive host
