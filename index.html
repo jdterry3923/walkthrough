@@ -484,10 +484,9 @@ const STORAGE_KEY = 'rm_walkthrough_v1';
 const CLOUD = {
   clientId:     'd46c1f09-d5b9-4397-9b08-2a4bd1305232',   // Entra "Application (client) ID" — 3923 RM Walkthrough
   tenant:       '6adeec31-1afd-44a7-8087-ac761ad15aa4',   // Directory (tenant) ID — Nelsons Law
-  useOneDrive:  true,                             // true = store in the signed-in user's OneDrive (follows HER across devices; Files.ReadWrite, user-consentable — no admin consent)
-                                                  // false = store in a shared SharePoint site (org-owned; lets you/GMs see it too; needs Sites.ReadWrite.All + admin consent)
-  siteHostname: 'nelsonslawfirm.sharepoint.com',  // (only used when useOneDrive:false) SharePoint host, NOT the "-my" OneDrive host
-  sitePath:     '/sites/Operations',              // (only used when useOneDrive:false) site whose Documents library holds the data file
+  useOneDrive:  false,                            // false = shared SharePoint site (org-owned; RM + you + GMs all see the same data). true = signed-in user's OneDrive.
+  siteHostname: 'nelsonslawfirm.sharepoint.com',  // SharePoint host, NOT the "-my" OneDrive host
+  sitePath:     '/sites/3923Operations',          // the shared "3923 Operations" site; file lands in its Documents library
   fileName:     'RM-Walkthrough-Data.json',       // the single JSON file that stores all walk history + open items
 };
 const CLOUD_SCOPES = CLOUD.useOneDrive
