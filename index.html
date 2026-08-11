@@ -170,6 +170,43 @@
   .rating-btn.sel-ni { background: var(--gold-pale); border-color: var(--gold); color: var(--amber); }
   .rating-btn.sel-unsat { background: var(--red-bg); border-color: var(--red); color: var(--red); }
 
+  /* ── Critical tag ── */
+  .crit-tag { display:inline-block; font-size:9.5px; font-weight:700; letter-spacing:.5px; color:#fff; background:var(--red); padding:1px 6px; border-radius:4px; vertical-align:middle; margin-left:6px; }
+
+  /* ── Score / result card ── */
+  .score-card { padding: 0; }
+  .score-card.res-fail, .score-card.res-unsat { border-color: var(--red); }
+  .score-card.res-sat { border-color: var(--green); }
+  .score-head { display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid var(--gray-100); }
+  .score-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; color:var(--gray-500); }
+  .score-big { font-size:34px; font-weight:700; color:var(--navy); line-height:1.05; }
+  .score-verdict { font-size:15px; font-weight:700; padding:8px 16px; border-radius:8px; text-align:center; }
+  .res-sat .score-verdict { background:var(--green-bg); color:var(--green); }
+  .res-ni .score-verdict { background:var(--gold-pale); color:var(--amber); }
+  .res-unsat .score-verdict, .res-fail .score-verdict { background:var(--red-bg); color:var(--red); }
+  .res-none .score-verdict { background:var(--gray-100); color:var(--gray-500); }
+  .score-bars { padding: 12px 18px 4px; }
+  .score-row { display:grid; grid-template-columns: 220px 1fr 54px; gap:12px; align-items:center; padding:5px 0; }
+  .score-name { font-size:13px; color:var(--gray-700); }
+  .score-w { color:var(--gray-400); font-size:11px; font-weight:600; }
+  .score-bar { background:var(--gray-100); border-radius:6px; height:10px; overflow:hidden; }
+  .score-fill { height:100%; border-radius:6px; transition:width .2s ease; }
+  .score-val { font-size:13px; font-weight:700; text-align:right; color:var(--gray-700); }
+  .autofail-banner { margin:14px 18px 0; background:var(--red-bg); border:1.5px solid var(--red-border); border-radius:10px; padding:12px 14px; }
+  .autofail-banner .af-title { color:var(--red); font-weight:700; font-size:14px; margin-bottom:6px; }
+  .autofail-banner ul { margin:0; padding-left:20px; }
+  .autofail-banner li { font-size:13px; color:var(--gray-700); margin:2px 0; }
+  @media (max-width:560px){ .score-row{ grid-template-columns:1fr 60px; } .score-bar{ display:none; } }
+
+  /* ── Photos ── */
+  .photo-strip { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; align-items:center; }
+  .ph-thumb { position:relative; width:74px; height:74px; border-radius:8px; overflow:hidden; border:1px solid var(--gray-200); }
+  .ph-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+  .ph-del { position:absolute; top:2px; right:2px; width:19px; height:19px; line-height:17px; border-radius:50%; border:none; background:rgba(0,0,0,.6); color:#fff; cursor:pointer; font-size:14px; padding:0; }
+  .ph-up { position:absolute; bottom:2px; left:2px; background:var(--green); color:#fff; font-size:10px; padding:0 4px; border-radius:4px; font-weight:700; }
+  .ph-add { border:1px dashed var(--gray-300); background:var(--gray-50); color:var(--gray-600); border-radius:8px; padding:0 14px; height:44px; font-size:13px; font-weight:600; cursor:pointer; }
+  .ph-add:hover { border-color:var(--gold); color:var(--navy); }
+
   /* ── Inspection item rows ── */
   .item-row {
     display: grid; grid-template-columns: 1fr auto; gap: 12px 16px;
@@ -375,6 +412,21 @@
     #printArea .p-foot { margin-top: 24px; border-top: 1px solid #ccc; padding-top: 8px; text-align: center; font-size: 10px; color: #888; }
     #printArea .p-flag { background: #fff5f5; }
     #printArea .p-open { background: #fffbeb; }
+    #printArea .p-result { display:flex; align-items:center; gap:12px; margin:8px 0 10px; padding:8px 14px; border-radius:6px; }
+    #printArea .p-result-score { font-size:24px; font-weight:700; }
+    #printArea .p-result-verdict { font-size:15px; font-weight:700; letter-spacing:.3px; }
+    #printArea .p-result-sat { background:#F0FDF4; color:#16A34A; border:1px solid #BBF7D0; }
+    #printArea .p-result-ni { background:#FEF3D0; color:#B45309; border:1px solid #FDE68A; }
+    #printArea .p-result-unsat, #printArea .p-result-fail { background:#FEF2F2; color:#DC2626; border:1px solid #FECACA; }
+    #printArea .p-result-none { background:#F1F5F9; color:#64748B; border:1px solid #E2E8F0; }
+    #printArea .p-af { background:#FEF2F2; border:1px solid #FECACA; border-radius:6px; padding:8px 12px; margin:6px 0 10px; font-size:12px; }
+    #printArea .p-af ul { margin:4px 0 0; padding-left:18px; }
+    #printArea .p-crit { font-size:8px; font-weight:700; color:#fff; background:#DC2626; padding:1px 4px; border-radius:3px; vertical-align:middle; }
+    #printArea .p-score { font-size:12px; color:#F9A61A; font-weight:700; }
+    #printArea .p-photogrp { margin:6px 0; page-break-inside:avoid; }
+    #printArea .p-photolabel { font-size:11px; font-weight:700; color:#0A1F38; margin:4px 0 3px; }
+    #printArea .p-photos { display:flex; flex-wrap:wrap; gap:6px; }
+    #printArea .p-photo { width:150px; height:112px; object-fit:cover; border:1px solid #ccc; border-radius:4px; }
   }
 
   /* ── Responsive ── */
@@ -390,21 +442,10 @@
     .item-row { grid-template-columns: 1fr; }
     .item-controls { justify-content: flex-start; }
     .container, .toolbar, .status-row { padding-left: 16px; padding-right: 16px; }
-    /* Bigger touch targets + full-width controls for phone use */
-    .pfn-btn { width: 56px; height: 48px; font-size: 18px; }
-    .yn-btn { padding: 12px 22px; font-size: 14px; }
-    .pf-toggle button { padding: 11px 20px; font-size: 14px; }
-    .toolbar-actions { width: 100%; }
-    .toolbar-actions button { flex: 1 1 auto; }
-    .sticky-bar { gap: 8px; }
-    .sticky-bar .left { flex-basis: 100%; order: -1; }
-    .sticky-bar button { flex: 1 1 auto; }
-    .carry-actions { width: 100%; }
-    .carry-actions button { flex: 1 1 auto; }
   }
 </style>
-<!-- Microsoft Authentication Library (only used if cloud sync is configured; harmless if offline) -->
-<script src="https://cdn.jsdelivr.net/npm/@azure/msal-browser@2.38.4/lib/msal-browser.min.js"></script>
+<!-- Microsoft Authentication Library (MSAL) — enables OneDrive sync when online & configured. The tool works fully offline without it. -->
+<script src="https://alcdn.msauth.net/browser/3.7.1/js/msal-browser.min.js"></script>
 </head>
 <body>
 
@@ -418,6 +459,8 @@
     </div>
   </div>
   <div class="header-right">
+    <button class="btn-ghost btn-sm" id="btnAuth" style="color:#fff;border-color:rgba(255,255,255,.28);background:transparent">Sign in to OneDrive</button>
+    <div class="save-status" id="syncStatus">Local only</div>
     <div class="save-status" id="saveStatus">Ready</div>
   </div>
 </div>
@@ -433,10 +476,8 @@
     <button class="btn-ghost" id="btnHistory">History</button>
     <button class="btn-ghost" id="btnExport">Export Backup</button>
     <button class="btn-ghost" id="btnImport">Import</button>
-    <button class="btn-ghost" id="btnCloud" style="display:none"></button>
-    <button class="btn-ghost btn-sm" id="btnCloudOut" style="display:none" title="Sign out of SharePoint">Sign out</button>
-    <span class="save-status" id="cloudStatus" style="display:none"></span>
     <input type="file" id="importFile" accept="application/json" style="display:none">
+    <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none">
   </div>
 </div>
 
@@ -472,32 +513,6 @@
 
 const STORAGE_KEY = 'rm_walkthrough_v1';
 
-/* ══════════════════════════════════════════════════════════════
-   CLOUD SYNC CONFIG  (optional — SharePoint / Microsoft 365)
-   ──────────────────────────────────────────────────────────────
-   Fill in the 4 values below AFTER registering the app (see the
-   setup runbook). Until a real Client ID is pasted here — or when
-   the file is opened directly from disk (file://) — the tool runs
-   100% locally in the browser (localStorage) and every cloud
-   feature stays hidden. Nothing breaks if this is left blank.
-   ══════════════════════════════════════════════════════════════ */
-const CLOUD = {
-  clientId:     'd46c1f09-d5b9-4397-9b08-2a4bd1305232',   // Entra "Application (client) ID" — 3923 RM Walkthrough
-  tenant:       '6adeec31-1afd-44a7-8087-ac761ad15aa4',   // Directory (tenant) ID — Nelsons Law
-  useOneDrive:  false,                            // false = shared SharePoint site (org-owned; RM + you + GMs all see the same data). true = signed-in user's OneDrive.
-  siteHostname: 'nelsonslawfirm.sharepoint.com',  // SharePoint host, NOT the "-my" OneDrive host
-  sitePath:     '/sites/3923Operations',          // the shared "3923 Operations" site; file lands in its Documents library
-  fileName:     'RM-Walkthrough-Data.json',       // the single JSON file that stores all walk history + open items
-};
-const CLOUD_SCOPES = CLOUD.useOneDrive
-  ? ['User.Read', 'Files.ReadWrite']
-  : ['User.Read', 'Sites.ReadWrite.All'];
-// Cloud is active only when a real GUID Client ID is present AND we're served over http(s) (OAuth can't redirect to file://).
-const CLOUD_ENABLED = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(CLOUD.clientId)
-  && location.protocol !== 'file:';
-
-let msalApp = null, cloudAccount = null, cloudBusy = false, driveItemBase = null, lastSyncLabel = '';
-
 const PROPERTIES = [
   { id: 'mp_ama', name: 'My Place Amarillo',   brand: 'My Place (Independent)' },
   { id: 'mp_lub', name: 'My Place Lubbock',    brand: 'My Place (Independent)' },
@@ -509,36 +524,61 @@ const PROPERTIES = [
 
 // Inspection sections (pass / fail / N/A per item, with comment). Faithful to the RM form.
 const SECTIONS = [
-  { id: 'parking', title: 'Parking & Outdoor Appearance', items: [
-    'Lot clean — no litter, debris, or stains; striping visible',
-    'Exterior lighting, signage illuminated and undamaged',
-    'Landscaping trimmed; entry/driveway clear; trash area clean',
-    'Building façade clean — no damage or staining',
+  { id: 'parking', title: 'Parking & Outdoor Appearance', w: 10, items: [
+    { t: 'Lot clean — no litter, debris, or stains; striping visible' },
+    { t: 'Exterior lighting, signage illuminated and undamaged' },
+    { t: 'Landscaping trimmed; entry/driveway clear; trash area clean' },
+    { t: 'Building façade clean — no damage or staining' },
   ]},
-  { id: 'uniforms', title: 'Uniforms & Staff Presentation', items: [
-    'All on-duty staff in proper uniform — clean, pressed, name badge visible',
-    'Grooming standards met — professional appearance and demeanor',
-    'Housekeeping / maintenance properly uniformed',
+  { id: 'uniforms', title: 'Uniforms & Staff Presentation', w: 10, items: [
+    { t: 'All on-duty staff in proper uniform — clean, pressed, name badge visible' },
+    { t: 'Grooming standards met — professional appearance and demeanor' },
+    { t: 'Housekeeping / maintenance properly uniformed' },
   ]},
-  { id: 'public', title: 'Public Space & Lobby', items: [
-    'Lobby, front desk, and surfaces clean and organized',
-    'Complimentary beverage/coffee station stocked and clean',
-    'Public restrooms clean — soap, paper, fixtures working',
-    'Pool/spa water clear; chemical log current and in range',
-    'Deck clean, no slip hazards; gate/access control working; towels stocked',
-    'Fitness center clean; equipment functional',
-    'Hallways, elevators, vending/ice areas clean',
+  { id: 'public', title: 'Public Space & Lobby', w: 20, items: [
+    { t: 'Lobby, front desk, and surfaces clean and organized' },
+    { t: 'Complimentary beverage/coffee station stocked and clean' },
+    { t: 'Public restrooms clean — soap, paper, fixtures working' },
+    { t: 'Pool/spa water clear; chemical log current and in range' },
+    { t: 'Deck clean, no slip hazards; gate/access control working; towels stocked' },
+    { t: 'Fitness center clean; equipment functional' },
+    { t: 'Hallways, elevators, vending/ice areas clean' },
+  ]},
+  { id: 'boh', title: 'Back of House', w: 15, items: [
+    { t: 'Housekeeping areas & carts clean and organized' },
+    { t: 'Laundry area clean; lint traps managed (fire risk)' },
+    { t: 'Chemical storage labeled and secured' },
+    { t: 'Storerooms organized; access unblocked' },
+    { t: 'Employee break room / lockers clean' },
+    { t: 'Loading dock / trash area clean and secured' },
+    { t: 'Kitchen / pantry back areas clean' },
+  ]},
+  { id: 'mep', title: 'MEP / Safety', w: 20, items: [
+    { t: 'Guest-room HVAC operational — heat & A/C, no units down', crit: true },
+    { t: 'Hot water adequate throughout', crit: true },
+    { t: 'Fire extinguishers present, charged, inspection current', crit: true },
+    { t: 'Fire alarm / sprinkler system in service (no impairments)', crit: true },
+    { t: 'Emergency exits clear & unlocked; exit signs & emergency lighting working', crit: true },
+    { t: 'Pool/spa chemicals in safe range; safety equipment present', crit: true },
+    { t: 'Elevator(s) operational; inspection current' },
+    { t: 'Electrical panels closed, labeled, unobstructed' },
+    { t: 'Mechanical / boiler rooms clean, secured, no leaks' },
+    { t: 'Corridor & stairwell lighting fully operational' },
   ]},
 ];
 
 // Compliance (Yes / No + note)
-const COMPLIANCE = { id: 'compliance', title: 'Compliance', items: [
-  'Keys secured and locked when not in use',
-  'Key sign-in / sign-out log current and complete',
-  'Vendor log in use — all vendors signed in and out',
-  'Guest complaint log on site and actively being utilized',
-  'Daily huddle agenda binder on site and current',
+const COMPLIANCE = { id: 'compliance', title: 'Compliance', w: 5, items: [
+  { t: 'Keys secured and locked when not in use', crit: true },
+  { t: 'Key sign-in / sign-out log current and complete' },
+  { t: 'Vendor log in use — all vendors signed in and out' },
+  { t: 'Guest complaint log on site and actively being utilized' },
+  { t: 'Daily huddle agenda binder on site and current' },
 ]};
+
+const ROOMS_WEIGHT = 20;                    // Guest Rooms (room walk)
+const RATING_BANDS = { sat: 90, ni: 80 };   // ≥90 Satisfactory, ≥80 Needs Improvement, else Unsatisfactory
+const SEC_TITLE = Object.fromEntries(SECTIONS.map(s => [s.id, s.title]));
 
 const TIMELINES = [
   { id: 'immediately', label: 'Immediately', cls: 'tl-immediately' },
@@ -637,8 +677,8 @@ function blankDraft(propId) {
     rooms: [ blankRoom(), blankRoom(), blankRoom() ],
     actions: [],                 // {id, timeline, text, owner}
     priorities: ['', '', ''],
+    photos: {},                  // { ctxKey: [ {id, thumb, uploaded, remoteUrl, caption} ] }
     startedAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
   };
 }
 function blankRoom() { return { num: '', clean: '', work: '', obs: '' }; }
@@ -657,7 +697,7 @@ function getDraft(propId) {
   d.actions = d.actions || [];
   d.rooms = d.rooms || [ blankRoom(), blankRoom(), blankRoom() ];
   d.priorities = d.priorities || ['', '', ''];
-  d.updatedAt = d.updatedAt || d.startedAt || new Date().toISOString();
+  d.photos = d.photos || {};
   return d;
 }
 
@@ -672,6 +712,7 @@ function scheduleSave() {
     const ok = saveData(DATA);
     setStatus(ok ? 'Saved' : 'Not saved — storage blocked', ok ? 'saved' : 'warn');
     renderStatusRow();
+    scheduleRemoteSync();
   }, 350);
 }
 
@@ -689,24 +730,24 @@ function computeNewOpenItems(d) {
   // Failed inspection items
   SECTIONS.forEach(sec => {
     const st = d.inspection[sec.id] || {};
-    sec.items.forEach((label, idx) => {
+    sec.items.forEach((item, idx) => {
       const cell = st[idx];
       if (cell && cell.status === 'fail') {
         items.push({
           id: uid(), source: 'inspection', sectionTitle: sec.title,
-          text: label, detail: cell.comment || '', timeline: '', owner: '',
+          text: item.t, detail: cell.comment || '', timeline: '', owner: '',
           originatedDate: d.date, visitsOpen: 1,
         });
       }
     });
   });
   // Compliance "No"
-  COMPLIANCE.items.forEach((label, idx) => {
+  COMPLIANCE.items.forEach((item, idx) => {
     const cell = d.compliance[idx];
     if (cell && cell.status === 'no') {
       items.push({
         id: uid(), source: 'compliance', sectionTitle: 'Compliance',
-        text: label, detail: cell.note || '', timeline: 'immediately', owner: '',
+        text: item.t, detail: cell.note || '', timeline: 'immediately', owner: '',
         originatedDate: d.date, visitsOpen: 1,
       });
     }
@@ -745,6 +786,126 @@ function pendingCarryCount(d) {
 }
 
 /* ══════════════════════════════════════════════════════════════
+   SCORING ENGINE  —  weighted % score + critical auto-fail
+   ══════════════════════════════════════════════════════════════ */
+// Carried-over items that are "due" auto-fail if still open; long-horizon
+// (This Month / CapEx) items keep carrying but do not auto-fail.
+function isDue(tl) { return tl === 'immediately' || tl === 'week' || !tl; }
+
+function roomsUsedList(d) {
+  return (d.rooms || []).filter(r => r.num || r.clean || r.work || r.obs);
+}
+
+function computeScore(d) {
+  const sectionScores = {};
+  let wsum = 0, acc = 0;
+
+  // Checklist sections (pass / fail / N-A). N/A drops out of the denominator.
+  SECTIONS.forEach(sec => {
+    const st = d.inspection[sec.id] || {};
+    let pass = 0, ans = 0;
+    sec.items.forEach((it, idx) => {
+      const c = st[idx];
+      if (!c || !c.status || c.status === 'na') return;
+      ans++; if (c.status === 'pass') pass++;
+    });
+    if (ans > 0) { const sc = pass / ans; sectionScores[sec.id] = { pct: sc * 100, w: sec.w }; wsum += sec.w; acc += sc * sec.w; }
+    else sectionScores[sec.id] = { pct: null, w: sec.w };
+  });
+
+  // Compliance (Yes / No)
+  let cpass = 0, cans = 0;
+  COMPLIANCE.items.forEach((it, idx) => {
+    const c = d.compliance[idx];
+    if (!c || !c.status) return;
+    cans++; if (c.status === 'yes') cpass++;
+  });
+  if (cans > 0) { const sc = cpass / cans; sectionScores['compliance'] = { pct: sc * 100, w: COMPLIANCE.w }; wsum += COMPLIANCE.w; acc += sc * COMPLIANCE.w; }
+  else sectionScores['compliance'] = { pct: null, w: COMPLIANCE.w };
+
+  // Guest Rooms (room walk): each room contributes cleanliness + working order
+  let rpass = 0, rans = 0, roomsFailed = 0;
+  roomsUsedList(d).forEach(r => {
+    let rf = false;
+    ['clean', 'work'].forEach(k => {
+      if (r[k] === 'pass') { rans++; rpass++; }
+      else if (r[k] === 'fail') { rans++; rf = true; }
+    });
+    if (rf) roomsFailed++;
+  });
+  if (rans > 0) { const sc = rpass / rans; sectionScores['rooms'] = { pct: sc * 100, w: ROOMS_WEIGHT }; wsum += ROOMS_WEIGHT; acc += sc * ROOMS_WEIGHT; }
+  else sectionScores['rooms'] = { pct: null, w: ROOMS_WEIGHT };
+
+  // Weighted overall over sections that have at least one answered item.
+  const overall = wsum > 0 ? (acc / wsum) * 100 : null;
+
+  // ── Critical / automatic-fail triggers ──
+  const autoFails = [];
+  SECTIONS.forEach(sec => {
+    const st = d.inspection[sec.id] || {};
+    sec.items.forEach((it, idx) => {
+      if (it.crit && st[idx] && st[idx].status === 'fail') autoFails.push(sec.title + ' — ' + it.t);
+    });
+  });
+  COMPLIANCE.items.forEach((it, idx) => {
+    if (it.crit && d.compliance[idx] && d.compliance[idx].status === 'no') autoFails.push('Compliance — ' + it.t);
+  });
+  const roomsCount = roomsUsedList(d).length;
+  if (roomsFailed >= 2) autoFails.push(roomsFailed + ' of ' + roomsCount + ' rooms failed');
+  (d.carried || []).forEach(c => {
+    if (c.resolution !== 'resolved' && isDue(c.timeline)) autoFails.push('Unresolved from last visit — ' + c.text);
+  });
+
+  let rating;
+  if (autoFails.length) rating = 'unsat';
+  else if (overall == null) rating = '';
+  else if (overall >= RATING_BANDS.sat) rating = 'sat';
+  else if (overall >= RATING_BANDS.ni) rating = 'ni';
+  else rating = 'unsat';
+
+  return { overall, sectionScores, autoFails, rating };
+}
+
+function renderScoreCard() {
+  const s = computeScore(draft);
+  const r = ratingInfo(s.rating);
+  const scoreTxt = s.overall == null ? '—' : (Math.round(s.overall * 10) / 10) + '%';
+  const band = s.autoFails.length ? 'res-fail'
+             : s.rating === 'sat' ? 'res-sat'
+             : s.rating === 'ni' ? 'res-ni'
+             : s.rating === 'unsat' ? 'res-unsat' : 'res-none';
+  const verdict = s.autoFails.length ? 'AUTOMATIC FAIL' : r.label;
+
+  let banner = '';
+  if (s.autoFails.length) {
+    banner = `<div class="autofail-banner"><div class="af-title">⛔ ${s.autoFails.length} critical issue${s.autoFails.length === 1 ? '' : 's'} — automatic Unsatisfactory</div><ul>` +
+      s.autoFails.map(f => `<li>${esc(f)}</li>`).join('') + `</ul></div>`;
+  }
+
+  const order = SECTIONS.map(x => ({ id: x.id, title: x.title }))
+    .concat([{ id: 'rooms', title: 'Guest Rooms' }, { id: 'compliance', title: 'Compliance' }]);
+  const bars = order.map(o => {
+    const sc = s.sectionScores[o.id];
+    if (!sc) return '';
+    const pct = sc.pct == null ? null : Math.round(sc.pct);
+    const val = pct == null ? '<span style="color:var(--gray-400)">not scored</span>' : pct + '%';
+    const color = pct == null ? 'var(--gray-200)' : pct >= 90 ? 'var(--green)' : pct >= 80 ? 'var(--gold)' : 'var(--red)';
+    return `<div class="score-row"><div class="score-name">${esc(o.title)} <span class="score-w">${sc.w}%</span></div><div class="score-bar"><div class="score-fill" style="width:${pct == null ? 0 : pct}%;background:${color}"></div></div><div class="score-val">${val}</div></div>`;
+  }).join('');
+
+  return `
+    <div class="card score-card ${band}">
+      <div class="score-head">
+        <div><div class="score-label">Overall Score</div><div class="score-big">${scoreTxt}</div></div>
+        <div class="score-verdict">${verdict}</div>
+      </div>
+      ${banner}
+      <div class="score-bars">${bars}</div>
+      <div class="info-line" style="margin:2px 18px 14px">Auto-calculated: Satisfactory ≥ 90% · Needs Improvement 80–89% · Unsatisfactory &lt; 80%. Any critical item forces Unsatisfactory.</div>
+    </div>`;
+}
+
+/* ══════════════════════════════════════════════════════════════
    STATE ACCESSORS
    ══════════════════════════════════════════════════════════════ */
 function ensureInsp(sid, idx) {
@@ -778,10 +939,11 @@ function render() {
   document.getElementById('app').innerHTML =
     renderCarry() +
     renderMeta() +
+    renderScoreCard() +
     SECTIONS.map((s, i) => renderSection(s, i + 1)).join('') +
-    renderCompliance(4) +
-    renderRooms(5) +
-    renderActions(6) +
+    renderRooms(6) +
+    renderCompliance(7) +
+    renderActions(8) +
     renderPriorities() +
     renderSticky();
   window.scrollTo(0, scrollY);
@@ -834,7 +996,6 @@ function renderCarry() {
 }
 
 function renderMeta() {
-  const r = draft.rating;
   return `
     <div class="card">
       <div class="card-head">Visit Details</div>
@@ -845,15 +1006,7 @@ function renderMeta() {
         <div class="field"><label>Time In</label><input type="time" data-path="timeIn" value="${esc(draft.timeIn)}"></div>
         <div class="field"><label>Time Out</label><input type="time" data-path="timeOut" value="${esc(draft.timeOut)}"></div>
         <div class="field"><label>GM / MOD</label><input type="text" data-path="gmMod" value="${esc(draft.gmMod)}" placeholder="Name"></div>
-        <div class="field"><label>Inspector (Regional Manager)</label><input type="text" data-path="inspector" value="${esc(draft.inspector)}" placeholder="Name"></div>
-        <div class="field span-2">
-          <label>Overall Rating</label>
-          <div class="rating-group">
-            <button class="rating-btn ${r==='sat'?'sel-sat':''}" data-click="rating:sat">Satisfactory</button>
-            <button class="rating-btn ${r==='ni'?'sel-ni':''}" data-click="rating:ni">Needs Improvement</button>
-            <button class="rating-btn ${r==='unsat'?'sel-unsat':''}" data-click="rating:unsat">Unsatisfactory</button>
-          </div>
-        </div>
+        <div class="field span-3"><label>Inspector (Regional Manager)</label><input type="text" data-path="inspector" value="${esc(draft.inspector)}" placeholder="Name"></div>
       </div>
     </div>`;
 }
@@ -869,12 +1022,12 @@ function pfnButtons(sid, idx, status) {
 
 function renderSection(sec, num) {
   const st = draft.inspection[sec.id] || {};
-  const rows = sec.items.map((label, idx) => {
+  const rows = sec.items.map((item, idx) => {
     const cell = st[idx] || { status: '', comment: '' };
     const flag = cell.status === 'fail' ? 'flag' : '';
     return `
       <div class="item-row">
-        <div class="item-label">${esc(label)}</div>
+        <div class="item-label">${esc(item.t)}${item.crit ? ' <span class="crit-tag">CRITICAL</span>' : ''}</div>
         ${pfnButtons(sec.id, idx, cell.status)}
         <div class="item-comment">
           <textarea class="${flag}" rows="1" data-path="insp:${sec.id}:${idx}:comment" placeholder="${cell.status==='fail'?'Describe the issue / action needed':'Comments / action (optional)'}">${esc(cell.comment)}</textarea>
@@ -886,6 +1039,7 @@ function renderSection(sec, num) {
       <div class="card-head"><span class="num">${num}</span> ${esc(sec.title)}</div>
       <div class="card-body">
         ${rows}
+        ${renderPhotos('sec:' + sec.id)}
         <div class="section-notes">
           <label>Section Notes</label>
           <textarea rows="1" data-path="note:${sec.id}" placeholder="Notes">${esc(draft.sectionNotes[sec.id] || '')}</textarea>
@@ -895,11 +1049,11 @@ function renderSection(sec, num) {
 }
 
 function renderCompliance(num) {
-  const rows = COMPLIANCE.items.map((label, idx) => {
+  const rows = COMPLIANCE.items.map((item, idx) => {
     const cell = draft.compliance[idx] || { status: '', note: '' };
     return `
       <div class="comp-row">
-        <div class="item-label">${esc(label)}</div>
+        <div class="item-label">${esc(item.t)}${item.crit ? ' <span class="crit-tag">CRITICAL</span>' : ''}</div>
         <div class="yn-group">
           <button class="yn-btn yes ${cell.status==='yes'?'on':''}" data-click="yn:${idx}:yes">Yes</button>
           <button class="yn-btn no ${cell.status==='no'?'on':''}" data-click="yn:${idx}:no">No</button>
@@ -945,6 +1099,7 @@ function renderRooms(num) {
         ${draft.rooms.length > 1 ? `<button class="del-x" data-click="delroom:${idx}" title="Remove room" style="margin-left:auto;align-self:center">&times;</button>` : ''}
       </div>
       <textarea rows="1" data-path="room:${idx}:obs" placeholder="Observations / items to address">${esc(r.obs)}</textarea>
+      ${renderPhotos('room:' + idx)}
     </div>`).join('');
   return `
     <div class="card">
@@ -993,9 +1148,16 @@ function renderPriorities() {
 
 function renderSticky() {
   const n = pendingCarryCount(draft);
+  const s = computeScore(draft);
+  const r = ratingInfo(s.rating);
+  const scoreTxt = s.overall == null ? '—' : Math.round(s.overall) + '%';
+  const verdict = s.autoFails.length ? 'AUTO-FAIL' : r.label;
+  const vcolor = (s.autoFails.length || s.rating === 'unsat') ? 'var(--red)'
+               : s.rating === 'ni' ? 'var(--amber)'
+               : s.rating === 'sat' ? 'var(--green)' : 'var(--gray-500)';
   return `
     <div class="sticky-bar">
-      <div class="left"><b>${n}</b> open item${n===1?'':'s'} will carry to the next visit</div>
+      <div class="left">Score <b>${scoreTxt}</b> · <span style="color:${vcolor};font-weight:700">${verdict}</span> · <b>${n}</b> open item${n===1?'':'s'} carry forward</div>
       <button class="btn-danger-ghost" data-click="discard">Discard Draft</button>
       <button class="btn-primary" data-click="complete">Complete Walk ✓</button>
     </div>`;
@@ -1043,6 +1205,8 @@ function updateStickyCount() {
 }
 
 function onClick(e) {
+  const pbtn = e.target.closest('[data-photo]');
+  if (pbtn) { pendingPhotoCtx = pbtn.dataset.photo; document.getElementById('photoInput').click(); return; }
   const t = e.target.closest('[data-click]');
   if (!t) return;
   const p = t.dataset.click.split(':');
@@ -1056,10 +1220,10 @@ function onClick(e) {
   else if (head === 'delaction') { draft.actions = draft.actions.filter(a => a.id !== p[1]); }
   else if (head === 'addroom')   { draft.rooms.push(blankRoom()); }
   else if (head === 'delroom')   { draft.rooms.splice(+p[1], 1); }
+  else if (head === 'delphoto')  { const ctx = p[1] + ':' + p[2]; const id = p.slice(3).join(':'); if (draft.photos[ctx]) draft.photos[ctx] = draft.photos[ctx].filter(x => x.id !== id); idbDel(id); }
   else if (head === 'complete')  { completeWalk(); return; }
   else if (head === 'discard')   { discardDraft(); return; }
   else return;
-  if (draft) draft.updatedAt = new Date().toISOString();
   saveData(DATA);
   render();
 }
@@ -1084,13 +1248,16 @@ function completeWalk() {
       originatedDate: c.originatedDate, visitsOpen: (c.visitsOpen || 1) + 1,
     }));
   const fresh = computeNewOpenItems(draft);
+  const score = computeScore(draft);
   const walk = {
     id: uid(), propId: draft.propId,
     date: draft.date, timeIn: draft.timeIn, timeOut: draft.timeOut,
-    gmMod: draft.gmMod, inspector: draft.inspector, rating: draft.rating,
+    gmMod: draft.gmMod, inspector: draft.inspector,
+    rating: score.rating, score: score.overall,
+    sectionScores: score.sectionScores, autoFails: score.autoFails,
     inspection: draft.inspection, compliance: draft.compliance,
     sectionNotes: draft.sectionNotes, rooms: draft.rooms,
-    actions: draft.actions, priorities: draft.priorities,
+    actions: draft.actions, priorities: draft.priorities, photos: draft.photos,
     carriedResolved: resolved, carriedForward: stillOpen, newItems: fresh,
     openItems: stillOpen.concat(fresh),
     completedAt: new Date().toISOString(),
@@ -1102,8 +1269,8 @@ function completeWalk() {
   draft = getDraft(currentProp);   // fresh draft; carries forward walk.openItems
   render();
   toast('Walk completed & saved · ' + walk.openItems.length + ' item(s) carry to next visit');
-  if (cloudAccount) cloudSync(true);   // push the completed record to SharePoint
   setTimeout(() => printWalk(walk, true), 400);
+  syncAfterComplete(walk);   // push data + archive report to OneDrive (no-op if not signed in)
 }
 
 function discardDraft() {
@@ -1128,12 +1295,19 @@ function badge(status) {
 }
 
 function buildSummary(w, finalized) {
-  const r = ratingInfo(w.rating);
   const sectionNotes = w.sectionNotes || {};
-  const resolvedList   = finalized ? (w.carriedResolved || []) : (w.carried || []).filter(c => c.resolution === 'resolved');
-  const carryFwd       = finalized ? (w.carriedForward || [])  : (w.carried || []).filter(c => c.resolution !== 'resolved');
-  const newList        = finalized ? (w.newItems || [])        : computeNewOpenItems(w);
-  const openNext       = carryFwd.concat(newList);
+  const sc = finalized
+    ? { overall: (w.score != null ? w.score : null), rating: w.rating, autoFails: (w.autoFails || []), sectionScores: (w.sectionScores || {}) }
+    : computeScore(w);
+  const r = ratingInfo(sc.rating);
+  const resolvedList = finalized ? (w.carriedResolved || []) : (w.carried || []).filter(c => c.resolution === 'resolved');
+  const carryFwd     = finalized ? (w.carriedForward || [])  : (w.carried || []).filter(c => c.resolution !== 'resolved');
+  const newList      = finalized ? (w.newItems || [])        : computeNewOpenItems(w);
+  const openNext     = carryFwd.concat(newList);
+  const scoreTxt = sc.overall == null ? '—' : (Math.round(sc.overall * 10) / 10) + '%';
+  const verdict = sc.autoFails.length ? 'AUTOMATIC FAIL' : r.label;
+  const resultCls = sc.autoFails.length ? 'p-result-fail' : 'p-result-' + (sc.rating || 'none');
+  const secPct = id => { const x = sc.sectionScores[id]; return (x && x.pct != null) ? ' <span class="p-score">' + Math.round(x.pct) + '%</span>' : ''; };
 
   let h = `
     <div class="p-head">
@@ -1145,14 +1319,22 @@ function buildSummary(w, finalized) {
         <div class="p-sub">${esc(propBrand(w.propId))}</div>
       </div>
     </div>
+    <div class="p-result ${resultCls}">
+      <span class="p-result-score">${scoreTxt}</span><span class="p-result-verdict">${verdict}</span>
+    </div>
     <div class="p-meta">
       <div><b>Date:</b> ${fmtDate(w.date)}</div>
       <div><b>Time In:</b> ${esc(w.timeIn) || '—'}</div>
       <div><b>Time Out:</b> ${esc(w.timeOut) || '—'}</div>
       <div><b>GM / MOD:</b> ${esc(w.gmMod) || '—'}</div>
       <div><b>Inspector:</b> ${esc(w.inspector) || '—'}</div>
-      <div><b>Overall Rating:</b> ${r.label}</div>
+      <div><b>Rating:</b> ${r.label}</div>
     </div>`;
+
+  if (sc.autoFails.length) {
+    h += `<div class="p-af"><b>⛔ Automatic-fail triggers (${sc.autoFails.length}):</b><ul>` +
+      sc.autoFails.map(f => `<li>${esc(f)}</li>`).join('') + `</ul></div>`;
+  }
 
   if (resolvedList.length) {
     h += `<h2>Open Items Resolved This Visit (${resolvedList.length})</h2><table><thead><tr><th>Item</th><th style="width:38%">Resolution note</th></tr></thead><tbody>`;
@@ -1162,35 +1344,58 @@ function buildSummary(w, finalized) {
 
   SECTIONS.forEach((sec, i) => {
     const st = w.inspection[sec.id] || {};
-    h += `<h2>${i+1}. ${esc(sec.title)}</h2><table><thead><tr><th>Item</th><th style="width:90px">Result</th><th style="width:38%">Comments / Action</th></tr></thead><tbody>`;
-    sec.items.forEach((label, idx) => {
+    h += `<h2>${i+1}. ${esc(sec.title)}${secPct(sec.id)}</h2><table><thead><tr><th>Item</th><th style="width:80px">Result</th><th style="width:36%">Comments / Action</th></tr></thead><tbody>`;
+    sec.items.forEach((item, idx) => {
       const cell = st[idx] || {};
       const cls = cell.status === 'fail' ? ' class="p-flag"' : '';
-      h += `<tr${cls}><td>${esc(label)}</td><td>${badge(cell.status)}</td><td>${esc(cell.comment) || ''}</td></tr>`;
+      const crit = item.crit ? ' <span class="p-crit">CRIT</span>' : '';
+      h += `<tr${cls}><td>${esc(item.t)}${crit}</td><td>${badge(cell.status)}</td><td>${esc(cell.comment) || ''}</td></tr>`;
     });
     h += `</tbody></table>`;
     if (sectionNotes[sec.id]) h += `<div style="font-size:11px;margin:2px 0 4px"><b>Notes:</b> ${esc(sectionNotes[sec.id])}</div>`;
   });
 
-  // Compliance
-  h += `<h2>4. Compliance</h2><table><thead><tr><th>Item</th><th style="width:90px">Result</th><th style="width:38%">Notes</th></tr></thead><tbody>`;
-  COMPLIANCE.items.forEach((label, idx) => {
-    const cell = w.compliance[idx] || {};
-    const cls = cell.status === 'no' ? ' class="p-flag"' : '';
-    h += `<tr${cls}><td>${esc(label)}</td><td>${badge(cell.status)}</td><td>${esc(cell.note) || ''}</td></tr>`;
-  });
-  h += `</tbody></table>`;
-  if (sectionNotes['compliance']) h += `<div style="font-size:11px;margin:2px 0 4px"><b>Notes:</b> ${esc(sectionNotes['compliance'])}</div>`;
-
-  // Rooms
+  // Guest Rooms — Room Walk (6)
   const roomsUsed = (w.rooms || []).filter(rm => rm.num || rm.clean || rm.work || rm.obs);
+  h += `<h2>6. Guest Rooms — Room Walk${secPct('rooms')}</h2>`;
   if (roomsUsed.length) {
-    h += `<h2>5. Room Walk</h2><table><thead><tr><th style="width:70px">Room #</th><th style="width:90px">Cleanliness</th><th style="width:90px">Working Order</th><th>Observations</th></tr></thead><tbody>`;
+    h += `<table><thead><tr><th style="width:70px">Room #</th><th style="width:90px">Cleanliness</th><th style="width:90px">Working Order</th><th>Observations</th></tr></thead><tbody>`;
     roomsUsed.forEach(rm => {
       const cls = (rm.clean === 'fail' || rm.work === 'fail') ? ' class="p-flag"' : '';
       h += `<tr${cls}><td>${esc(rm.num) || '—'}</td><td>${badge(rm.clean)}</td><td>${badge(rm.work)}</td><td>${esc(rm.obs) || ''}</td></tr>`;
     });
     h += `</tbody></table>`;
+  } else {
+    h += `<div style="font-size:11px;color:#888">No rooms recorded.</div>`;
+  }
+
+  // Compliance (7)
+  h += `<h2>7. Compliance${secPct('compliance')}</h2><table><thead><tr><th>Item</th><th style="width:80px">Result</th><th style="width:36%">Notes</th></tr></thead><tbody>`;
+  COMPLIANCE.items.forEach((item, idx) => {
+    const cell = w.compliance[idx] || {};
+    const cls = cell.status === 'no' ? ' class="p-flag"' : '';
+    const crit = item.crit ? ' <span class="p-crit">CRIT</span>' : '';
+    h += `<tr${cls}><td>${esc(item.t)}${crit}</td><td>${badge(cell.status)}</td><td>${esc(cell.note) || ''}</td></tr>`;
+  });
+  h += `</tbody></table>`;
+  if (sectionNotes['compliance']) h += `<div style="font-size:11px;margin:2px 0 4px"><b>Notes:</b> ${esc(sectionNotes['compliance'])}</div>`;
+
+  // Photos
+  const photos = w.photos || {};
+  const photoCtxs = Object.keys(photos).filter(k => (photos[k] || []).length);
+  if (photoCtxs.length) {
+    const label = k => {
+      const seg = k.split(':');
+      if (seg[0] === 'room') { const rm = (w.rooms || [])[+seg[1]]; return 'Room ' + ((rm && rm.num) || (+seg[1] + 1)); }
+      return SEC_TITLE[seg[1]] || 'Photos';
+    };
+    const total = photoCtxs.reduce((n, k) => n + photos[k].length, 0);
+    h += `<h2>Photos (${total})</h2>`;
+    photoCtxs.forEach(k => {
+      h += `<div class="p-photogrp"><div class="p-photolabel">${esc(label(k))}</div><div class="p-photos">`;
+      (photos[k] || []).forEach(p => { h += `<img class="p-photo" src="${p.thumb}" alt="photo">`; });
+      h += `</div></div>`;
+    });
   }
 
   // Open items carried forward
@@ -1247,7 +1452,7 @@ function openHistory() {
         <div class="hist-item">
           <div>
             <div class="h-title">${fmtDate(w.date)} ${r.cls ? `<span class="rating-pill ${r.cls}">${r.label}</span>` : ''}</div>
-            <div class="h-meta">Inspector: ${esc(w.inspector) || '—'} · ${open} open item${open===1?'':'s'} carried forward</div>
+            <div class="h-meta">${w.score != null ? Math.round(w.score) + '% · ' : ''}Inspector: ${esc(w.inspector) || '—'} · ${open} open item${open===1?'':'s'} carried forward</div>
           </div>
           <div style="display:flex;gap:8px">
             <button class="btn-gold btn-sm" data-hist="print:${w.id}">Print / PDF</button>
@@ -1307,6 +1512,7 @@ function importData(file) {
       saveData(DATA);
       draft = getDraft(currentProp);
       render();
+      scheduleRemoteSync();
       toast('Backup imported.');
     } catch (err) {
       toast('Import failed: ' + err.message, 'err');
@@ -1328,162 +1534,293 @@ function toast(msg, kind) {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   CLOUD SYNC  (SharePoint / OneDrive via Microsoft Graph)
-   Local-first: the browser copy is always the working copy. We PULL
-   + merge on load / sign-in, and PUSH on Complete or manual Sync now.
+   MICROSOFT 365 / ONEDRIVE SYNC  (offline-first, additive)
+   Works only once configured below AND the RM signs in. Until then
+   the tool runs exactly as-is on localStorage.
    ══════════════════════════════════════════════════════════════ */
+const M365 = {
+  // ►►► FILL THESE IN AFTER THE ENTRA APP REGISTRATION (see setup doc). ◄◄◄
+  clientId: 'd46c1f09-d5b9-4397-9b08-2a4bd1305232',   // Entra app "3923 RM Walkthrough"
+  tenantId: '6adeec31-1afd-44a7-8087-ac761ad15aa4',   // Nelsons Law tenant (locks sign-in to 3923)
+  // Storage target. 'sharepoint' = ONE shared library that every inspector writes to — all
+  // reports + photos land in a single place you control (recommended for a multi-person team).
+  storage: 'sharepoint',                  // 'sharepoint' | 'onedrive'
+  siteHostname: 'nelsonslawfirm.sharepoint.com',
+  sitePath: '/sites/3923Operations',      // the 3923 Operations site's Documents library
+  // ────────────────────────────────────────────────────────────────────
+  scopes: ['User.Read', 'Files.ReadWrite', 'Sites.ReadWrite.All'],
+  dataPath: '/3923 Walkthroughs/walkthrough-data.json',   // the shared data file
+  reportsFolder: '/3923 Walkthroughs',                    // reports + photos land here, per hotel
+};
 
-// Merge two data sets without losing walks. Completed walks are immutable,
-// so history is a union keyed by walk id; drafts keep the most recently edited.
-function mergeData(local, remote) {
-  local = local || { drafts: {}, history: {} };
-  remote = remote || { drafts: {}, history: {} };
-  const out = { version: 1, drafts: {}, history: {} };
-  const histProps = new Set([...Object.keys(local.history || {}), ...Object.keys(remote.history || {})]);
-  histProps.forEach(pid => {
-    const byId = {};
-    (local.history[pid] || []).forEach(w => { byId[w.id] = w; });
-    (remote.history[pid] || []).forEach(w => { if (!byId[w.id]) byId[w.id] = w; });
-    out.history[pid] = Object.values(byId).sort((a, b) =>
-      ((a.date || '').localeCompare(b.date || '')) || ((a.completedAt || '').localeCompare(b.completedAt || '')));
+let msalApp = null;
+let account = null;
+
+function m365Configured() {
+  if (typeof msal === 'undefined' || !M365.clientId || M365.clientId.indexOf('PASTE') !== -1) return false;
+  if (M365.storage === 'sharepoint') return M365.siteHostname.indexOf('PASTE') === -1 && M365.sitePath.indexOf('PASTE') === -1;
+  return true;
+}
+function setSync(text, cls) {
+  const el = document.getElementById('syncStatus');
+  if (el) { el.textContent = text; el.className = 'save-status' + (cls ? ' ' + cls : ''); }
+}
+
+async function initM365() {
+  const btn = document.getElementById('btnAuth');
+  if (!m365Configured()) {
+    setSync('Local only', '');
+    if (btn) { btn.textContent = 'OneDrive not set up'; btn.disabled = true; btn.style.opacity = '.6'; btn.title = 'Add your Entra client ID (see setup doc) to enable OneDrive sync'; }
+    return;
+  }
+  const redirectUri = location.origin + location.pathname;
+  console.log('[3923 Walkthrough] Register this Redirect URI in Entra (SPA):', redirectUri);
+  msalApp = new msal.PublicClientApplication({
+    auth: { clientId: M365.clientId, authority: 'https://login.microsoftonline.com/' + M365.tenantId, redirectUri },
+    cache: { cacheLocation: 'localStorage' },
   });
-  const draftProps = new Set([...Object.keys(local.drafts || {}), ...Object.keys(remote.drafts || {})]);
-  draftProps.forEach(pid => {
-    const l = local.drafts[pid], r = remote.drafts[pid];
-    if (l && r) out.drafts[pid] = ((l.updatedAt || '') >= (r.updatedAt || '')) ? l : r;
-    else out.drafts[pid] = l || r;
+  await msalApp.initialize();
+  try { const resp = await msalApp.handleRedirectPromise(); if (resp && resp.account) account = resp.account; } catch (e) {}
+  if (!account) { const a = msalApp.getAllAccounts(); if (a.length) account = a[0]; }
+  updateAuthUI();
+  if (account) await pullFromOneDrive();
+}
+
+function updateAuthUI() {
+  const btn = document.getElementById('btnAuth');
+  if (!btn) return;
+  if (account) {
+    btn.textContent = 'Sign out';
+    btn.onclick = doSignOut;
+    setSync('Synced · ' + (account.username || 'OneDrive'), 'saved');
+  } else {
+    btn.textContent = 'Sign in to OneDrive';
+    btn.onclick = doSignIn;
+    setSync('Local only', '');
+  }
+}
+
+async function doSignIn() {
+  if (!msalApp) return;
+  try {
+    const resp = await msalApp.loginPopup({ scopes: M365.scopes });
+    account = resp.account; updateAuthUI(); await pullFromOneDrive();
+  } catch (e) {
+    try { await msalApp.loginRedirect({ scopes: M365.scopes }); } catch (e2) { setSync('Sign-in failed', 'warn'); }
+  }
+}
+async function doSignOut() { try { await msalApp.logoutPopup({ account }); } catch (e) {} account = null; updateAuthUI(); }
+
+async function getToken() {
+  if (!msalApp || !account) return null;
+  try { const r = await msalApp.acquireTokenSilent({ scopes: M365.scopes, account }); return r.accessToken; }
+  catch (e) { try { const r = await msalApp.acquireTokenPopup({ scopes: M365.scopes }); return r.accessToken; } catch (e2) { return null; } }
+}
+async function graphFetch(url, opts) {
+  const token = await getToken();
+  if (!token) throw new Error('no token');
+  opts = opts || {};
+  opts.headers = Object.assign({ Authorization: 'Bearer ' + token }, opts.headers || {});
+  return fetch('https://graph.microsoft.com/v1.0' + url, opts);
+}
+
+// Resolve the target drive once: the SharePoint site's document library, or the user's OneDrive.
+let _driveRoot = null;
+async function driveRoot() {
+  if (_driveRoot) return _driveRoot;
+  if (M365.storage !== 'sharepoint') { _driveRoot = '/me/drive'; return _driveRoot; }
+  const resp = await graphFetch('/sites/' + M365.siteHostname + ':' + M365.sitePath);
+  if (!resp.ok) throw new Error('site resolve ' + resp.status);
+  const site = await resp.json();
+  _driveRoot = '/sites/' + site.id + '/drive';
+  return _driveRoot;
+}
+async function itemUrl(pathInDrive) { return (await driveRoot()) + '/root:' + encodeURI(pathInDrive) + ':/content'; }
+
+async function pullFromOneDrive() {
+  if (!account) return;
+  setSync('Syncing…', '');
+  try {
+    const url = await itemUrl(M365.dataPath);
+    const resp = await graphFetch(url);
+    if (resp.status === 200) {
+      const remote = await resp.json();
+      DATA = mergeData(DATA, remote);
+      saveData(DATA);
+      draft = getDraft(currentProp);
+      render();
+    } else if (resp.status !== 404) { throw new Error('GET ' + resp.status); }
+    await pushToOneDrive(true);   // push merged (or first-time) copy up
+    updateAuthUI();
+  } catch (e) { setSync('Sync error (working locally)', 'warn'); }
+}
+
+let remoteTimer = null;
+function scheduleRemoteSync() {
+  if (!account) return;
+  clearTimeout(remoteTimer);
+  remoteTimer = setTimeout(() => pushToOneDrive(false), 1200);
+}
+async function pushToOneDrive(silent) {
+  if (!account) return;
+  if (!silent) setSync('Syncing…', '');
+  try {
+    const url = await itemUrl(M365.dataPath);
+    const resp = await graphFetch(url, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(DATA) });
+    if (!resp.ok) throw new Error('PUT ' + resp.status);
+    setSync('Synced · ' + (account.username || 'OneDrive'), 'saved');
+  } catch (e) { setSync('Sync error (working locally)', 'warn'); }
+}
+
+// Merge never loses a completed walk: union history by id; keep the newer draft per property.
+function mergeData(local, remote) {
+  const out = { version: 1, drafts: {}, history: {} };
+  const hp = new Set([...Object.keys((local && local.history) || {}), ...Object.keys((remote && remote.history) || {})]);
+  hp.forEach(pid => {
+    const seen = {};
+    [...(((local && local.history) || {})[pid] || []), ...(((remote && remote.history) || {})[pid] || [])].forEach(w => { seen[w.id] = w; });
+    out.history[pid] = Object.values(seen).sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+  });
+  const dp = new Set([...Object.keys((local && local.drafts) || {}), ...Object.keys((remote && remote.drafts) || {})]);
+  dp.forEach(pid => {
+    const a = ((local && local.drafts) || {})[pid], b = ((remote && remote.drafts) || {})[pid];
+    if (a && b) out.drafts[pid] = ((a.updatedAt || '') >= (b.updatedAt || '')) ? a : b;
+    else out.drafts[pid] = a || b;
   });
   return out;
 }
 
-function nowLabel() { try { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } }
+function fmtFileDate(iso) { return (iso || '').replace(/-/g, '.'); }
 
-function renderCloud(state, msg) {
-  const btn = document.getElementById('btnCloud');
-  const out = document.getElementById('btnCloudOut');
-  const st = document.getElementById('cloudStatus');
-  if (!btn || !st) return;
-  const show = (el, on) => { if (el) el.style.display = on ? '' : 'none'; };
-  if (state === 'off') {
-    show(btn, false); show(out, false); show(st, true);
-    const guid = /^[0-9a-fA-F-]{36}$/.test(CLOUD.clientId);
-    st.textContent = (guid && location.protocol === 'file:') ? 'Local only — host on web to enable cloud' : 'Local only';
-    st.className = 'save-status';
-    return;
-  }
-  show(st, true);
-  if (state === 'signin') { show(btn, true); show(out, false); btn.textContent = 'Connect SharePoint'; st.textContent = 'Not signed in'; st.className = 'save-status'; }
-  else if (state === 'signedin') { show(btn, true); show(out, true); btn.textContent = 'Sync now'; st.textContent = 'Signed in'; st.className = 'save-status saved'; }
-  else if (state === 'syncing') { show(btn, true); show(out, true); btn.textContent = 'Sync now'; st.textContent = 'Syncing…'; st.className = 'save-status'; }
-  else if (state === 'synced') { show(btn, true); show(out, true); btn.textContent = 'Sync now'; st.textContent = 'Synced ✓ ' + nowLabel(); st.className = 'save-status saved'; }
-  else if (state === 'error') { show(btn, true); show(out, !!cloudAccount); btn.textContent = cloudAccount ? 'Retry sync' : 'Connect SharePoint'; st.textContent = 'Sync issue: ' + String(msg || '').slice(0, 70); st.className = 'save-status warn'; }
+// Report archived to OneDrive as a self-contained, faithfully-styled HTML file (opens anywhere; one-click print to PDF).
+const REPORT_CSS = `
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#111;padding:28px;font-size:12px;line-height:1.4}
+  .p-head{display:flex;align-items:center;gap:12px;border-bottom:2px solid #0A1F38;padding-bottom:12px;margin-bottom:14px}
+  .p-logo{width:40px;height:40px;background:#F9A61A;color:#0A1F38;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700}
+  h1{color:#0A1F38;font-size:19px;margin:0}
+  .p-sub{color:#666;font-size:11px}
+  h2{font-size:13px;color:#fff;background:#0A1F38;padding:6px 10px;margin:16px 0 8px;border-radius:4px}
+  .p-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 18px;font-size:12px;margin-bottom:6px}.p-meta b{color:#000}
+  table{width:100%;border-collapse:collapse;font-size:11.5px;margin-bottom:6px}
+  th,td{border:1px solid #ccc;padding:5px 7px;text-align:left;vertical-align:top}
+  th{background:#f0f0f0;font-size:10.5px;text-transform:uppercase;letter-spacing:.3px}
+  .b-pass{color:#16A34A;font-weight:700}.b-fail{color:#DC2626;font-weight:700}.b-na{color:#888;font-weight:700}
+  .p-sign{display:flex;gap:40px;margin-top:34px}.p-sign div{flex:1;border-top:1px solid #333;padding-top:6px;font-size:11px}
+  .p-foot{margin-top:24px;border-top:1px solid #ccc;padding-top:8px;text-align:center;font-size:10px;color:#888}
+  .p-flag{background:#fff5f5}.p-open{background:#fffbeb}
+  .p-result{display:flex;align-items:center;gap:12px;margin:8px 0 10px;padding:8px 14px;border-radius:6px}
+  .p-result-score{font-size:24px;font-weight:700}.p-result-verdict{font-size:15px;font-weight:700}
+  .p-result-sat{background:#F0FDF4;color:#16A34A;border:1px solid #BBF7D0}
+  .p-result-ni{background:#FEF3D0;color:#B45309;border:1px solid #FDE68A}
+  .p-result-unsat,.p-result-fail{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA}
+  .p-result-none{background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0}
+  .p-af{background:#FEF2F2;border:1px solid #FECACA;border-radius:6px;padding:8px 12px;margin:6px 0 10px;font-size:12px}.p-af ul{margin:4px 0 0;padding-left:18px}
+  .p-crit{font-size:8px;font-weight:700;color:#fff;background:#DC2626;padding:1px 4px;border-radius:3px}
+  .p-score{font-size:12px;color:#F9A61A;font-weight:700}
+  .p-photogrp{margin:6px 0;page-break-inside:avoid}.p-photolabel{font-size:11px;font-weight:700;color:#0A1F38;margin:4px 0 3px}
+  .p-photos{display:flex;flex-wrap:wrap;gap:6px}.p-photo{width:150px;height:112px;object-fit:cover;border:1px solid #ccc;border-radius:4px}
+`;
+function buildReportDoc(w) {
+  return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<title>Weekly Site Inspection — ' + esc(propName(w.propId)) + ' — ' + esc(w.date) + '</title><style>' + REPORT_CSS + '</style></head><body>' +
+    buildSummary(w, true) + '</body></html>';
 }
 
-async function cloudInit() {
-  if (!CLOUD_ENABLED) { renderCloud('off'); return; }
-  if (typeof msal === 'undefined' || !msal.PublicClientApplication) { renderCloud('error', 'sign-in library did not load'); return; }
+async function uploadReport(walk) {
+  if (!account) return;
   try {
-    msalApp = new msal.PublicClientApplication({
-      auth: {
-        clientId: CLOUD.clientId,
-        authority: 'https://login.microsoftonline.com/' + CLOUD.tenant,
-        redirectUri: location.origin + location.pathname,
-      },
-      cache: { cacheLocation: 'localStorage' },
-    });
-    if (typeof msalApp.initialize === 'function') await msalApp.initialize();
-    const accts = msalApp.getAllAccounts();
-    if (accts.length) {
-      cloudAccount = accts[0];
-      if (msalApp.setActiveAccount) msalApp.setActiveAccount(cloudAccount);
-      renderCloud('signedin');
-      cloudSync(true);
-    } else {
-      renderCloud('signin');
-    }
-  } catch (e) { renderCloud('error', e.message); }
+    setSync('Saving report to OneDrive…', '');
+    const safeHotel = propName(walk.propId).replace(/[\\/:*?"<>|]/g, '-');
+    const fname = fmtFileDate(walk.date) + '_' + safeHotel + '.html';
+    const url = await itemUrl(M365.reportsFolder + '/' + safeHotel + '/' + fname);
+    const resp = await graphFetch(url, { method: 'PUT', headers: { 'Content-Type': 'text/html' }, body: buildReportDoc(walk) });
+    if (!resp.ok) throw new Error('report PUT ' + resp.status);
+    setSync('Report saved · Synced', 'saved');
+  } catch (e) { setSync('Report upload failed (data still synced)', 'warn'); }
+}
+async function syncAfterComplete(walk) {
+  await uploadPendingPhotos(walk);   // upload full-res photos first, capture their URLs
+  await pushToOneDrive(false);       // then push data (now includes photo references)
+  await uploadReport(walk);
 }
 
-async function cloudSignIn() {
-  if (!msalApp) return;
-  try {
-    const res = await msalApp.loginPopup({ scopes: CLOUD_SCOPES, prompt: 'select_account' });
-    cloudAccount = res.account;
-    if (msalApp.setActiveAccount) msalApp.setActiveAccount(cloudAccount);
-    renderCloud('signedin');
-    cloudSync(true);
-  } catch (e) { renderCloud('error', e.message); }
-}
-
-function cloudSignOut() {
-  try { if (msalApp && cloudAccount && msalApp.logoutPopup) msalApp.logoutPopup({ account: cloudAccount, mainWindowRedirectUri: location.origin + location.pathname }); } catch (e) {}
-  cloudAccount = null; driveItemBase = null; renderCloud('signin');
-}
-
-async function cloudToken() {
-  const req = { scopes: CLOUD_SCOPES, account: cloudAccount };
-  try { return (await msalApp.acquireTokenSilent(req)).accessToken; }
-  catch (e) { return (await msalApp.acquireTokenPopup(req)).accessToken; }
-}
-
-async function cloudGraph(path, opts) {
-  opts = opts || {};
-  const token = await cloudToken();
-  return fetch('https://graph.microsoft.com/v1.0' + path, {
-    ...opts,
-    headers: { Authorization: 'Bearer ' + token, ...(opts.headers || {}) },
+/* ══════════════════════════════════════════════════════════════
+   PHOTO CAPTURE + UPLOAD
+   Thumbnail (small JPEG) is embedded in the data + report so it's always visible;
+   the full-resolution image is uploaded to the same library, filed under the hotel/date.
+   ══════════════════════════════════════════════════════════════ */
+let pendingPhotoCtx = null;
+const IDB_NAME = 'rmwalk', IDB_STORE = 'photos';
+function idbOpen() {
+  return new Promise((res, rej) => {
+    let r; try { r = indexedDB.open(IDB_NAME, 1); } catch (e) { return rej(e); }
+    r.onupgradeneeded = () => { try { r.result.createObjectStore(IDB_STORE); } catch (e) {} };
+    r.onsuccess = () => res(r.result);
+    r.onerror = () => rej(r.error);
   });
 }
+async function idbPut(k, v) { const db = await idbOpen(); return new Promise((res, rej) => { const t = db.transaction(IDB_STORE, 'readwrite'); t.objectStore(IDB_STORE).put(v, k); t.oncomplete = () => res(); t.onerror = () => rej(t.error); }); }
+async function idbGet(k) { const db = await idbOpen(); return new Promise((res, rej) => { const t = db.transaction(IDB_STORE, 'readonly'); const rq = t.objectStore(IDB_STORE).get(k); rq.onsuccess = () => res(rq.result); rq.onerror = () => rej(rq.error); }); }
+async function idbDel(k) { try { const db = await idbOpen(); return new Promise((res) => { const t = db.transaction(IDB_STORE, 'readwrite'); t.objectStore(IDB_STORE).delete(k); t.oncomplete = () => res(); t.onerror = () => res(); }); } catch (e) {} }
 
-async function resolveItemBase() {
-  if (driveItemBase) return driveItemBase;
-  const name = encodeURIComponent(CLOUD.fileName);
-  if (CLOUD.useOneDrive) { driveItemBase = '/me/drive/root:/' + name; return driveItemBase; }
-  const r = await cloudGraph('/sites/' + CLOUD.siteHostname + ':' + CLOUD.sitePath);
-  if (!r.ok) throw new Error('SharePoint site not found (' + r.status + ')');
-  const site = await r.json();
-  driveItemBase = '/sites/' + site.id + '/drive/root:/' + name;
-  return driveItemBase;
+function dataURLtoBlob(u) { const a = u.split(','), m = a[0].match(/:(.*?);/)[1], b = atob(a[1]); let n = b.length; const arr = new Uint8Array(n); while (n--) arr[n] = b.charCodeAt(n); return new Blob([arr], { type: m }); }
+function downscale(file, maxDim, quality) {
+  return new Promise((res, rej) => {
+    const img = new Image();
+    img.onload = () => {
+      let w = img.naturalWidth, h = img.naturalHeight;
+      const s = Math.min(1, maxDim / Math.max(w, h));
+      w = Math.max(1, Math.round(w * s)); h = Math.max(1, Math.round(h * s));
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      const dataUrl = c.toDataURL('image/jpeg', quality);
+      c.toBlob(b => res({ blob: b || dataURLtoBlob(dataUrl), dataUrl }), 'image/jpeg', quality);
+    };
+    img.onerror = rej;
+    img.src = URL.createObjectURL(file);
+  });
 }
-
-async function cloudPull() {
-  const base = await resolveItemBase();
-  const meta = await cloudGraph(base);
-  if (meta.status === 404) return { data: null, etag: null };
-  if (!meta.ok) throw new Error('read failed (' + meta.status + ')');
-  const m = await meta.json();
-  const c = await cloudGraph(base + ':/content');
-  if (!c.ok) throw new Error('download failed (' + c.status + ')');
-  const data = await c.json();
-  return { data, etag: m.cTag || m.eTag || null };
-}
-
-async function cloudPush(data, etag) {
-  const base = await resolveItemBase();
-  const headers = { 'Content-Type': 'application/json' };
-  if (etag) headers['if-match'] = etag;
-  return cloudGraph(base + ':/content', { method: 'PUT', headers, body: JSON.stringify(data) });
-}
-
-async function cloudSync(alsoPush) {
-  if (!cloudAccount || cloudBusy) return;
-  cloudBusy = true; renderCloud('syncing');
+async function addPhoto(ctx, file) {
   try {
-    const pulled = await cloudPull();
-    if (pulled.data) { DATA = mergeData(DATA, pulled.data); saveData(DATA); draft = getDraft(currentProp); render(); }
-    if (alsoPush) {
-      let r = await cloudPush(DATA, pulled.etag);
-      if (r.status === 412) {                       // remote changed under us — re-pull, merge, retry once
-        const again = await cloudPull();
-        DATA = again.data ? mergeData(DATA, again.data) : DATA;
-        saveData(DATA); draft = getDraft(currentProp); render();
-        r = await cloudPush(DATA, again.etag);
-      }
-      if (!r.ok) throw new Error('save failed (' + r.status + ')');
+    const full = await downscale(file, 1600, 0.72);
+    const thumb = await downscale(file, 300, 0.6);
+    const id = 'ph_' + uid();
+    try { await idbPut(id, full.blob); } catch (e) { /* IDB unavailable — thumb still archived on upload */ }
+    draft.photos[ctx] = draft.photos[ctx] || [];
+    draft.photos[ctx].push({ id, thumb: thumb.dataUrl, uploaded: false, remoteUrl: null, caption: '' });
+    saveData(DATA);
+    render();
+    if (account) uploadPendingPhotos(draft).catch(() => {});   // best-effort immediate upload
+  } catch (e) { toast('Could not process that photo.', 'err'); }
+}
+async function uploadPendingPhotos(container) {
+  if (!account || !container || !container.photos) return;
+  const hotel = propName(container.propId).replace(/[\\/:*?"<>|]/g, '-');
+  const dateFolder = fmtFileDate(container.date || todayISO());
+  let changed = false;
+  for (const ctx of Object.keys(container.photos)) {
+    for (const p of container.photos[ctx]) {
+      if (p.uploaded) continue;
+      let blob = null;
+      try { blob = await idbGet(p.id); } catch (e) {}
+      if (!blob && p.thumb) blob = dataURLtoBlob(p.thumb);   // fallback: at least archive the thumbnail
+      if (!blob) continue;
+      try {
+        const url = await itemUrl(M365.reportsFolder + '/' + hotel + '/' + dateFolder + '/' + p.id + '.jpg');
+        const resp = await graphFetch(url, { method: 'PUT', headers: { 'Content-Type': 'image/jpeg' }, body: blob });
+        if (resp.ok) { const j = await resp.json().catch(() => ({})); p.uploaded = true; p.remoteUrl = j.webUrl || null; changed = true; await idbDel(p.id); }
+      } catch (e) { /* leave queued for next sync */ }
     }
-    renderCloud('synced');
-  } catch (e) { renderCloud('error', e.message); }
-  finally { cloudBusy = false; }
+  }
+  if (changed) saveData(DATA);
+}
+function renderPhotos(ctx) {
+  const list = (draft.photos && draft.photos[ctx]) || [];
+  const thumbs = list.map(p =>
+    `<div class="ph-thumb"><img src="${p.thumb}" alt="photo">${p.uploaded ? '<span class="ph-up" title="Saved to library">✓</span>' : ''}<button class="ph-del" data-click="delphoto:${ctx}:${p.id}" title="Remove">&times;</button></div>`
+  ).join('');
+  return `<div class="photo-strip">${thumbs}<button class="ph-add" data-photo="${ctx}" type="button">📷 Add Photo</button></div>`;
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -1513,18 +1850,20 @@ function init() {
     if (e.target.files[0]) importData(e.target.files[0]);
     e.target.value = '';
   });
-
-  document.getElementById('btnCloud').addEventListener('click', () => {
-    if (!cloudAccount) cloudSignIn(); else cloudSync(true);
+  document.getElementById('photoInput').addEventListener('change', (e) => {
+    const f = e.target.files[0];
+    if (f && pendingPhotoCtx) addPhoto(pendingPhotoCtx, f);
+    pendingPhotoCtx = null;
+    e.target.value = '';
   });
-  document.getElementById('btnCloudOut').addEventListener('click', cloudSignOut);
 
   if (!storageOK) setStatus('Storage blocked — using this tab only', 'warn');
   else setStatus('Ready', '');
 
   draft = getDraft(currentProp);
   render();
-  cloudInit();
+
+  initM365().catch(() => {});   // OneDrive sync — dormant until configured & signed in
 }
 
 document.addEventListener('DOMContentLoaded', init);
